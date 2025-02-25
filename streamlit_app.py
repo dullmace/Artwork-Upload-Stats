@@ -112,23 +112,24 @@ with tab1:
             use_container_width=True
         )
     with col2:
-        # Get top 10 artists by contribution count
-        top10_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False).head(10)
+        # Get top 25 artists by contribution count (changed from 10 to 25)
+        top25_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False).head(25)
         
-        # Create bar chart with proper sorting
+        # Create bar chart with proper sorting and updated title
         fig = px.bar(
-            top10_df,
+            top25_df,
             x='Artworks_Uploaded',
             y='Artist',
             orientation='h',
-            title='Top 10 Artists by Your Artwork Contributions',
+            title='Top 25 Artists by Your Artwork Contributions',  # Updated title
             color='Artworks_Uploaded',
             color_continuous_scale='Viridis'
         )
         
         # Ensure the y-axis is ordered by contribution count (descending)
         fig.update_layout(
-            yaxis={'categoryorder': 'array', 'categoryarray': top10_df['Artist'].tolist()[::-1]}
+            yaxis={'categoryorder': 'array', 'categoryarray': top25_df['Artist'].tolist()[::-1]},
+            height=800  # Increased height to accommodate more bars
         )
         
         st.plotly_chart(fig, use_container_width=True)
