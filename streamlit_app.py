@@ -100,7 +100,7 @@ df = load_data()
 
 # Title - simplified for mobile
 st.title("SpotFM Artwork Upload Stats")
-st.caption("Tracking Artwork Uploaded by Dullmace (and their script)")
+st.caption("Tracking Artwork Uploaded by Dullmace (and their script) V.1")
 
 # Detect if we're on mobile (approximate method)
 # This helps us adjust layouts dynamically
