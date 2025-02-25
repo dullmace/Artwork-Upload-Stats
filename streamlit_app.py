@@ -37,6 +37,13 @@ def load_data():
         np.select(conditions, categories, default='None'),
         index=df.index
     )
+    
+    # Ensure Artworks_Uploaded is numeric
+    df['Artworks_Uploaded'] = pd.to_numeric(df['Artworks_Uploaded'])
+    
+    # Sort by number of uploaded artworks (descending)
+    df = df.sort_values('Artworks_Uploaded', ascending=False)
+    
     return df
 
 df = load_data()
@@ -47,12 +54,17 @@ st.subheader("Tracking Your Artwork Upload Achievements")
 
 # Summary statistics
 col1, col2, col3, col4 = st.columns(4)
+
+# Get the top contribution (first row after sorting)
+top_artist = df.iloc[0]['Artist']
+top_contribution = int(df.iloc[0]['Artworks_Uploaded'])  # Convert to int to avoid decimal display
+
 with col1:
     st.metric("Total Artists", len(df))
 with col2:
-    st.metric("Total Uploads", df['Artworks_Uploaded'].sum())
+    st.metric("Total Uploads", int(df['Artworks_Uploaded'].sum()))
 with col3:
-    st.metric("Top Contribution", df.iloc[0]['Artworks_Uploaded'], f"by {df.iloc[0]['Artist']}")
+    st.metric("Top Contribution", top_contribution, f"by {top_artist}")
 with col4:
     st.metric("Latest Upload", df['Date_Modified'].max().strftime('%b %d, %Y'))
 
@@ -100,18 +112,26 @@ with tab1:
             use_container_width=True
         )
     with col2:
-        st.plotly_chart(
-            px.bar(
-                filtered_df.head(10),
-                x='Artworks_Uploaded',
-                y='Artist',
-                orientation='h',
-                title='Top 10 Artists by Your Artwork Contributions',
-                color='Artworks_Uploaded',
-                color_continuous_scale='Viridis'
-            ).update_layout(yaxis={'categoryorder': 'total ascending'}),
-            use_container_width=True
+        # Get top 10 artists by contribution count
+        top10_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False).head(10)
+        
+        # Create bar chart with proper sorting
+        fig = px.bar(
+            top10_df,
+            x='Artworks_Uploaded',
+            y='Artist',
+            orientation='h',
+            title='Top 10 Artists by Your Artwork Contributions',
+            color='Artworks_Uploaded',
+            color_continuous_scale='Viridis'
         )
+        
+        # Ensure the y-axis is ordered by contribution count (descending)
+        fig.update_layout(
+            yaxis={'categoryorder': 'array', 'categoryarray': top10_df['Artist'].tolist()[::-1]}
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
 
 with tab2:
     # Monthly trend
@@ -154,15 +174,15 @@ with tab3:
     )
     
     if sort_option == "Most Contributions":
-        filtered_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False)
+        display_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False)
     elif sort_option == "Alphabetical":
-        filtered_df = filtered_df.sort_values('Artist')
+        display_df = filtered_df.sort_values('Artist')
     else:  # Most Recent
-        filtered_df = filtered_df.sort_values('Date_Modified', ascending=False)
+        display_df = filtered_df.sort_values('Date_Modified', ascending=False)
     
     # Display table
     st.dataframe(
-        filtered_df[['Artist', 'Artworks_Uploaded', 'contribution_category', 'Date_Modified']].rename(
+        display_df[['Artist', 'Artworks_Uploaded', 'contribution_category', 'Date_Modified']].rename(
             columns={'Date_Modified': 'Last Updated'}
         ),
         use_container_width=True,
