@@ -8,7 +8,7 @@ from datetime import datetime
 
 # Page config with improved mobile support
 st.set_page_config(
-    page_title="Last.fm Artwork Dashboard",
+    page_title="Dullmace's Last.fm Artwork Upload Stats",
     page_icon="🎵",
     layout="wide",
     initial_sidebar_state="collapsed"  # Collapse sidebar on mobile by default
@@ -99,8 +99,8 @@ def load_data():
 df = load_data()
 
 # Title - simplified for mobile
-st.title("Last.fm Artwork Dashboard")
-st.caption("Tracking Your Artwork Upload Achievements")
+st.title("Dullmace's Last.fm Artwork Upload Stats")
+st.caption("Tracking Artwork Uploaded by My Auto-Upload Script")
 
 # Detect if we're on mobile (approximate method)
 # This helps us adjust layouts dynamically
