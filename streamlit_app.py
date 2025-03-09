@@ -1,7 +1,7 @@
 import calendar
 import json
-from datetime import datetime
 import urllib.parse
+from datetime import datetime
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -9,33 +9,32 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from thefuzz import process
-from wordcloud import WordCloud
-from wordcloud import STOPWORDS
+from wordcloud import WordCloud, STOPWORDS
 
-# Page config
+# Page config (only once)
 st.set_page_config(
-    page_title="Last.fm Artwork Upload Stats",
+    page_title="🎶 SpotFM Artwork Upload Stats",
     page_icon="🎵",
     layout="wide",
     initial_sidebar_state="collapsed",
-)
-
-# 🎵 Dark Theme Setup
-st.set_page_config(
-    page_title="🎶 SpotFM Artwork Uploads",
-    page_icon="🎵",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-    theme="dark"
 )
 
 # 🎨 Dark Mode Styles
 st.markdown(
     """
     <style>
-    .stDataFrame { background-color: #1E1E1E; color: white; }
-    .stButton { background-color: #2196F3; }
-    .stTextInput { color: white; }
+    .stDataFrame { 
+        background-color: #1E1E1E; 
+        color: white; 
+    }
+    .stButton button { 
+        background-color: #2196F3; 
+        color: white;
+    }
+    .stTextInput > div > div > input {
+        background: #2D2D2D !important; 
+        color: white !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -80,22 +79,17 @@ def load_data():
     df["Month_Name"] = df["Date_Modified"].dt.month_name()
 
     album_data = load_album_data()
-    df["Albums_Count"] = (
-        df["Artist"]
-        .str.lower()
-        .map(lambda x: album_data.get(x, {}).get("count", 0))
+    df["Albums_Count"] = df["Artist"].str.lower().map(
+        lambda x: album_data.get(x, {}).get("count", 0)
     )
     df["Albums"] = df["Artist"].str.lower().map(
-        lambda x: tuple(
-            album["album"] for album in album_data.get(x, {}).get("albums", [])
-        )
+        lambda x: tuple(album["album"] for album in album_data.get(x, {}).get("albums", []))
     )
 
     # Convert Album_Uploaded_Dates to datetime objects
     df["Album_Uploaded_Dates"] = df["Artist"].str.lower().map(
         lambda x: tuple(
-            pd.to_datetime(album["uploaded_date"], unit="ms")  # Convert to datetime
-            for album in album_data.get(x, {}).get("albums", [])
+            pd.to_datetime(album["uploaded_date"]) for album in album_data.get(x, {}).get("albums", [])
         )
     )
 
@@ -111,7 +105,7 @@ def load_data():
         df["Artworks_Uploaded"], bins=bins, labels=labels, right=False
     )
 
-    # Remove underscores from contribution_category labels
+    # Remove underscores from contribution_category labels if any
     df["contribution_category"] = df["contribution_category"].astype(str).str.replace(
         "_", " "
     )
@@ -120,12 +114,15 @@ def load_data():
 
 @st.cache_data
 def preprocess_data(df):
+    monthly_uploads = df.groupby(pd.Grouper(key="Date_Modified", freq="ME")).size()
+    category_dist = df["contribution_category"].value_counts(normalize=True)
+    cumulative_uploads = df.sort_values("Date_Modified").assign(
+        cumulative=lambda x: x["Artworks_Uploaded"].cumsum()
+    )
     return {
-        "monthly_uploads": df.groupby(pd.Grouper(key="Date_Modified", freq="ME")).size(),
-        "category_dist": df["contribution_category"].value_counts(normalize=True),
-        "cumulative_uploads": df.sort_values("Date_Modified").assign(
-            cumulative=lambda x: x["Artworks_Uploaded"].cumsum()
-        ),
+        "monthly_uploads": monthly_uploads,
+        "category_dist": category_dist,
+        "cumulative_uploads": cumulative_uploads,
     }
 
 
@@ -151,12 +148,11 @@ st.subheader("🎵 Visualizing Missing Artwork Contributions by Dullmace on Last
 # Filters
 with st.expander("🔍 Filter Data", expanded=False):
     st.subheader("🎵 Advanced Filters")
+    search_term = st.text_input("Search Artists", help="Search for specific artists.")
     album_search = st.text_input(
-        "🔍 Search Albums", 
-        help="Filter artists by album name",
-        key="album_search"
+        "🔍 Search Albums", help="Filter artists by album name", key="album_search"
     )
-    st.write("Use these filters to explore the data.")
+
     col1, col2 = st.columns(2)
     with col1:
         all_categories = df["contribution_category"].unique().tolist()
@@ -186,121 +182,73 @@ with st.expander("🔍 Filter Data", expanded=False):
         help="Filter artists based on the upload date of their albums.",
     )
 
-    search_term = st.text_input(
-        "Search Artists", help="Search for specific artists."
-    )
-    st.subheader("🎵 Advanced Filters")
-    album_search = st.text_input(
-        "🔍 Search Albums", 
-        help="Filter artists by album name",
-        key="album_search"
-    )
-    if album_search:
-        filtered_df = filtered_df[
-            filtered_df["Albums"].apply(lambda x: any(album_search.lower() in a.lower() for a in x))
-        ]
-        
-
-# 🎵 Dark Theme Setup
-st.set_page_config(
-    page_title="🎨 SpotFM Artwork Tracker",
-    page_icon="🎵",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-    theme="dark"
-)
-
-# Custom CSS
-st.markdown
-    """
-    <style>
-    body {
-        color: white;
-        background-color: #1E1E1E;
-    }
-    .stDataFrame {
-        background-color: #2D2D2D;
-        color: white;
-    }
-    .stButton>button {
-        background: #2196F3 !important;
-        color: white !important;
-        border-radius: 5px;
-        padding: 8px 15px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-    
-# Date handling
+# Date handling for filtering
 start_date, end_date = (pd.to_datetime(d) for d in date_range)
 album_start_date, album_end_date = (pd.to_datetime(d) for d in album_date_range)
 
-# Filter data
+# Filter data based on main filters
 filtered_df = df[
     (df["contribution_category"].isin(selected_categories))
     & (df["Date_Modified"] >= start_date)
     & (df["Date_Modified"] <= end_date)
 ]
 
+# Further filter based on album uploaded date range
+def filter_by_album_date(df, start, end):
+    def album_in_date_range(album_dates, start_date, end_date):
+        if not isinstance(album_dates, tuple):
+            return False
+        return any(start_date <= date <= end_date for date in album_dates)
+
+    return df[
+        df["Album_Uploaded_Dates"].apply(lambda x: album_in_date_range(x, start, end))
+    ]
+
+
+filtered_df = filter_by_album_date(filtered_df, album_start_date, album_end_date)
+
+# Fuzzy search for artist names
+if search_term:
+    with st.spinner("Searching artists..."):
+        artists = filtered_df["Artist"].unique()
+        matches = process.extract(search_term, artists, limit=50)
+        filtered_df = filtered_df[filtered_df["Artist"].isin([m[0] for m in matches])]
+
+# Filter by album search if provided
+if album_search:
+    filtered_df = filtered_df[
+        filtered_df["Albums"].apply(
+            lambda albums: any(
+                album_search.lower() in a.lower() for a in albums if isinstance(a, str)
+            )
+        )
+    ]
+
 st.download_button(
     "📥 Download Data",
     data=filtered_df.to_csv(index=False).encode(),
     file_name="spotfm_data.csv",
     mime="text/csv",
-    key="download_button"
+    key="download_button",
 )
-
-def filter_by_album_date(df, start_date, end_date):
-    def album_in_date_range(album_dates, start, end):
-        if not isinstance(album_dates, tuple):
-            return False
-        for date in album_dates:
-            if start <= date <= end:
-                return True
-        return False
-
-    filtered = df[
-        df["Album_Uploaded_Dates"].apply(
-            lambda x: album_in_date_range(x, album_start_date, album_end_date)
-        )
-    ]
-    return filtered
-
-
-filtered_df = filter_by_album_date(filtered_df, album_start_date, album_end_date)
-
-# Fuzzy search
-if search_term:
-    with st.spinner("Searching artists..."):
-        artists = filtered_df["Artist"].unique()
-        matches = process.extract(search_term, artists, limit=50)
-        filtered_df = filtered_df[
-            filtered_df["Artist"].isin([m[0] for m in matches])
-        ]
 
 # Display filtered data
 st.dataframe(filtered_df)
 
-# Empty state
 if filtered_df.empty:
     st.error(
         """
-    🎭 No artists match these filters!
-    Try:
-    - Widening date range
-    - Including more categories
-    - Clearing search terms
-    """
+        🎭 No artists match these filters!
+        Try:
+        - Widening date range
+        - Including more categories
+        - Clearing search terms
+        """
     )
     st.stop()
 
 # Metrics
 st.subheader("📊 Key Metrics")
-st.write(
-    "Here's a snapshot of the data based on your current filters:"
-)  # Explanation
 total_artists = len(filtered_df)
 total_uploads = filtered_df["Artworks_Uploaded"].sum()
 total_albums = filtered_df["Albums_Count"].sum()
@@ -312,15 +260,41 @@ latest_album_date = filtered_df["Album_Uploaded_Dates"].explode().max()
 
 cols = st.columns(5)
 metrics = [
-    ("Total Artists", total_artists, "Total number of artists in the filtered dataset."),
-    ("Total Uploads", f"{total_uploads:,}", "Total number of artworks uploaded."),
-    ("Total Albums", f"{total_albums:,}", "Total number of albums."),
-    ("Earliest Album Date", earliest_album_date.strftime("%b %d, %Y"), "Date of the earliest uploaded album."),
-    ("Latest Album Date", latest_album_date.strftime("%b %d, %Y"), "Date of the latest uploaded album."),
+    (
+        "Total Artists",
+        total_artists,
+        "Total number of artists in the filtered dataset.",
+    ),
+    (
+        "Total Uploads",
+        f"{total_uploads:,}",
+        "Total number of artworks uploaded.",
+    ),
+    (
+        "Total Albums",
+        f"{total_albums:,}",
+        "Total number of albums.",
+    ),
+    (
+        "Earliest Album Date",
+        earliest_album_date.strftime("%b %d, %Y")
+        if pd.notnull(earliest_album_date)
+        else "N/A",
+        "Date of the earliest uploaded album.",
+    ),
+    (
+        "Latest Album Date",
+        latest_album_date.strftime("%b %d, %Y")
+        if pd.notnull(latest_album_date)
+        else "N/A",
+        "Date of the latest uploaded album.",
+    ),
 ]
+
 for col, (label, value, description) in zip(cols, metrics):
     with col:
         st.metric(label, value, help=description)
+
 
 # Visualization Tabs
 tab1, tab2, tab3 = st.tabs(["🎸 Artists", "📊 Stats", "📅 Timeline"])
@@ -330,26 +304,34 @@ with tab1:
     st.write("Explore individual artist contributions.")
     viz_choice = st.radio(
         "Choose Visualization:",
-    )
+        options=[
             "Top Contributors",
             "Category Breakdown",
             "Album Explorer",
-            "Artist Timeline",  
-            "Artist Word Cloud",  
+            "Artist Timeline",
+            "Artist Word Cloud",
+        ],
         horizontal=True,
         help="Select a visualization to explore artist-related data.",
     )
+
     if viz_choice == "Category Breakdown":
         st.subheader("Contribution Distribution")
-        st.write("Explore the number of artists in each contribution category.")
-        category_counts = filtered_df['contribution_category'].value_counts().reset_index()
-        category_counts.columns = ['category', 'count']
-
-        fig = px.bar(category_counts, x='category', y='count',
-                     title='Contribution Category Breakdown')
+        category_counts = (
+            filtered_df["contribution_category"]
+            .value_counts()
+            .reset_index()
+            .rename(columns={"index": "category", "contribution_category": "count"})
+        )
+        fig = px.bar(
+            category_counts,
+            x="category",
+            y="count",
+            title="Contribution Category Breakdown",
+        )
         st.plotly_chart(fig, use_container_width=True)
 
-    if viz_choice == "Album Explorer":
+    elif viz_choice == "Album Explorer":
         st.subheader("Album Explorer")
         st.write("Dive into each artist's album contributions.")
         artist_album = filtered_df.explode("Albums").copy()
@@ -361,16 +343,15 @@ with tab1:
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
         )
-
-        fig.update_traces(
-            textinfo="label+value",
-        )
-        fig.update_layout(
-            margin=dict(t=50, l=25, r=25, b=25)
-        )  # Adjust margins as needed
+        fig.update_traces(textinfo="label+value")
+        fig.update_layout(margin=dict(t=50, l=25, r=25, b=25))
         st.plotly_chart(fig, use_container_width=True)
 
-        search_album = st.text_input("Search Albums", help="Search for albums within the Album Explorer.")
+        search_album = st.text_input(
+            "Search Albums within Explorer",
+            help="Search for albums within the Album Explorer.",
+            key="search_album_explorer",
+        )
         if search_album:
             matches = artist_album[
                 artist_album["Albums"].str.contains(search_album, case=False, na=False)
@@ -378,7 +359,14 @@ with tab1:
             st.dataframe(matches[["Artist", "Albums", "Artworks_Uploaded"]])
 
     elif viz_choice == "Top Contributors":
-        num_artists = st.slider("Number of artists to show", 10, 100, 25, help="Select the number of top artists to display.")
+        num_artists = st.slider(
+            "Number of artists to show",
+            min_value=10,
+            max_value=100,
+            value=25,
+            step=5,
+            help="Select the number of top artists to display.",
+        )
         top_artists = filtered_df.nlargest(num_artists, "Artworks_Uploaded").copy()
 
         fig = px.bar(
@@ -389,7 +377,6 @@ with tab1:
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
         )
-
         fig.update_layout(
             height=max(500, num_artists * 20),
             xaxis_title="Artworks Uploaded",
@@ -401,15 +388,10 @@ with tab1:
         st.subheader("Artist Timeline")
         st.write("See artwork uploads over time by artist.")
         artist_timeline = filtered_df.explode("Album_Uploaded_Dates").copy()
-
-        # Ensure 'Artworks_Uploaded' is numeric and not a string or mixed type
+        # Ensure numeric type for uploads
         artist_timeline["Artworks_Uploaded"] = pd.to_numeric(
             artist_timeline["Artworks_Uploaded"], errors="coerce"
-        ).fillna(
-            0
-        )  # Fill NaN values with 0 after coercion
-
-        # Group by 'Album_Uploaded_Dates' and sum 'Artworks_Uploaded' for each date
+        ).fillna(0)
         artist_timeline = (
             artist_timeline.groupby(["Album_Uploaded_Dates", "Artist"])[
                 "Artworks_Uploaded"
@@ -417,72 +399,82 @@ with tab1:
             .sum()
             .reset_index()
         )
+        fig = px.line(
+            artist_timeline,
+            x="Album_Uploaded_Dates",
+            y="Artworks_Uploaded",
+            color="Artist",
+            title="Artist Upload Timeline",
+            labels={"Album_Uploaded_Dates": "Date", "Artworks_Uploaded": "Uploads"},
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
-elif viz_choice == "Artist Timeline":
-    st.subheader("Artist Timeline")
-    timeline_data = filtered_df.explode("Album_Uploaded_Dates")
-    timeline_data = timeline_data.groupby("Album_Uploaded_Dates").size().reset_index(name='uploads')
-    fig = px.line(
-        timeline_data,
-        x="Album_Uploaded_Dates",
-        y="uploads",
-        title="Album Uploads Over Time",
-        labels={"Album_Uploaded_Dates": "Date", "uploads": "Albums Uploaded"}
-    )
-    st.plotly_chart(fig, use_container_width=True)
+    elif viz_choice == "Artist Word Cloud":
+        st.subheader("Artist Word Cloud")
+        stopwords = set(STOPWORDS) | {"the", "and", "of"}
+        # Join all album names into a textual corpus
+        albums_text = " ".join(
+            filtered_df["Albums"].explode().dropna().astype(str)
+        )
+        wordcloud = (
+            WordCloud(
+                width=800,
+                height=400,
+                background_color="black",
+                stopwords=stopwords,
+            )
+            .generate(albums_text)
+        )
+        plt.figure(figsize=(15, 8))
+        plt.imshow(wordcloud, interpolation="bilinear")
+        plt.axis("off")
+        st.pyplot(plt.gcf(), use_container_width=True)
 
-elif viz_choice == "Artist Word Cloud":
-    stopwords = set(STOPWORDS) | {"the", "and", "of"}
-    wordcloud = WordCloud(
-        width=800, height=400, background_color="black",
-        stopwords=stopwords
-    .generate(" ".join(filtered_df["Albums"].explode().dropna()))
-    
-    plt.figure(figsize=(15, 8))
-    plt.imshow(wordcloud, interpolation="bilinear")
-    plt.axis("off")
-    st.pyplot(plt.gcf(), use_container_width=True)
+        st.subheader("🏅 Artist Badges")
+        num_badges = st.slider(
+            "Number of badges to display",
+            min_value=5,
+            max_value=50,
+            value=15,
+            help="Choose how many artist badges to show.",
+            key="num_badges",
+        )
+        # Layout columns - using a slider to adjust number of columns
+        num_cols = st.slider(
+            "Columns layout", min_value=1, max_value=5, value=3, key="num_cols",
+            help="Adjust the layout of artist badges across the page."
+        )
+        cols = st.columns(num_cols)
+        top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
-    st.subheader("🏅 Artist Badges")
-    st.write("Discover key information for top contributing artists.")
-    num_badges = st.slider("Number of badges to display", 5, 50, 15, help="Choose how many artist badges to show.")
-    top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
-
-    cols = st.columns(st.session_state.get("num_cols", 3))
-    st.slider("Columns layout", 1, 5, 3, key="num_cols", help="Adjust the layout of artist badges across the page.")
-
-    for idx, (_, row) in enumerate(top_badges.iterrows()):
-        with cols[idx % st.session_state.num_cols]:
-            st.markdown(f"""
-                <div style="padding: 15px; border: 1px solid #e6e6e6; border-radius: 8px; margin: 5px;">
-                    <strong>{row["Artist"]}</strong>  
-                    <p style="color: #555;">{row["Artworks_Uploaded"]} uploads</p>
-                    <a href="{create_lastfm_artist_url(row["Artist"])}" target="_blank">
-                        style="color: #0072B2; text-decoration: none;">
+        for idx, (_, row) in enumerate(top_badges.iterrows()):
+            with cols[idx % num_cols]:
+                st.markdown(f"""
+                    <div style="padding: 15px; border: 1px solid #e6e6e6; 
+                    border-radius: 8px; margin: 5px;">
+                        <strong>{row["Artist"]}</strong>
+                        <p style="color: #555;">{row["Artworks_Uploaded"]} uploads</p>
+                        <a href="{create_lastfm_artist_url(row["Artist"])}" 
+                           target="_blank" style="color: #0072B2; 
+                           text-decoration: none;">
                         View on Last.fm →
-                    </a>
-                </div>
-            """, unsafe_allow_html=True)
-
-            with st.expander(
-                f"**{artist_name}** - {row['Artworks_Uploaded']} uploads",
-                expanded=False,
-            ):
-
-                # Display a list of hyperlinked albums
-                if row["Albums"]:
-                    st.write("<strong>Albums:</strong>", unsafe_allow_html=True)
-
-                    album_list = "".join(
-                        [
-                            f"""- <a href="{create_lastfm_release_url(row["Artist"], album)}"
-                                    target="_blank">{album}</a><br>"""
-                            for album in row["Albums"]
-                        ]
-                    )
-                    st.markdown(album_list, unsafe_allow_html=True)
-
-            st.markdown("</div>", unsafe_allow_html=True)
+                        </a>
+                    </div>
+                """, unsafe_allow_html=True)
+                with st.expander(
+                    f"{row['Artist']} - {row['Artworks_Uploaded']} uploads",
+                    expanded=False,
+                ):
+                    if row["Albums"]:
+                        st.write("<strong>Albums:</strong>", unsafe_allow_html=True)
+                        album_list = "".join(
+                            [
+                                f"""- <a href="{create_lastfm_release_url(row["Artist"], album)}"
+                                target="_blank">{album}</a><br>"""
+                                for album in row["Albums"]
+                            ]
+                        )
+                        st.markdown(album_list, unsafe_allow_html=True)
 
 with tab2:
     st.subheader("Contribution Distribution")
@@ -491,14 +483,13 @@ with tab2:
         st.write("Proportion of each contribution category.")
         fig = px.pie(
             names=preprocessed["category_dist"].index,
-            values=preprocessed["category_dist"].values,  # Fixed typo and data source
+            values=preprocessed["category_dist"].values,
             hole=0.3,
             color_discrete_sequence=px.colors.sequential.Viridis,
         )
         st.plotly_chart(fig, use_container_width=True)
-
     with col2:
-        st.write("Visualizing the distribution of contributions across categories.")
+        st.write("Visualizing distribution across categories.")
         fig = px.treemap(
             filtered_df,
             path=["contribution_category"],
@@ -510,42 +501,50 @@ with tab2:
 
     st.subheader("Album Analysis")
     st.write("Album uploads across different months and years.")
-    album_timeline = filtered_df.explode("Albums")
     album_timeline = (
-        album_timeline.groupby(["Year", "Month_Name"])["Albums"]
+        filtered_df.explode("Albums")
+        .groupby(["Year", "Month_Name"])["Albums"]
         .count()
         .reset_index()
-        st.subheader("Top Albums by Uploads")
-        album_counts = filtered_df.explode("Albums").value_counts("Albums").head(10)
-        fig = px.bar(
-            album_counts,
-            x=album_counts.index,
-            y=album_counts.values,
-            title="Top 10 Albums by Uploads",
-            labels={"x": "Album", "y": "Uploads"}
-        )
-        st.plotly_chart(fig, use_container_width=True)
+        .rename(columns={"Albums": "Count"})
     )
+    st.subheader("Top Albums by Uploads")
+    album_counts = (
+        filtered_df.explode("Albums")["Albums"]
+        .value_counts()
+        .head(10)
+        .reset_index()
+        .rename(columns={"index": "Album", "Albums": "Uploads"})
+    )
+    fig = px.bar(
+        album_counts,
+        x="Album",
+        y="Uploads",
+        title="Top 10 Albums by Uploads",
+        labels={"Album": "Album", "Uploads": "Uploads"},
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
     fig = px.area(
         album_timeline,
         x="Month_Name",
-        y="Albums",
+        y="Count",
         color="Year",
         title="Album Artwork Uploads Timeline",
     )
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Album Title Length Analysis")
-    st.write("Distribution of title lengths.")
-    album_timeline = filtered_df.explode("Albums")
-    album_timeline["title_length"] = album_timeline["Albums"].apply(len)
-    fig = px.histogram(album_timeline, x="title_length", nbins=20, marginal="box")
+    st.write("Distribution of album title lengths.")
+    album_titles = filtered_df.explode("Albums").copy()
+    album_titles["title_length"] = album_titles["Albums"].apply(lambda x: len(x) if isinstance(x, str) else 0)
+    fig = px.histogram(album_titles, x="title_length", nbins=20, marginal="box",
+                       title="Album Title Length Distribution")
     st.plotly_chart(fig, use_container_width=True)
-    
 
 with tab3:
     st.subheader("Upload Activity Over Time")
-    st.write("The data changes over time.")
+    st.write("Cumulative uploads over time.")
     fig = px.area(
         preprocessed["cumulative_uploads"],
         x="Date_Modified",
@@ -555,7 +554,7 @@ with tab3:
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Monthly Heatmap")
-    st.write("Artworks Uploaded each month")
+    st.write("Artworks uploaded each month.")
     heatmap_df = (
         filtered_df.groupby(["Year", "Month_Name"])["Artworks_Uploaded"]
         .sum()
@@ -564,14 +563,18 @@ with tab3:
     heatmap_df["Month_Name"] = pd.Categorical(
         heatmap_df["Month_Name"],
         categories=[calendar.month_name[i] for i in range(1, 13)],
-        ordered=True
+        ordered=True,
     )
+    pivot_table = heatmap_df.pivot(index="Year",
+                                   columns="Month_Name",
+                                   values="Artworks_Uploaded")
     fig = px.imshow(
-        heatmap_df.pivot(index="Year", columns="Month_Name", values="Artworks_Uploaded"),
+        pivot_table,
         color_continuous_scale="Viridis",
-        title="Monthly Upload Activity Heatmap"
+        title="Monthly Upload Activity Heatmap",
     )
     st.plotly_chart(fig, use_container_width=True)
+
 
 # Footer
 st.markdown(
@@ -582,11 +585,13 @@ st.markdown(
         text-align: center;
         color: #999;
     ">
-        <p>🎵 Built with ❤️ using <a href="https://streamlit.io" target="_blank">Streamlit</a></p>
+        <p>🎵 Built with ❤️ using <a href="https://streamlit.io" target="_blank">
+        Streamlit</a></p>
     </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
+
 # Global Theme Configuration
 def configure_theme(fig):
     fig.update_layout(
@@ -595,20 +600,5 @@ def configure_theme(fig):
         plot_bgcolor="#2D2D2D",
         font_color="white",
         hoverlabel_bgcolor="#333"
+    )
     return fig
-
-# Final Touches
-st.markdown(
-    """
-    <style>
-    .stButton>button {
-        background: #2196F3 !important;
-        color: white !important;
-    }
-    .stTextInput>div>div>input {
-        background: #2D2D2D !important;
-        color: white !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
