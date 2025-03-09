@@ -201,15 +201,37 @@ with st.expander("🔍 Filter Data", expanded=False):
         ]
         
 
-# Dark Theme Charts
-def configure_theme(fig):
-    fig.update_layout(
-        template="plotly_dark",
-        paper_bgcolor="#1E1E1E",
-        plot_bgcolor="#2D2D2D",
-        font_color="white",
-        hoverlabel_bgcolor="#333"
-    return fig
+# 🎵 Dark Theme Setup
+st.set_page_config(
+    page_title="🎨 SpotFM Artwork Tracker",
+    page_icon="🎵",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+    theme="dark"
+)
+
+# Custom CSS
+st.markdown
+    """
+    <style>
+    body {
+        color: white;
+        background-color: #1E1E1E;
+    }
+    .stDataFrame {
+        background-color: #2D2D2D;
+        color: white;
+    }
+    .stButton>button {
+        background: #2196F3 !important;
+        color: white !important;
+        border-radius: 5px;
+        padding: 8px 15px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     
 # Date handling
 start_date, end_date = (pd.to_datetime(d) for d in date_range)
