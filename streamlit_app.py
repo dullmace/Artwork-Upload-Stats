@@ -324,19 +324,15 @@ with tab1:
         with cols[idx % st.session_state.num_cols]:
             with st.expander(f"{row['Artist']} - {row['Artworks_Uploaded']} uploads"):
                 st.markdown(
-                    f"**Albums ({row['Albums_Count']}):**  \n{', '.join(row['Albums'])[:150]}{'...' if len(row['Albums']) > 5 else ''}"
-                )
-                if row["Albums_Count"] > 0:
-                    fig = px.pie(
-                        names=pd.Series(row["Albums"]).value_counts().index,
-                        values=pd.Series(row["Albums"]).value_counts().values,
-                        hole=0.5,
-                        height=150,
+                    f"**Albums ({row['Albums_Count']}):**"
+                )  # Updated Markdown
+
+                # Display a bulleted list of albums
+                if row["Albums"]:
+                    album_list = "\n".join(
+                        [f"- {album}" for album in row["Albums"]]
                     )
-                    fig.update_layout(
-                        showlegend=False, margin=dict(t=0, b=0, l=0, r=0)
-                    )
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.markdown(album_list)  # Display bulleted list
 
 with tab2:
     st.subheader("Contribution Distribution")
