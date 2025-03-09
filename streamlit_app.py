@@ -86,12 +86,12 @@ def load_data():
         lambda x: tuple(album["album"] for album in album_data.get(x, {}).get("albums", []))
     )
 
-df["Album_Uploaded_Dates"] = df["Artist"].str.lower().map(
-    lambda x: tuple(
-        pd.to_datetime(album["uploaded_date"], unit="ms")
-        for album in album_data.get(x, {}).get("albums", [])
+    df["Album_Uploaded_Dates"] = df["Artist"].str.lower().map(
+        lambda x: tuple(
+            pd.to_datetime(album["uploaded_date"], unit="ms")
+            for album in album_data.get(x, {}).get("albums", [])
+        )
     )
-)
 
 
     bins = [0, 5, 10, 20, 50, np.inf]
