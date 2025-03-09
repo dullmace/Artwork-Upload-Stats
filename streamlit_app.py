@@ -492,8 +492,6 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
             margin: 5px;
             color: #FFF;
             font-family: "Boogaloo", sans-serif;
-            font-weight: 400;
-            font-style: normal;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
             <div>
