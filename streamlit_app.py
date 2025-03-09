@@ -106,7 +106,7 @@ df = load_data()
 preprocessed = preprocess_data(df)
 
 # Title Section
-st.title("🎨 SpotFM Artwork Upload Stats")
+st.title("🎶 SpotFM Artwork Upload Stats")
 
 if st.button("Refresh Data"):
     st.cache_data.clear()
