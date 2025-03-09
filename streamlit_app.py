@@ -35,10 +35,23 @@ st.markdown(
         background: #2D2D2D !important; 
         color: white !important;
     }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+
+    /* Apply Roboto font globally */
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    /* Optionally, tweak tab styles as well */
+    div[data-baseweb="tab"] button {
+        height: 50px !important;
+        font-size: 20px !important;
+        padding: 10px !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
-)
 
 
 # Load and preprocess data
@@ -465,7 +478,7 @@ num_cols = st.slider(
 cols = st.columns(num_cols)
 top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
-colors = ["#AA6C78", "#CB9D75", "#CBC98B", "#7A9D7D", "#4382A2", "#6C557E"]
+colors = ["#267A9E", "#51A885", "#F5A936", "#ED8C37", "#DB7476", "#986B9B"]
 
 for idx, (_, row) in enumerate(top_badges.iterrows()):
     bg_color = colors[idx % len(colors)]
@@ -478,7 +491,9 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
             border-radius: 8px;
             margin: 5px;
             color: #FFF;
-            font-family: Arial, sans-serif;
+            font-family: "Boogaloo", sans-serif;
+            font-weight: 400;
+            font-style: normal;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
             <div>
