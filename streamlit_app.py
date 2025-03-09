@@ -9,26 +9,13 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from thefuzz import process
 
-# Page config with improved mobile support
+# Page config
 st.set_page_config(
     page_title="Last.fm Artwork Upload Stats",
     page_icon="🎵",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
-# Custom CSS with accessibility improvements
-st.markdown("""
-<style>
-    .stApp { padding: 1rem !important; }
-    h1 { font-size: calc(1.75rem + 1vw) !important; }
-    h2 { font-size: calc(1.25rem + 0.5vw) !important; }
-    :root { --color-seq: #440154, #3b528b, #21918c, #5ec962, #fde725; }
-    .badge-card { transition: transform 0.2s, box-shadow 0.2s !important; }
-    .badge-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important; }
-    .stPlotlyChart .legend-item text, .stPlotlyChart .axis-title { font-size: 14px !important; fill: #4a4a4a !important; }
-</style>
-""", unsafe_allow_html=True)
 
 # Load and preprocess data
 @st.cache_data
@@ -42,7 +29,7 @@ def load_album_data():
         album_list = [
             {
                 "album": album["album"],
-                "uploaded_date": pd.to_datetime(album["creation_date"])  # Adjusted to "Uploaded Date"
+                "uploaded_date": pd.to_datetime(album["creation_date"])
             }
             for album in albums
         ]
@@ -70,7 +57,10 @@ def load_data():
     df['Albums_Count'] = df['Artist'].str.lower().map(lambda x: album_data.get(x, {}).get('count', 0))
     df['Albums'] = df['Artist'].str.lower().map(lambda x: album_data.get(x, {}).get('albums', []))
     
-    # Add album uploaded dates and convert to tuples (hashable type)
+    # Convert Albums to tuples of album names (hashable type)
+    df['Albums'] = df['Albums'].map(lambda albums: tuple(album['album'] for album in albums))
+    
+    # Convert Album_Uploaded_Dates to tuples (hashable type)
     df['Album_Uploaded_Dates'] = df['Artist'].str.lower().map(
         lambda x: tuple(album['uploaded_date'] for album in album_data.get(x, {}).get('albums', []))
     )
@@ -94,12 +84,6 @@ preprocessed = preprocess_data(df)
 
 # Title Section
 st.title("🎨 SpotFM Artwork Upload Stats")
-st.markdown(f"""
-<div style="margin-bottom: 2rem;">
-    <div style="font-size: 1.1rem; color: #666;">Tracking Artwork Uploads by Dullmace</div>
-    <div style="font-size: 0.9rem; color: #999;">Last Updated: {df['Date_Modified'].max().strftime('%b %d, %Y')}</div>
-</div>
-""", unsafe_allow_html=True)
 
 # Filters
 with st.expander("🔍 Filter Data", expanded=False):
@@ -108,14 +92,10 @@ with st.expander("🔍 Filter Data", expanded=False):
         all_categories = df['contribution_category'].cat.categories.tolist()
         selected_categories = st.multiselect("Contribution Level", all_categories, default=all_categories)
     with col2:
-        try:
-            default_start = df['Date_Modified'].min().date()
-            default_end = df['Date_Modified'].max().date()
-            date_range = st.date_input("Date Range", (default_start, default_end), min_value=default_start, max_value=default_end)
-        except:
-            date_range = (default_start, default_end)
+        default_start = df['Date_Modified'].min().date()
+        default_end = df['Date_Modified'].max().date()
+        date_range = st.date_input("Date Range", (default_start, default_end), min_value=default_start, max_value=default_end)
     
-    # Add album uploaded date filter
     album_date_range = st.date_input(
         "Album Uploaded Date Range",
         (df['Album_Uploaded_Dates'].explode().min().date(), df['Album_Uploaded_Dates'].explode().max().date())
@@ -143,15 +123,16 @@ exploded_df = exploded_df[
 # Re-group the exploded DataFrame back to the original structure
 filtered_df = exploded_df.groupby('Artist', as_index=False).first()
 
-
 # Fuzzy search
 if search_term:
-    with st.spinner("Searching artists..."):  # Correct usage of st.spinner
+    with st.spinner("Searching artists..."):
         artists = filtered_df['Artist'].unique()
         matches = process.extract(search_term, artists, limit=50)
         filtered_df = filtered_df[filtered_df['Artist'].isin([m[0] for m in matches])]
 
-filtered_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False)
+# Display filtered data
+st.dataframe(filtered_df)
+
 
 # Empty state
 if filtered_df.empty:
