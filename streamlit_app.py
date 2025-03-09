@@ -1,6 +1,7 @@
 import calendar
 import json
 from datetime import datetime
+import urllib.parse
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -108,6 +109,18 @@ def preprocess_data(df):
 
 df = load_data()
 preprocessed = preprocess_data(df)
+
+
+def create_lastfm_artist_url(artist_name):
+    encoded_artist_name = urllib.parse.quote_plus(artist_name)
+    return f"https://www.last.fm/music/{encoded_artist_name}"
+
+
+def create_lastfm_release_url(artist_name, release_name):
+    encoded_artist_name = urllib.parse.quote_plus(artist_name)
+    encoded_release_name = urllib.parse.quote_plus(release_name)
+    return f"https://www.last.fm/music/{encoded_artist_name}/{encoded_release_name}"
+
 
 # Title Section
 st.title("🎨 SpotFM Artwork Upload Stats")
@@ -238,13 +251,29 @@ with tab1:
     if viz_choice == "Album Explorer":
         st.subheader("Album Explorer")
         artist_album = filtered_df.explode("Albums")
+        artist_album["Artist_URL"] = artist_album["Artist"].apply(
+            create_lastfm_artist_url
+        )
+        artist_album["Album_URL"] = artist_album.apply(
+            lambda row: create_lastfm_release_url(row["Artist"], row["Albums"]),
+            axis=1,
+        )
+        artist_album["Artist_Link"] = artist_album.apply(
+            lambda row: f'[{row["Artist"]}]({row["Artist_URL"]})', axis=1
+        )
+        artist_album["Album_Link"] = artist_album.apply(
+            lambda row: f'[{row["Albums"]}]({row["Album_URL"]})', axis=1
+        )
         fig = px.treemap(
             artist_album,
-            path=["Artist", "Albums"],
+            path=["Artist_Link", "Album_Link"],
             values="Artworks_Uploaded",
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
         )
+        fig.update_traces(
+            textinfo="label+value"
+        )  # Show both labels (artist/album) and values (counts)
         st.plotly_chart(fig, use_container_width=True)
 
         search_album = st.text_input("Search Albums")
@@ -256,11 +285,18 @@ with tab1:
 
     elif viz_choice == "Top Contributors":
         num_artists = st.slider("Number of artists to show", 10, 100, 25)
-        top_artists = filtered_df.nlargest(num_artists, "Artworks_Uploaded")
+        top_artists = filtered_df.nlargest(num_artists, "Artworks_Uploaded").copy()
+        top_artists["Artist_URL"] = top_artists["Artist"].apply(
+            create_lastfm_artist_url
+        )
+        top_artists["Artist_Link"] = top_artists.apply(
+            lambda row: f'[{row["Artist"]}]({row["Artist_URL"]})', axis=1
+        )
+
         fig = px.bar(
             top_artists,
             x="Artworks_Uploaded",
-            y="Artist",
+            y="Artist_Link",
             orientation="h",
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
@@ -274,8 +310,13 @@ with tab1:
     # ADDED: Artist Timeline
     elif viz_choice == "Artist Timeline":
         st.subheader("Artist Timeline")
-        artist_timeline = filtered_df.explode("Album_Uploaded_Dates")
-
+        artist_timeline = filtered_df.explode("Album_Uploaded_Dates").copy()
+        artist_timeline["Artist_URL"] = artist_timeline["Artist"].apply(
+            create_lastfm_artist_url
+        )
+        artist_timeline["Artist_Link"] = artist_timeline.apply(
+            lambda row: f'[{row["Artist"]}]({row["Artist_URL"]})', axis=1
+        )
         # Ensure 'Artworks_Uploaded' is numeric and not a string or mixed type
         artist_timeline["Artworks_Uploaded"] = pd.to_numeric(
             artist_timeline["Artworks_Uploaded"], errors="coerce"
@@ -285,7 +326,7 @@ with tab1:
 
         # Group by 'Album_Uploaded_Dates' and sum 'Artworks_Uploaded' for each date
         artist_timeline = (
-            artist_timeline.groupby(["Album_Uploaded_Dates", "Artist"])[
+            artist_timeline.groupby(["Album_Uploaded_Dates", "Artist_Link"])[
                 "Artworks_Uploaded"
             ]
             .sum()
@@ -297,7 +338,7 @@ with tab1:
             artist_timeline,
             x="Album_Uploaded_Dates",
             y="Artworks_Uploaded",
-            color="Artist",
+            color="Artist_Link",
             title="Artwork Uploads Timeline by Artist",
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -315,24 +356,27 @@ with tab1:
 
     st.subheader("🏅 Artist Badges")
     num_badges = st.slider("Number of badges to display", 5, 50, 15)
-    top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded")
+    top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
     cols = st.columns(st.session_state.get("num_cols", 3))
     st.slider("Columns layout", 1, 5, 3, key="num_cols")
 
     for idx, (_, row) in enumerate(top_badges.iterrows()):
         with cols[idx % st.session_state.num_cols]:
-            with st.expander(f"{row['Artist']} - {row['Artworks_Uploaded']} uploads"):
-                st.markdown(
-                    f"**Albums ({row['Albums_Count']}):**"
-                )  # Updated Markdown
+            artist_name = row["Artist"]
+            artist_url = create_lastfm_artist_url(artist_name)
+            st.markdown(
+                f"**<a href='{artist_url}' target='_blank'>{artist_name}</a>** - {row['Artworks_Uploaded']} uploads",
+                unsafe_allow_html=True,
+            )
 
-                # Display a bulleted list of albums
-                if row["Albums"]:
-                    album_list = "\n".join(
-                        [f"- {album}" for album in row["Albums"]]
-                    )
-                    st.markdown(album_list)  # Display bulleted list
+            # Display a list of hyperlinked albums
+            if row["Albums"]:
+                album_links = []
+                for album in row["Albums"]:
+                    album_url = create_lastfm_release_url(artist_name, album)
+                    album_links.append(f"- <a href='{album_url}' target='_blank'>{album}</a>")
+                st.markdown("<br>".join(album_links), unsafe_allow_html=True)
 
 with tab2:
     st.subheader("Contribution Distribution")
