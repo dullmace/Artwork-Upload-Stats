@@ -154,7 +154,7 @@ with tab1:
                           "Artist Timeline", "Artist Word Cloud"],
                          horizontal=True)
     
-    if viz_choice == "Top Contributions":
+    if viz_choice == "Top Contributors":
         # Interactive bar chart with slider
         num_artists = st.slider("Number of artists to show", 10, 100, 25)
         top_artists = filtered_df.nlargest(num_artists, 'Artworks_Uploaded')
@@ -167,19 +167,18 @@ with tab1:
                      color_continuous_scale='Viridis',
                      title=f"Top {num_artists} Artists")
         
-        fig.update_layout(height=max(800, num_artists * 20), 
-                       xaxis_title="Artworks Uploaded",
-                       yaxis_title="Artist",
-                       yaxis={'categoryorder':'total ascending'})
-
-    st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(height=max(500, num_artists * 20), # dynamically change height
+                          xaxis_title="Artworks Uploaded",
+                          yaxis_title="Artist",
+                          yaxis={'categoryorder':'total ascending'})
+        st.plotly_chart(fig, use_container_width=True)
     
     elif viz_choice == "Artist Word Cloud":
         # Generate word cloud with artist names weighted by uploads
         artist_weights = {row['Artist']: row['Artworks_Uploaded'] 
                         for _, row in filtered_df.iterrows()}
         
-        wordcloud = WordCloud(width=800, height=800, 
+        wordcloud = WordCloud(width=800, height=400, #changed height to prevent excessive vertical space.
                             background_color='lilac',
                             colormap='viridis').generate_from_frequencies(artist_weights)
         
