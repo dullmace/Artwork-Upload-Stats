@@ -436,7 +436,7 @@ num_badges = st.slider(
     "Number of badges to display",
     min_value=5,
     max_value=50,
-    value=15,
+    value=24,
     help="Choose how many artist badges to show.",
     key="num_badges",
 )
@@ -444,7 +444,7 @@ num_cols = st.slider(
     "Columns layout",
     min_value=1,
     max_value=5,
-    value=3,
+    value=4,
     key="num_cols",
     help="Adjust the layout of artist badges across the page.",
 )
@@ -466,6 +466,7 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
             color: #FFF;
             font-family: Arial, sans-serif;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
             ">
             <div>
                 <strong style="font-size:1.2em;">{row["Artist"]}</strong>
