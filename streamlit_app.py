@@ -296,6 +296,19 @@ for col, (label, value, description) in zip(cols, metrics):
     with col:
         st.metric(label, value, help=description)
 
+st.markdown(
+    """
+    <style>
+    /* Increase the height and font-size of the tab buttons */
+    div[data-baseweb="tab"] button {
+        height: 50px !important;
+        font-size: 20px !important;
+        padding: 10px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Visualization Tabs
 tab1, tab2, tab3 = st.tabs(["🎸 Artists", "📊 Stats", "📅 Timeline"])
