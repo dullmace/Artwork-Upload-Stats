@@ -490,7 +490,7 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
             border: 1px solid #444;
             border-radius: 8px;
             margin: 5px;
-            color: #FFF;
+            color: #000;
             font-family: "Boogaloo", sans-serif;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
