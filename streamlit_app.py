@@ -5,6 +5,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import calendar
 from datetime import datetime
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 # Page config with improved mobile support
 st.set_page_config(
@@ -208,47 +210,97 @@ with tab2:
     )
     st.plotly_chart(fig, use_container_width=True)
 
+# Modified Artist Tab Section
 with tab3:
-    # Artist Details
-    st.subheader("Artist Contributions")
+    st.header("🎸 Artist Spotlight")
     
-    # Interactive controls
-    cols = st.columns([2, 1, 2])
-    with cols[0]:
-        sort_by = st.selectbox(
-            "Sort by",
-            options=['Uploads (High to Low)', 'Artist Name (A-Z)', 'Recent Activity']
-        )
-    with cols[1]:
-        items_per_page = st.selectbox("Items per page", [10, 25, 50])
-    with cols[2]:
-        search_artist = st.text_input("Search within results")
+    # Visualization selector
+    viz_choice = st.radio("Choose Visualization:", 
+                         ["Top Contributors", "Category Breakdown", 
+                          "Artist Timeline", "Artist Word Cloud"],
+                         horizontal=True)
     
-    # Sort data
-    if sort_by == 'Uploads (High to Low)':
-        sorted_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False)
-    elif sort_by == 'Artist Name (A-Z)':
-        sorted_df = filtered_df.sort_values('Artist')
-    else:
-        sorted_df = filtered_df.sort_values('Date_Modified', ascending=False)
+    if viz_choice == "Top Contributors":
+        # Interactive bar chart with slider
+        num_artists = st.slider("Number of artists to show", 10, 100, 25)
+        top_artists = filtered_df.nlargest(num_artists, 'Artworks_Uploaded')
+        
+        fig = px.bar(top_artists, 
+                     x='Artworks_Uploaded', 
+                     y='Artist',
+                     orientation='h',
+                     color='Artworks_Uploaded',
+                     color_continuous_scale='Viridis',
+                     title=f"Top {num_artists} Artists")
+        
+        fig.update_layout(height=600 + num_artists*5,
+                          xaxis_title="Artworks Uploaded",
+                          yaxis_title="Artist",
+                          yaxis={'categoryorder':'total ascending'})
+        st.plotly_chart(fig, use_container_width=True)
     
-    # Pagination
-    total_pages = len(sorted_df) // items_per_page + 1
-    current_page = st.number_input("Page", 1, total_pages, 1)
-    start_idx = (current_page - 1) * items_per_page
-    end_idx = start_idx + items_per_page
+    elif viz_choice == "Category Breakdown":
+        # Sunburst chart of categories and artists
+        fig = px.sunburst(filtered_df, 
+                        path=['contribution_category', 'Artist'], 
+                        values='Artworks_Uploaded',
+                        color='contribution_category',
+                        color_discrete_sequence=px.colors.sequential.Viridis,
+                        title="Artist Distribution Across Categories")
+        st.plotly_chart(fig, use_container_width=True)
     
-    # Display table
-    display_cols = ['Artist', 'Artworks_Uploaded', 'contribution_category', 'Date_Modified']
-    st.dataframe(
-        sorted_df[display_cols][start_idx:end_idx],
-        column_config={
-            'Date_Modified': 'Last Updated',
-            'contribution_category': 'Category'
-        },
-        use_container_width=True,
-        hide_index=True
-    )
+    elif viz_choice == "Artist Timeline":
+        # Artist timeline visualization
+        selected_artist = st.selectbox("Select Artist", filtered_df['Artist'].unique())
+        artist_data = filtered_df[filtered_df['Artist'] == selected_artist]
+        
+        fig = px.timeline(artist_data, 
+                        x_start="Date_Modified", 
+                        x_end="Date_Modified",
+                        y="Artist",
+                        color="Artworks_Uploaded",
+                        color_continuous_scale='Viridis',
+                        title=f"Upload Timeline for {selected_artist}")
+        fig.update_yaxes(visible=False)
+        st.plotly_chart(fig, use_container_width=True)
+    
+    elif viz_choice == "Artist Word Cloud":
+        # Generate word cloud with artist names weighted by uploads
+        artist_weights = {row['Artist']: row['Artworks_Uploaded'] 
+                        for _, row in filtered_df.iterrows()}
+        
+        wordcloud = WordCloud(width=800, height=400, 
+                            background_color='white',
+                            colormap='viridis').generate_from_frequencies(artist_weights)
+        
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        st.pyplot(plt.gcf(), use_container_width=True)
+    
+    # Artist badges grid
+    st.subheader("🏅 Artist Badges")
+    num_badges = st.slider("Number of badges to display", 5, 50, 15)
+    top_badges = filtered_df.nlargest(num_badges, 'Artworks_Uploaded')
+    
+    cols = st.columns(3)
+    for idx, (_, row) in enumerate(top_badges.iterrows()):
+        with cols[idx % 3]:
+            st.markdown(f"""
+            <div style="padding: 1rem; margin: 0.5rem; 
+                      border-radius: 10px; background: #f0f2f6;
+                      box-shadow: 0 2px 4px rgba(0,0,0,0.1)">
+                <div style="font-size: 1.1rem; font-weight: bold; color: #2c3e50;">
+                    {row['Artist']}
+                </div>
+                <div style="font-size: 2rem; color: #3498db; text-align: center;">
+                    {row['Artworks_Uploaded']}
+                </div>
+                <div style="font-size: 0.9rem; color: #7f8c8d;">
+                    {row['contribution_category']}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
