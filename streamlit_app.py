@@ -154,7 +154,7 @@ with tab1:
                           "Artist Timeline", "Artist Word Cloud"],
                          horizontal=True)
     
-    if viz_choice == "Top Contributors":
+    if viz_choice == "Top Contributions":
         # Interactive bar chart with slider
         num_artists = st.slider("Number of artists to show", 10, 100, 25)
         top_artists = filtered_df.nlargest(num_artists, 'Artworks_Uploaded')
@@ -167,35 +167,10 @@ with tab1:
                      color_continuous_scale='Viridis',
                      title=f"Top {num_artists} Artists")
         
-        fig.update_layout(height=600 + num_artists*5,
+        fig.update_layout(height=850 num_artists*5,
                           xaxis_title="Artworks Uploaded",
                           yaxis_title="Artist",
                           yaxis={'categoryorder':'total ascending'})
-        st.plotly_chart(fig, use_container_width=True)
-    
-    elif viz_choice == "Category Breakdown":
-        # Sunburst chart of categories and artists
-        fig = px.sunburst(filtered_df, 
-                        path=['contribution_category', 'Artist'], 
-                        values='Artworks_Uploaded',
-                        color='contribution_category',
-                        color_discrete_sequence=px.colors.sequential.Viridis,
-                        title="Artist Distribution Across Categories")
-        st.plotly_chart(fig, use_container_width=True)
-    
-    elif viz_choice == "Artist Timeline":
-        # Artist timeline visualization
-        selected_artist = st.selectbox("Select Artist", filtered_df['Artist'].unique())
-        artist_data = filtered_df[filtered_df['Artist'] == selected_artist]
-        
-        fig = px.timeline(artist_data, 
-                        x_start="Date_Modified", 
-                        x_end="Date_Modified",
-                        y="Artist",
-                        color="Artworks_Uploaded",
-                        color_continuous_scale='Viridis',
-                        title=f"Upload Timeline for {selected_artist}")
-        fig.update_yaxes(visible=False)
         st.plotly_chart(fig, use_container_width=True)
     
     elif viz_choice == "Artist Word Cloud":
@@ -203,8 +178,8 @@ with tab1:
         artist_weights = {row['Artist']: row['Artworks_Uploaded'] 
                         for _, row in filtered_df.iterrows()}
         
-        wordcloud = WordCloud(width=800, height=400, 
-                            background_color='white',
+        wordcloud = WordCloud(width=800, height=800, 
+                            background_color='lilac',
                             colormap='viridis').generate_from_frequencies(artist_weights)
         
         plt.figure(figsize=(10, 5))
