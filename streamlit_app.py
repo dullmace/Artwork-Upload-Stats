@@ -50,15 +50,13 @@ def load_album_data():
     normalized = {}
     for artist, albums in data.items():
         key = artist.lower()
-        album_list = []
-        for album in albums:
-            # The raw timestamp might be a float; round it and cast to int
-            ts = int(round(album["creation_date"]))
-            dt = pd.to_datetime(ts, unit="ms")
-            album_list.append({
+        album_list = [
+            {
                 "album": album["album"],
-                "uploaded_date": dt,
-            })
+                "uploaded_date": pd.to_datetime(album["creation_date"]),
+            }
+            for album in albums
+        ]
         if key in normalized:
             normalized[key]["albums"].extend(album_list)
             normalized[key]["count"] += len(album_list)
@@ -69,7 +67,6 @@ def load_album_data():
                 "count": len(album_list),
             }
     return normalized
-
 
 
 @st.cache_data
@@ -89,10 +86,13 @@ def load_data():
         lambda x: tuple(album["album"] for album in album_data.get(x, {}).get("albums", []))
     )
 
-    # Because we already converted uploaded_date, just fetch it.
     df["Album_Uploaded_Dates"] = df["Artist"].str.lower().map(
-        lambda x: tuple(album["uploaded_date"] for album in album_data.get(x, {}).get("albums", []))
+        lambda x: tuple(
+            pd.to_datetime(album["uploaded_date"], unit="ms")
+            for album in album_data.get(x, {}).get("albums", [])
+        )
     )
+
 
     bins = [0, 5, 10, 20, 50, np.inf]
     labels = [
@@ -111,7 +111,6 @@ def load_data():
         "_", " "
     )
     return df.sort_values("Artworks_Uploaded", ascending=False)
-
 
 
 @st.cache_data
