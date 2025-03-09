@@ -97,28 +97,35 @@ for col, (label, value, delta) in zip(cols, metrics):
 with st.expander("🔍 Filter Data", expanded=False):
     st.subheader("Filter Options")
     
-    # Category and Date Filters
-    categories = st.multiselect(
-        "Contribution Level",
-        options=df['contribution_category'].cat.categories.tolist(),
-        default=df['contribution_category'].cat.categories.tolist()
-    )
-    
-    date_range = st.date_input(
-        "Date Range",
-        value=(df['Date_Modified'].min().date(), df['Date_Modified'].max().date()),
-        min_value=df['Date_Modified'].min().date(),
-        max_value=df['Date_Modified'].max().date()
-    )
-    
-    # Artist Search
-    search_term = st.text_input("Search Artists")
+    # Date Range Picker
+    try:
+        default_start = df['Date_Modified'].min().date()
+        default_end = df['Date_Modified'].max().date()
+        date_range = st.date_input(
+            "Date Range",
+            value=(default_start, default_end),
+            min_value=default_start,
+            max_value=default_end
+        )
+    except:
+        date_range = (default_start, default_end)
 
-# Apply Filters
+# Handle date range selection
+if isinstance(date_range, (list, tuple)) and len(date_range) == 2:
+    start_date, end_date = date_range
+else:
+    start_date = end_date = date_range
+
+# Convert to pandas datetime
+start_date = pd.to_datetime(start_date)
+end_date = pd.to_datetime(end_date)
+
+# Apply filters
 filtered_df = df[
     (df['contribution_category'].isin(categories)) &
-    (df['Date_Modified'].between(*date_range)) &
+    (df['Date_Modified'].between(start_date, end_date)) &
     (df['Artist'].str.contains(search_term, case=False))
+]
 ]
 
 # Visualization Tabs
