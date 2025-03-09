@@ -449,7 +449,7 @@ st.subheader("🏅 Artist Badges")
 num_badges = st.slider(
     "Number of badges to display",
     min_value=5,
-    max_value=50,
+    max_value=100,
     value=24,
     help="Choose how many artist badges to show.",
     key="num_badges",
