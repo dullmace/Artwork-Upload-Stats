@@ -477,28 +477,6 @@ with tab1:
                         st.markdown(album_list, unsafe_allow_html=True)
 
 with tab2:
-    st.subheader("Contribution Distribution")
-    col1, col2 = st.columns([2, 3])
-    with col1:
-        st.write("Proportion of each contribution category.")
-        fig = px.pie(
-            names=preprocessed["category_dist"].index,
-            values=preprocessed["category_dist"].values,
-            hole=0.3,
-            color_discrete_sequence=px.colors.sequential.Viridis,
-        )
-        st.plotly_chart(fig, use_container_width=True)
-    with col2:
-        st.write("Visualizing distribution across categories.")
-        fig = px.treemap(
-            filtered_df,
-            path=["contribution_category"],
-            values="Artworks_Uploaded",
-            color="contribution_category",
-            color_discrete_sequence=px.colors.sequential.Viridis_r,
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
     st.subheader("Album Analysis")
     st.write("Album uploads across different months and years.")
     album_timeline = (
@@ -508,13 +486,14 @@ with tab2:
         .reset_index()
         .rename(columns={"Albums": "Count"})
     )
+    
     st.subheader("Top Albums by Uploads")
     album_counts = (
         filtered_df.explode("Albums")["Albums"]
         .value_counts()
+        .rename_axis("Album")
+        .reset_index(name="Uploads")
         .head(10)
-        .reset_index()
-        .rename(columns={"index": "Album", "Albums": "Uploads"})
     )
     fig = px.bar(
         album_counts,
@@ -533,6 +512,7 @@ with tab2:
         title="Album Artwork Uploads Timeline",
     )
     st.plotly_chart(fig, use_container_width=True)
+
 
     st.subheader("Album Title Length Analysis")
     st.write("Distribution of album title lengths.")
