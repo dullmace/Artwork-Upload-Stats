@@ -127,11 +127,15 @@ st.title("🎨 SpotFM Artwork Upload Stats")
 
 # Filters
 with st.expander("🔍 Filter Data", expanded=False):
+    st.write("Use these filters to explore the data.")
     col1, col2 = st.columns(2)
     with col1:
         all_categories = df["contribution_category"].unique().tolist()
         selected_categories = st.multiselect(
-            "Contribution Level", all_categories, default=all_categories
+            "Contribution Level",
+            all_categories,
+            default=all_categories,
+            help="Filter by the contribution level of the artist.",
         )
     with col2:
         default_start = df["Date_Modified"].min().date()
@@ -141,6 +145,7 @@ with st.expander("🔍 Filter Data", expanded=False):
             (default_start, default_end),
             min_value=default_start,
             max_value=default_end,
+            help="Filter data by the date range of artwork uploads.",
         )
 
     album_date_range = st.date_input(
@@ -149,9 +154,12 @@ with st.expander("🔍 Filter Data", expanded=False):
             pd.to_datetime(df["Album_Uploaded_Dates"].explode().min()).date(),
             pd.to_datetime(df["Album_Uploaded_Dates"].explode().max()).date(),
         ),
+        help="Filter artists based on the upload date of their albums.",
     )
 
-    search_term = st.text_input("Search Artists")
+    search_term = st.text_input(
+        "Search Artists", help="Search for specific artists."
+    )
 
 # Date handling
 start_date, end_date = (pd.to_datetime(d) for d in date_range)
@@ -210,6 +218,10 @@ if filtered_df.empty:
     st.stop()
 
 # Metrics
+st.subheader("Key Metrics Overview")
+st.write(
+    "Here's a snapshot of the data based on your current filters:"
+)  # Explanation
 total_artists = len(filtered_df)
 total_uploads = filtered_df["Artworks_Uploaded"].sum()
 total_albums = filtered_df["Albums_Count"].sum()
@@ -221,21 +233,22 @@ latest_album_date = filtered_df["Album_Uploaded_Dates"].explode().max()
 
 cols = st.columns(5)
 metrics = [
-    ("Total Artists", total_artists, ""),
-    ("Total Uploads", f"{total_uploads:,}", ""),
-    ("Total Albums", f"{total_albums:,}", ""),
-    ("Earliest Album Date", earliest_album_date.strftime("%b %d, %Y"), ""),
-    ("Latest Album Date", latest_album_date.strftime("%b %d, %Y"), ""),
+    ("Total Artists", total_artists, "Total number of artists in the filtered dataset."),
+    ("Total Uploads", f"{total_uploads:,}", "Total number of artworks uploaded."),
+    ("Total Albums", f"{total_albums:,}", "Total number of albums."),
+    ("Earliest Album Date", earliest_album_date.strftime("%b %d, %Y"), "Date of the earliest uploaded album."),
+    ("Latest Album Date", latest_album_date.strftime("%b %d, %Y"), "Date of the latest uploaded album."),
 ]
-for col, (label, value, delta) in zip(cols, metrics):
+for col, (label, value, description) in zip(cols, metrics):
     with col:
-        st.metric(label, value, delta)
+        st.metric(label, value, help=description)
 
 # Visualization Tabs
 tab1, tab2, tab3 = st.tabs(["🎸 Artists", "📊 Overview", "📅 Timeline"])
 
 with tab1:
     st.header("🎸 Artist Spotlight")
+    st.write("Explore individual artist contributions.")
     viz_choice = st.radio(
         "Choose Visualization:",
         [
@@ -246,9 +259,11 @@ with tab1:
             "Artist Word Cloud",  # ADDED: Artist Word Cloud
         ],
         horizontal=True,
+        help="Select a visualization to explore artist-related data.",
     )
     if viz_choice == "Category Breakdown":
         st.subheader("Contribution Distribution")
+        st.write("Explore the number of artists in each contribution category.")
         category_counts = filtered_df['contribution_category'].value_counts().reset_index()
         category_counts.columns = ['category', 'count']
 
@@ -258,6 +273,7 @@ with tab1:
 
     if viz_choice == "Album Explorer":
         st.subheader("Album Explorer")
+        st.write("Dive into each artist's album contributions.")
         artist_album = filtered_df.explode("Albums").copy()
 
         fig = px.treemap(
@@ -276,7 +292,7 @@ with tab1:
         )  # Adjust margins as needed
         st.plotly_chart(fig, use_container_width=True)
 
-        search_album = st.text_input("Search Albums")
+        search_album = st.text_input("Search Albums", help="Search for albums within the Album Explorer.")
         if search_album:
             matches = artist_album[
                 artist_album["Albums"].str.contains(search_album, case=False, na=False)
@@ -284,7 +300,7 @@ with tab1:
             st.dataframe(matches[["Artist", "Albums", "Artworks_Uploaded"]])
 
     elif viz_choice == "Top Contributors":
-        num_artists = st.slider("Number of artists to show", 10, 100, 25)
+        num_artists = st.slider("Number of artists to show", 10, 100, 25, help="Select the number of top artists to display.")
         top_artists = filtered_df.nlargest(num_artists, "Artworks_Uploaded").copy()
 
         fig = px.bar(
@@ -305,6 +321,7 @@ with tab1:
 
     elif viz_choice == "Artist Timeline":
         st.subheader("Artist Timeline")
+        st.write("See artwork uploads over time by artist.")
         artist_timeline = filtered_df.explode("Album_Uploaded_Dates").copy()
 
         # Ensure 'Artworks_Uploaded' is numeric and not a string or mixed type
@@ -339,6 +356,7 @@ with tab1:
     # ADDED: Artist Word Cloud
     elif viz_choice == "Artist Word Cloud":
         st.subheader("Artist Word Cloud")
+        st.write("Visualize the most frequent words in album titles.")
         all_albums = " ".join(filtered_df["Albums"].explode().dropna())
         wordcloud = WordCloud(
             width=800, height=400, background_color="white"
@@ -349,11 +367,12 @@ with tab1:
         st.pyplot(plt)
 
     st.subheader("🏅 Artist Badges")
-    num_badges = st.slider("Number of badges to display", 5, 50, 15)
+    st.write("Discover key information for top contributing artists.")
+    num_badges = st.slider("Number of badges to display", 5, 50, 15, help="Choose how many artist badges to show.")
     top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
     cols = st.columns(st.session_state.get("num_cols", 3))
-    st.slider("Columns layout", 1, 5, 3, key="num_cols")
+    st.slider("Columns layout", 1, 5, 3, key="num_cols", help="Adjust the layout of artist badges across the page.")
 
     for idx, (_, row) in enumerate(top_badges.iterrows()):
         with cols[idx % st.session_state.num_cols]:
@@ -366,6 +385,7 @@ with tab1:
 
                 # Display a list of hyperlinked albums
                 if row["Albums"]:
+                    st.write("List of albums by this artist:")  # Intro to album list
                     album_links = []
                     for album in row["Albums"]:
                         artist_name = row["Artist"] #You need to bring the Artist name into this scope for the albums to render
@@ -379,6 +399,7 @@ with tab2:
     st.subheader("Contribution Distribution")
     col1, col2 = st.columns([2, 3])
     with col1:
+        st.write("Proportion of each contribution category.")
         fig = px.pie(
             preprocessed["category_dist"],
             names=preprocessed["category_dist"].index,
@@ -388,6 +409,7 @@ with tab2:
         )
         st.plotly_chart(fig, use_container_width=True)
     with col2:
+        st.write("Visualizing the distribution of contributions across categories.")
         fig = px.treemap(
             filtered_df,
             path=["contribution_category"],
@@ -398,6 +420,7 @@ with tab2:
         st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Album Analysis")
+    st.write("Album uploads across different months and years.")
     album_timeline = filtered_df.explode("Albums")
     album_timeline = (
         album_timeline.groupby(["Year", "Month_Name"])["Albums"]
@@ -414,6 +437,7 @@ with tab2:
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Album Title Length Analysis")
+    st.write("Distribution of title lengths.")
     album_timeline = filtered_df.explode("Albums")
     album_timeline["title_length"] = album_timeline["Albums"].apply(len)
     fig = px.histogram(album_timeline, x="title_length", nbins=20, marginal="box")
@@ -421,6 +445,7 @@ with tab2:
 
 with tab3:
     st.subheader("Upload Activity Over Time")
+    st.write("The data changes over time.")
     fig = px.area(
         preprocessed["cumulative_uploads"],
         x="Date_Modified",
@@ -430,6 +455,7 @@ with tab3:
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Monthly Heatmap")
+    st.write("Artworks Uploaded each month")
     heatmap_df = (
         filtered_df.groupby(["Year", "Month_Name"])["Artworks_Uploaded"]
         .sum()
