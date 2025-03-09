@@ -1,4 +1,10 @@
 {
+    "!!!": [
+        {
+            "album": "This Is The Door",
+            "creation_date": "2025-03-09T07:09:27.303186"
+        }
+    ],
     "$HEEPDAH$LEEPER": [
         {
             "album": "RESPITE",
@@ -95,6 +101,12 @@
         {
             "album": "More Than",
             "creation_date": "2024-12-31T02:48:50.768790"
+        }
+    ],
+    "18andcounting": [
+        {
+            "album": "Don't Play (Remix)",
+            "creation_date": "2025-03-09T08:14:19.156050"
         }
     ],
     "19 Miles Per Hour": [
@@ -831,6 +843,16 @@
             "creation_date": "2024-12-14T01:13:41.233335"
         }
     ],
+    "Aisling": [
+        {
+            "album": "mousetrap",
+            "creation_date": "2025-03-09T07:18:27.253736"
+        },
+        {
+            "album": "So It Goes",
+            "creation_date": "2025-03-09T07:18:37.913133"
+        }
+    ],
     "AkiraDoves": [
         {
             "album": "the world is yours",
@@ -883,6 +905,12 @@
         {
             "album": "Where they want you to stay (Demos 2022) [demos 2022]",
             "creation_date": "2025-01-22T05:09:27.639150"
+        }
+    ],
+    "Alex Andre": [
+        {
+            "album": "We Could Be Cool",
+            "creation_date": "2025-03-09T08:06:16.318204"
         }
     ],
     "Alex Cuba": [
@@ -1467,10 +1495,6 @@
     ],
     "American Thrills": [
         {
-            "album": "Impossible - Copy",
-            "creation_date": "2024-12-05T07:58:37.555241"
-        },
-        {
             "album": "Impossible",
             "creation_date": "2024-12-05T07:58:37.555241"
         }
@@ -1487,20 +1511,12 @@
     ],
     "Amy Elizabeth Quinn": [
         {
-            "album": "Five Bridges Outta St Louis - Copy",
-            "creation_date": "2024-12-05T07:50:22.911522"
-        },
-        {
             "album": "Five Bridges Outta St Louis",
             "creation_date": "2024-12-05T07:50:22.911522"
         },
         {
             "album": "Ghost in the Bedroom",
             "creation_date": "2024-12-05T07:43:01.759778"
-        },
-        {
-            "album": "You - Copy",
-            "creation_date": "2024-12-05T07:49:00.764482"
         },
         {
             "album": "You",
@@ -1861,6 +1877,68 @@
             "creation_date": "2025-01-22T06:44:44.567024"
         }
     ],
+    "Apollo Suns": [
+        {
+            "album": "A Bird To Sing For (A Live Cut)",
+            "creation_date": "2025-03-09T07:05:44.753015"
+        },
+        {
+            "album": "A Lesson in Sharing (A Live Cut)",
+            "creation_date": "2025-03-09T07:05:56.708732"
+        },
+        {
+            "album": "Dark Night",
+            "creation_date": "2025-03-09T07:07:29.175916"
+        },
+        {
+            "album": "Dawn Offerings",
+            "creation_date": "2025-03-09T07:07:07.310450"
+        },
+        {
+            "album": "Hard Time",
+            "creation_date": "2025-03-09T07:04:34.062522"
+        },
+        {
+            "album": "Lake Country (The Node Sessions)",
+            "creation_date": "2025-03-09T07:06:31.571699"
+        },
+        {
+            "album": "Lake Country",
+            "creation_date": "2025-03-09T07:05:33.394027"
+        },
+        {
+            "album": "Passing By (The Node Sessions)",
+            "creation_date": "2025-03-09T07:06:43.236005"
+        },
+        {
+            "album": "Passing By",
+            "creation_date": "2025-03-09T07:07:18.397760"
+        },
+        {
+            "album": "Pluto",
+            "creation_date": "2025-03-09T07:05:08.990722"
+        },
+        {
+            "album": "Rosie (The Node Sessions)",
+            "creation_date": "2025-03-09T07:06:07.814801"
+        },
+        {
+            "album": "Rosie",
+            "creation_date": "2025-03-09T07:05:20.733201"
+        },
+        {
+            "album": "Serpentine",
+            "creation_date": "2025-03-09T07:04:46.068153"
+        },
+        {
+            "album": "Silver Gloves",
+            "creation_date": "2025-03-09T07:06:56.468577"
+        },
+        {
+            "album": "So Long Ethan",
+            "creation_date": "2025-03-09T07:06:19.967801"
+        }
+    ],
     "apts": [
         {
             "album": "Stay",
@@ -2027,6 +2105,12 @@
         {
             "album": "texting in the shower",
             "creation_date": "2025-01-22T05:40:12.391227"
+        }
+    ],
+    "ARMNHMR": [
+        {
+            "album": "Gone (YDG Remix)",
+            "creation_date": "2025-03-09T08:14:31.883349"
         }
     ],
     "Arms Akimbo": [
@@ -2209,10 +2293,6 @@
     ],
     "At My Worst": [
         {
-            "album": "Vice Versa - Copy",
-            "creation_date": "2024-12-05T07:43:24.279703"
-        },
-        {
             "album": "Vice Versa",
             "creation_date": "2024-12-05T07:43:24.279703"
         }
@@ -2283,18 +2363,20 @@
             "creation_date": "2025-02-16T23:18:54.821080"
         }
     ],
-    "Augmented Hearts": [
+    "Audrey Heartburn": [
         {
-            "album": "Seth - Copy",
-            "creation_date": "2024-12-05T07:52:58.542753"
+            "album": "Restaurants_Tattoos",
+            "creation_date": "2025-03-09T07:16:00.906178"
         },
+        {
+            "album": "Take Me With You",
+            "creation_date": "2025-03-09T07:16:11.761455"
+        }
+    ],
+    "Augmented Hearts": [
         {
             "album": "Seth",
             "creation_date": "2024-12-05T07:52:58.542753"
-        },
-        {
-            "album": "What Now_ - Copy",
-            "creation_date": "2024-12-05T07:49:24.230378"
         },
         {
             "album": "What Now_",
@@ -2711,10 +2793,6 @@
     ],
     "Bad Planning": [
         {
-            "album": "Sad Truth - Copy",
-            "creation_date": "2024-12-05T07:58:51.509283"
-        },
-        {
             "album": "Sad Truth",
             "creation_date": "2024-12-05T07:58:51.509283"
         }
@@ -3127,6 +3205,12 @@
         {
             "album": "Things That Look Like Mistakes",
             "creation_date": "2024-12-16T02:54:21.117334"
+        }
+    ],
+    "Beatox": [
+        {
+            "album": "Dance",
+            "creation_date": "2025-03-09T07:04:56.836895"
         }
     ],
     "Beck Pocket": [
@@ -3583,6 +3667,12 @@
             "creation_date": "2025-02-26T18:56:59.239362"
         }
     ],
+    "Beulah": [
+        {
+            "album": "Damilohun",
+            "creation_date": "2025-03-09T07:02:19.710882"
+        }
+    ],
     "Bianca Shaw": [
         {
             "album": "Bianca Shaw on Audiotree Live",
@@ -3659,6 +3749,36 @@
         {
             "album": "Re_TTHC",
             "creation_date": "2024-12-31T04:28:50.048447"
+        }
+    ],
+    "Big Girl's Blouse": [
+        {
+            "album": "Day and Night",
+            "creation_date": "2025-03-09T07:16:55.870146"
+        },
+        {
+            "album": "Everybody Nearly Dies All the Time",
+            "creation_date": "2025-03-09T07:17:41.933254"
+        },
+        {
+            "album": "I'm Scared of Men",
+            "creation_date": "2025-03-09T07:17:30.415212"
+        },
+        {
+            "album": "Man Up",
+            "creation_date": "2025-03-09T07:17:19.596130"
+        },
+        {
+            "album": "Rock and Roll Hit of September",
+            "creation_date": "2025-03-09T07:17:53.337306"
+        },
+        {
+            "album": "Sleepy Girls",
+            "creation_date": "2025-03-09T07:16:34.298021"
+        },
+        {
+            "album": "Token Girl",
+            "creation_date": "2025-03-09T07:16:44.949337"
         }
     ],
     "BIG Naughty": [
@@ -4345,6 +4465,120 @@
             "creation_date": "2025-01-31T09:16:35.581683"
         }
     ],
+    "Bo Dean": [
+        {
+            "album": "All Mighty Gang",
+            "creation_date": "2025-03-09T07:23:25.971317"
+        },
+        {
+            "album": "All This Money",
+            "creation_date": "2025-03-09T07:21:51.998301"
+        },
+        {
+            "album": "American Dreamz",
+            "creation_date": "2025-03-09T07:21:29.605278"
+        },
+        {
+            "album": "Anthoney (Stan 2025)",
+            "creation_date": "2025-03-09T07:21:04.576179"
+        },
+        {
+            "album": "Aye",
+            "creation_date": "2025-03-09T07:22:25.551406"
+        },
+        {
+            "album": "Bovember 3_ A Beautiful Ugly",
+            "creation_date": "2025-03-09T07:20:41.351571"
+        },
+        {
+            "album": "Bruce Vs Bane II",
+            "creation_date": "2025-03-09T07:20:04.731901"
+        },
+        {
+            "album": "C.R.E.A.M",
+            "creation_date": "2025-03-09T07:24:12.532935"
+        },
+        {
+            "album": "Came A Long Way",
+            "creation_date": "2025-03-09T07:23:15.020100"
+        },
+        {
+            "album": "Chi Chi Pt. 2",
+            "creation_date": "2025-03-09T07:22:02.795696"
+        },
+        {
+            "album": "Fro God",
+            "creation_date": "2025-03-09T07:25:11.364337"
+        },
+        {
+            "album": "Fromerica",
+            "creation_date": "2025-03-09T07:20:29.322834"
+        },
+        {
+            "album": "Game Over",
+            "creation_date": "2025-03-09T07:20:52.605340"
+        },
+        {
+            "album": "Get Down",
+            "creation_date": "2025-03-09T07:21:40.976017"
+        },
+        {
+            "album": "How Could You Ever",
+            "creation_date": "2025-03-09T07:22:14.332160"
+        },
+        {
+            "album": "Lavish",
+            "creation_date": "2025-03-09T07:22:50.393270"
+        },
+        {
+            "album": "Lucifer's Piano",
+            "creation_date": "2025-03-09T07:24:24.370642"
+        },
+        {
+            "album": "Mama Told Me",
+            "creation_date": "2025-03-09T07:24:59.474000"
+        },
+        {
+            "album": "Memento Mori",
+            "creation_date": "2025-03-09T07:19:26.305013"
+        },
+        {
+            "album": "My Ride",
+            "creation_date": "2025-03-09T07:23:02.599759"
+        },
+        {
+            "album": "Outside",
+            "creation_date": "2025-03-09T07:22:38.673084"
+        },
+        {
+            "album": "Special St. Paul",
+            "creation_date": "2025-03-09T07:21:17.769139"
+        },
+        {
+            "album": "That Knock",
+            "creation_date": "2025-03-09T07:24:47.705397"
+        },
+        {
+            "album": "The Blu Fro Project",
+            "creation_date": "2025-03-09T07:20:16.981746"
+        },
+        {
+            "album": "The Relic",
+            "creation_date": "2025-03-09T07:19:49.701999"
+        },
+        {
+            "album": "What Yall About to Witness",
+            "creation_date": "2025-03-09T07:23:39.893218"
+        },
+        {
+            "album": "Year of the Fro 2",
+            "creation_date": "2025-03-09T07:23:59.406705"
+        },
+        {
+            "album": "Year of the Fro",
+            "creation_date": "2025-03-09T07:24:35.646123"
+        }
+    ],
     "Bob Brookmeyer": [
         {
             "album": "Out of This World",
@@ -4659,10 +4893,6 @@
     ],
     "Breakmouth Annie": [
         {
-            "album": "Lemons - Copy",
-            "creation_date": "2024-12-05T07:54:03.089190"
-        },
-        {
             "album": "Lemons",
             "creation_date": "2024-12-05T07:54:03.089190"
         }
@@ -4675,16 +4905,8 @@
     ],
     "Breezy Point": [
         {
-            "album": "Ghosts - Copy",
-            "creation_date": "2024-12-05T07:48:48.105333"
-        },
-        {
             "album": "Ghosts",
             "creation_date": "2024-12-05T07:48:48.105333"
-        },
-        {
-            "album": "Im Not Okay - Copy",
-            "creation_date": "2024-12-05T07:50:56.085875"
         },
         {
             "album": "Im Not Okay",
@@ -4798,10 +5020,6 @@
         }
     ],
     "Brody Leigh": [
-        {
-            "album": "Killing Time - Copy",
-            "creation_date": "2024-12-05T22:40:29.864344"
-        },
         {
             "album": "Killing Time",
             "creation_date": "2024-12-05T22:40:29.864344"
@@ -5871,6 +6089,12 @@
             "creation_date": "2025-02-07T16:31:51.748451"
         }
     ],
+    "Captain Jazz": [
+        {
+            "album": "Demo May 2024",
+            "creation_date": "2025-03-09T07:09:16.155832"
+        }
+    ],
     "Capyac": [
         {
             "album": "Songs from Celestial City",
@@ -6867,10 +7091,6 @@
     ],
     "Cian Bennet": [
         {
-            "album": "It Comes in Waves - Copy",
-            "creation_date": "2024-12-05T22:41:24.354156"
-        },
-        {
             "album": "It Comes in Waves",
             "creation_date": "2024-12-05T22:41:24.354156"
         },
@@ -7113,10 +7333,6 @@
         {
             "album": "Dog Day",
             "creation_date": "2024-12-30T09:50:46.917827"
-        },
-        {
-            "album": "Edit Undo - Copy",
-            "creation_date": "2024-12-05T22:38:44.064956"
         },
         {
             "album": "Edit Undo Player Piano Classics",
@@ -7634,10 +7850,6 @@
         }
     ],
     "Cook Crvk": [
-        {
-            "album": "Capsule_ Season 2 - Copy",
-            "creation_date": "2024-12-05T07:51:59.101957"
-        },
         {
             "album": "Capsule_ Season 2",
             "creation_date": "2024-12-05T07:51:59.101957"
@@ -8183,11 +8395,13 @@
             "creation_date": "2024-12-30T20:51:37.447321"
         }
     ],
-    "Daemon": [
+    "Dadras": [
         {
-            "album": "I'm From the Future - Copy",
-            "creation_date": "2024-12-05T07:49:35.709352"
-        },
+            "album": "Buy The Water",
+            "creation_date": "2025-03-09T08:00:44.313679"
+        }
+    ],
+    "Daemon": [
         {
             "album": "I'm From the Future",
             "creation_date": "2024-12-05T07:49:35.709352"
@@ -8897,6 +9111,10 @@
     ],
     "Dead Pets": [
         {
+            "album": "Slow Blinking",
+            "creation_date": "2025-03-09T07:59:51.200234"
+        },
+        {
             "album": "Such Sights to Show You",
             "creation_date": "2024-12-06T02:05:01.229573"
         }
@@ -9019,10 +9237,6 @@
     ],
     "Decedy": [
         {
-            "album": "Call My Name - Copy",
-            "creation_date": "2024-12-05T07:44:31.362410"
-        },
-        {
             "album": "Call My Name",
             "creation_date": "2024-12-05T07:44:31.362410"
         },
@@ -9053,10 +9267,6 @@
         {
             "album": "FAKE FRIENDS",
             "creation_date": "2024-12-05T07:42:13.327098"
-        },
-        {
-            "album": "H8 ME - Copy",
-            "creation_date": "2024-12-05T07:46:16.547377"
         },
         {
             "album": "H8 ME",
@@ -9203,6 +9413,16 @@
         {
             "album": "The Breaks",
             "creation_date": "2025-01-22T08:52:32.871366"
+        }
+    ],
+    "Desperate Hauswives": [
+        {
+            "album": "HOT FOR MIKE",
+            "creation_date": "2025-03-09T07:36:29.302123"
+        },
+        {
+            "album": "Welcome to the Lane",
+            "creation_date": "2025-03-09T07:36:13.860086"
         }
     ],
     "Devan Zorn": [
@@ -9605,10 +9825,6 @@
     ],
     "Dog Beach": [
         {
-            "album": "Missing, But Not Lost - Copy",
-            "creation_date": "2024-12-05T07:56:49.361541"
-        },
-        {
             "album": "Missing, But Not Lost",
             "creation_date": "2024-12-05T07:56:49.361541"
         }
@@ -9855,10 +10071,6 @@
             "creation_date": "2024-12-08T17:28:26.874157"
         },
         {
-            "album": "M.I.L.C._ Caveman - Copy",
-            "creation_date": "2024-12-05T23:05:12.777430"
-        },
-        {
             "album": "M.I.L.C._ Caveman",
             "creation_date": "2024-12-05T23:05:12.777430"
         }
@@ -9907,6 +10119,16 @@
         {
             "album": "Drink With Me",
             "creation_date": "2024-12-17T02:08:58.587267"
+        }
+    ],
+    "Dorian Wright": [
+        {
+            "album": "Love Is Alive (Remix)",
+            "creation_date": "2025-03-09T07:32:40.855921"
+        },
+        {
+            "album": "The Light of a Million Suns",
+            "creation_date": "2025-03-09T07:32:52.537306"
         }
     ],
     "Doss": [
@@ -10021,6 +10243,12 @@
         {
             "album": "Your Time Has Come",
             "creation_date": "2025-01-06T20:00:54.203455"
+        }
+    ],
+    "Dream Theater": [
+        {
+            "album": "Pull Me Under (Live at Budokan, Tokyo, Japan, 2017)",
+            "creation_date": "2025-03-09T07:26:46.771627"
         }
     ],
     "Dreamer Isioma": [
@@ -11071,10 +11299,30 @@
             "creation_date": "2024-12-06T01:42:54.635882"
         }
     ],
+    "Eric Burdon": [
+        {
+            "album": "Greatest Hits 2.0",
+            "creation_date": "2025-03-09T07:29:40.989163"
+        },
+        {
+            "album": "Spill The Wine (Jesse Perez Remix)",
+            "creation_date": "2025-03-09T07:28:51.924347"
+        },
+        {
+            "album": "The Very Best of War",
+            "creation_date": "2025-03-09T07:29:54.418896"
+        }
+    ],
     "Eric Harland": [
         {
             "album": "Live in Manhattan - A Tribute to John Coltrane",
             "creation_date": "2024-12-30T09:40:38.086410"
+        }
+    ],
+    "Escape From The Zoo": [
+        {
+            "album": "12 Rounds",
+            "creation_date": "2025-03-09T07:03:53.051593"
         }
     ],
     "Estereomance": [
@@ -12549,6 +12797,16 @@
             "creation_date": "2025-01-22T07:18:39.600251"
         }
     ],
+    "Flying Raccoon Suit": [
+        {
+            "album": "Tell Another One",
+            "creation_date": "2025-03-09T07:34:34.855203"
+        },
+        {
+            "album": "Toss and Turn",
+            "creation_date": "2025-03-09T07:34:47.700573"
+        }
+    ],
     "Fog Lake": [
         {
             "album": "Slipping",
@@ -12616,10 +12874,6 @@
         }
     ],
     "Fortunate Son": [
-        {
-            "album": "7 Joints - Copy",
-            "creation_date": "2024-12-05T07:55:11.882860"
-        },
         {
             "album": "7 Joints",
             "creation_date": "2024-12-05T07:55:11.882860"
@@ -13795,6 +14049,44 @@
             "creation_date": "2025-01-22T07:30:31.637850"
         }
     ],
+    "Gary Wright": [
+        {
+            "album": "Come and go Reprise",
+            "creation_date": "2025-03-09T07:30:58.804479"
+        },
+        {
+            "album": "Face the unknown",
+            "creation_date": "2025-03-09T07:31:55.675217"
+        },
+        {
+            "album": "Flame that burns Reprise",
+            "creation_date": "2025-03-09T07:30:46.421224"
+        },
+        {
+            "album": "Get Your Hands Up",
+            "creation_date": "2025-03-09T07:32:09.489500"
+        },
+        {
+            "album": "I'm By Your Side",
+            "creation_date": "2025-03-09T07:31:27.656817"
+        },
+        {
+            "album": "Just you and me",
+            "creation_date": "2025-03-09T07:31:12.599780"
+        },
+        {
+            "album": "Satisfied",
+            "creation_date": "2025-03-09T07:32:23.660207"
+        },
+        {
+            "album": "Truth we dare",
+            "creation_date": "2025-03-09T07:31:41.382452"
+        },
+        {
+            "album": "Wild in love Reprise",
+            "creation_date": "2025-03-09T07:30:32.917648"
+        }
+    ],
     "Gas Station Rebate": [
         {
             "album": "Afraid of the Dark",
@@ -13921,6 +14213,24 @@
         {
             "album": "VIRUS",
             "creation_date": "2025-01-28T06:25:18.901085"
+        }
+    ],
+    "General Baxter": [
+        {
+            "album": "Brain Fuzz_Facial Aphasia",
+            "creation_date": "2025-03-09T08:05:31.393676"
+        },
+        {
+            "album": "Concussion",
+            "creation_date": "2025-03-09T08:05:09.001801"
+        },
+        {
+            "album": "Dumb Luck",
+            "creation_date": "2025-03-09T08:05:20.493740"
+        },
+        {
+            "album": "Xenon",
+            "creation_date": "2025-03-09T08:05:43.016307"
         }
     ],
     "Gentle Giant": [
@@ -14079,6 +14389,16 @@
         {
             "album": "Heaven",
             "creation_date": "2025-02-25T05:04:07.293112"
+        }
+    ],
+    "Giacomo Turra": [
+        {
+            "album": "Soul Speak",
+            "creation_date": "2025-03-09T07:47:20.116551"
+        },
+        {
+            "album": "The Way She Wants",
+            "creation_date": "2025-03-09T07:47:07.234792"
         }
     ],
     "Gibson Brothers": [
@@ -14372,10 +14692,6 @@
         }
     ],
     "Glory Fell": [
-        {
-            "album": "The P Is Silent - Copy",
-            "creation_date": "2024-12-05T07:49:11.646530"
-        },
         {
             "album": "The P Is Silent",
             "creation_date": "2024-12-05T07:49:11.646530"
@@ -15029,6 +15345,56 @@
             "creation_date": "2025-02-14T02:25:43.481958"
         }
     ],
+    "Grin & Bear": [
+        {
+            "album": "70 Times",
+            "creation_date": "2025-03-09T08:11:06.420905"
+        },
+        {
+            "album": "Bullying",
+            "creation_date": "2025-03-09T08:09:43.065135"
+        },
+        {
+            "album": "Cross Legged",
+            "creation_date": "2025-03-09T08:12:10.651927"
+        },
+        {
+            "album": "Don't Think, Just Be Love",
+            "creation_date": "2025-03-09T08:11:18.318604"
+        },
+        {
+            "album": "Drowning in the Mud (Demos)",
+            "creation_date": "2025-03-09T08:09:22.408409"
+        },
+        {
+            "album": "Hair Shirt, Pt. 1",
+            "creation_date": "2025-03-09T08:08:43.077364"
+        },
+        {
+            "album": "Put Me in the Back of the Line",
+            "creation_date": "2025-03-09T08:10:15.405480"
+        },
+        {
+            "album": "Relief",
+            "creation_date": "2025-03-09T08:09:06.276799"
+        },
+        {
+            "album": "Sad Paddy's Day",
+            "creation_date": "2025-03-09T08:12:43.749926"
+        },
+        {
+            "album": "Snarled",
+            "creation_date": "2025-03-09T08:08:54.910747"
+        },
+        {
+            "album": "Somewhere",
+            "creation_date": "2025-03-09T08:11:59.060039"
+        },
+        {
+            "album": "Trip to the Bottom",
+            "creation_date": "2025-03-09T08:11:29.708804"
+        }
+    ],
     "Grip On The World": [
         {
             "album": "2AM",
@@ -15523,16 +15889,8 @@
     ],
     "Hard Graves": [
         {
-            "album": "Consequence of Action (EP) - Copy",
-            "creation_date": "2024-12-05T07:46:04.590157"
-        },
-        {
             "album": "Consequence of Action (EP)",
             "creation_date": "2024-12-05T07:46:04.590157"
-        },
-        {
-            "album": "Purgatory - Copy",
-            "creation_date": "2024-12-05T07:52:47.729779"
         },
         {
             "album": "Purgatory",
@@ -15823,6 +16181,16 @@
         {
             "album": "November 9th, 5am",
             "creation_date": "2024-12-06T02:13:26.578863"
+        }
+    ],
+    "Heems": [
+        {
+            "album": "FLOWERS",
+            "creation_date": "2025-03-09T08:00:03.146530"
+        },
+        {
+            "album": "Pop Song (Games)",
+            "creation_date": "2025-03-09T08:00:55.621448"
         }
     ],
     "Helen Ganya": [
@@ -16189,6 +16557,12 @@
         {
             "album": "Porcelain",
             "creation_date": "2024-12-14T01:09:18.256233"
+        }
+    ],
+    "Hockey Dad": [
+        {
+            "album": "Jam in the Van - Hockey Dad (Live Session, Los Angeles, CA, 2019)",
+            "creation_date": "2025-03-09T07:11:11.175015"
         }
     ],
     "Hodera": [
@@ -17323,19 +17697,11 @@
     ],
     "Inimical Drive": [
         {
-            "album": "Nothing New - Copy",
-            "creation_date": "2024-12-05T07:51:20.510317"
-        },
-        {
             "album": "Nothing New",
             "creation_date": "2024-12-05T07:51:20.510317"
         }
     ],
     "Inner Outlines": [
-        {
-            "album": "Miracle EP - Copy",
-            "creation_date": "2024-12-05T07:45:12.033778"
-        },
         {
             "album": "Miracle EP",
             "creation_date": "2024-12-05T07:45:12.033778"
@@ -17375,10 +17741,6 @@
     ],
     "Interpersonal": [
         {
-            "album": "All Done - Copy",
-            "creation_date": "2024-12-05T07:54:14.511667"
-        },
-        {
             "album": "All Done",
             "creation_date": "2024-12-05T07:54:14.511667"
         },
@@ -17405,10 +17767,6 @@
         {
             "album": "Home Is the Gift - Single",
             "creation_date": "2024-12-16T21:33:08.917099"
-        },
-        {
-            "album": "Into It. Over It. on Audiotree Live (Session #2) - Copy",
-            "creation_date": "2024-12-05T20:11:18.150685"
         },
         {
             "album": "Into It. Over It. on Audiotree Live (Session #2)",
@@ -17438,10 +17796,6 @@
         }
     ],
     "Irish Goodbyes": [
-        {
-            "album": "Living, More or Less - Copy",
-            "creation_date": "2024-12-05T08:00:59.206518"
-        },
         {
             "album": "Living, More or Less",
             "creation_date": "2024-12-05T08:00:59.206518"
@@ -17553,10 +17907,6 @@
             "creation_date": "2024-12-05T07:41:40.486839"
         },
         {
-            "album": "Thorns - Copy",
-            "creation_date": "2024-12-05T07:47:14.510480"
-        },
-        {
             "album": "Thorns",
             "creation_date": "2024-12-05T07:47:14.510480"
         }
@@ -17593,6 +17943,12 @@
         {
             "album": "That's All, Right_",
             "creation_date": "2025-01-31T06:34:03.310643"
+        }
+    ],
+    "Jack The Underdog": [
+        {
+            "album": "2095 ft. John Harvie",
+            "creation_date": "2025-03-09T07:44:40.342475"
         }
     ],
     "Jack Vandervelde": [
@@ -18557,6 +18913,24 @@
             "creation_date": "2025-01-22T06:55:05.197567"
         }
     ],
+    "John Harvie": [
+        {
+            "album": "Beauty In The Bad Things",
+            "creation_date": "2025-03-09T07:45:35.871226"
+        },
+        {
+            "album": "Elephant",
+            "creation_date": "2025-03-09T07:45:07.318352"
+        },
+        {
+            "album": "Not Another Song",
+            "creation_date": "2025-03-09T07:45:22.775856"
+        },
+        {
+            "album": "Roses",
+            "creation_date": "2025-03-09T07:44:53.792555"
+        }
+    ],
     "John Kailian": [
         {
             "album": "Tell Me Brother",
@@ -19117,10 +19491,6 @@
     ],
     "Justin James Carretta": [
         {
-            "album": "The Water - Copy",
-            "creation_date": "2024-12-05T07:45:44.323944"
-        },
-        {
             "album": "The Water",
             "creation_date": "2024-12-05T07:45:44.323944"
         }
@@ -19262,10 +19632,6 @@
         }
     ],
     "Kamikaze Cole": [
-        {
-            "album": "Veni Vidi Vici - Copy",
-            "creation_date": "2024-12-05T07:47:59.981852"
-        },
         {
             "album": "Veni Vidi Vici",
             "creation_date": "2024-12-05T07:47:59.981852"
@@ -19673,10 +20039,6 @@
     ],
     "Kings of the Wild Things": [
         {
-            "album": "Tell Me A Tragedy - Copy",
-            "creation_date": "2024-12-05T07:59:38.629468"
-        },
-        {
             "album": "Tell Me A Tragedy",
             "creation_date": "2024-12-05T07:59:38.629468"
         }
@@ -19745,6 +20107,22 @@
         {
             "album": "TURN ME ON",
             "creation_date": "2025-01-24T03:06:06.513484"
+        }
+    ],
+    "Klypso": [
+        {
+            "album": "Low Rider (No Lighter)",
+            "creation_date": "2025-03-09T07:28:41.181243"
+        }
+    ],
+    "Kmoy": [
+        {
+            "album": "Always Be My Lady",
+            "creation_date": "2025-03-09T07:30:06.996166"
+        },
+        {
+            "album": "Happy Bethday",
+            "creation_date": "2025-03-09T07:30:18.654996"
         }
     ],
     "Knavery": [
@@ -20455,6 +20833,12 @@
             "creation_date": "2024-12-30T09:30:56.958441"
         }
     ],
+    "Lee Scott": [
+        {
+            "album": "Feed The Well _ Vertigo",
+            "creation_date": "2025-03-09T08:00:29.403068"
+        }
+    ],
     "Leeloh": [
         {
             "album": "Don\u2019t Cry! There Is Still The Rest Of Our Lives",
@@ -20514,10 +20898,6 @@
         }
     ],
     "Lemon Law": [
-        {
-            "album": "Dirty Dozen - Copy",
-            "creation_date": "2024-12-05T07:59:49.586515"
-        },
         {
             "album": "Dirty Dozen",
             "creation_date": "2024-12-05T07:59:49.586515"
@@ -20755,6 +21135,12 @@
             "creation_date": "2025-01-22T08:04:55.273011"
         }
     ],
+    "Lighter Co.": [
+        {
+            "album": "If You Kill All The Flowers",
+            "creation_date": "2025-03-09T07:08:17.595045"
+        }
+    ],
     "lighthearted": [
         {
             "album": "again & again",
@@ -20803,16 +21189,8 @@
     ],
     "Like St. Joan": [
         {
-            "album": "Cracks - Copy",
-            "creation_date": "2024-12-05T22:38:21.346950"
-        },
-        {
             "album": "Cracks",
             "creation_date": "2024-12-05T22:38:21.346950"
-        },
-        {
-            "album": "Popstar - Copy",
-            "creation_date": "2024-12-05T22:38:32.589997"
         },
         {
             "album": "Popstar",
@@ -21689,10 +22067,6 @@
     ],
     "Luxora": [
         {
-            "album": "Luxora - Copy",
-            "creation_date": "2024-12-05T07:52:36.050976"
-        },
-        {
             "album": "Luxora",
             "creation_date": "2024-12-05T07:52:36.050976"
         }
@@ -21956,10 +22330,6 @@
         }
     ],
     "Maladjust": [
-        {
-            "album": "Demo '23 - Copy",
-            "creation_date": "2024-12-05T07:56:18.451322"
-        },
         {
             "album": "Demo '23",
             "creation_date": "2024-12-05T07:56:18.451322"
@@ -23171,6 +23541,12 @@
             "creation_date": "2025-01-22T05:56:57.204803"
         }
     ],
+    "Metalocalypse_ Dethklok": [
+        {
+            "album": "I Ejaculate Fire",
+            "creation_date": "2025-03-09T08:12:56.261918"
+        }
+    ],
     "Methyl Ethel": [
         {
             "album": "Brakhage",
@@ -23689,6 +24065,32 @@
             "creation_date": "2024-12-30T10:26:52.458205"
         }
     ],
+    "Mike Kota": [
+        {
+            "album": "Glimpse",
+            "creation_date": "2025-03-09T07:07:53.568493"
+        },
+        {
+            "album": "I'm Not Giving Up on You",
+            "creation_date": "2025-03-09T07:07:40.930119"
+        },
+        {
+            "album": "It's Not Serious",
+            "creation_date": "2025-03-09T07:08:40.938591"
+        },
+        {
+            "album": "Little Tugs",
+            "creation_date": "2025-03-09T07:08:28.535205"
+        },
+        {
+            "album": "Shutter Speed",
+            "creation_date": "2025-03-09T07:08:05.436226"
+        },
+        {
+            "album": "Watch Your 6",
+            "creation_date": "2025-03-09T07:08:53.345105"
+        }
+    ],
     "Mike Love": [
         {
             "album": "Mike Love on Audiotree Live",
@@ -24115,10 +24517,6 @@
             "creation_date": "2024-12-05T07:32:16.758992"
         },
         {
-            "album": "They Said - Copy",
-            "creation_date": "2024-12-05T07:55:00.860792"
-        },
-        {
             "album": "They Said",
             "creation_date": "2024-12-05T07:55:00.860792"
         }
@@ -24343,6 +24741,16 @@
         {
             "album": "Salt Creek (Live at Crypto.com Arena, Los Angeles, CA, 9_24_2023)",
             "creation_date": "2024-12-08T18:02:40.561845"
+        }
+    ],
+    "Mom Rock": [
+        {
+            "album": "Flinching (My Side of Things)",
+            "creation_date": "2025-03-09T07:42:47.106579"
+        },
+        {
+            "album": "Problems",
+            "creation_date": "2025-03-09T07:43:02.224686"
         }
     ],
     "Mom's Home": [
@@ -25047,16 +25455,8 @@
     ],
     "My Giddy Aunt": [
         {
-            "album": "8 Billion Characters in the Worst Movie Ever - Copy",
-            "creation_date": "2024-12-05T22:37:37.728131"
-        },
-        {
             "album": "8 Billion Characters in the Worst Movie Ever",
             "creation_date": "2024-12-05T22:37:37.728131"
-        },
-        {
-            "album": "All Things Come in Time (Deluxe) - Copy",
-            "creation_date": "2024-12-05T22:37:48.532079"
         },
         {
             "album": "All Things Come in Time (Deluxe)",
@@ -25070,6 +25470,10 @@
         }
     ],
     "My Morning Jacket": [
+        {
+            "album": "I Will Be There When You Die (Live at Terminal 5, NYC, 10_18_10)",
+            "creation_date": "2025-03-09T07:25:22.446166"
+        },
         {
             "album": "Squid Ink",
             "creation_date": "2025-02-11T08:29:10.220035"
@@ -25197,6 +25601,56 @@
             "creation_date": "2025-02-14T02:10:59.034568"
         }
     ],
+    "NATL PARK SRVC": [
+        {
+            "album": "Alice, Illusions, and the Jack of Hearts _ Our Own Pace",
+            "creation_date": "2025-03-09T07:55:58.887419"
+        },
+        {
+            "album": "All the Moves",
+            "creation_date": "2025-03-09T07:58:32.519125"
+        },
+        {
+            "album": "GARAGE",
+            "creation_date": "2025-03-09T07:59:18.898940"
+        },
+        {
+            "album": "J.W.A.P.R",
+            "creation_date": "2025-03-09T07:57:44.706787"
+        },
+        {
+            "album": "Like All Good Magicians",
+            "creation_date": "2025-03-09T07:55:33.378550"
+        },
+        {
+            "album": "OLIVER",
+            "creation_date": "2025-03-09T07:59:00.610990"
+        },
+        {
+            "album": "Psalm 11_02 AM",
+            "creation_date": "2025-03-09T07:59:39.917345"
+        },
+        {
+            "album": "Psychic Friends Fair",
+            "creation_date": "2025-03-09T07:58:13.263576"
+        },
+        {
+            "album": "The Deadline",
+            "creation_date": "2025-03-09T07:56:31.370333"
+        },
+        {
+            "album": "The Future Is Now",
+            "creation_date": "2025-03-09T07:57:33.627059"
+        },
+        {
+            "album": "The Right Thing",
+            "creation_date": "2025-03-09T07:56:15.160563"
+        },
+        {
+            "album": "The Sharks",
+            "creation_date": "2025-03-09T07:57:01.419086"
+        }
+    ],
     "NAYSAYERS": [
         {
             "album": "Clarity",
@@ -25211,6 +25665,12 @@
         {
             "album": "Need You Again",
             "creation_date": "2025-02-07T01:12:49.967046"
+        }
+    ],
+    "Neck Deep": [
+        {
+            "album": "Gold Steps",
+            "creation_date": "2025-03-09T07:26:33.304582"
         }
     ],
     "Necto": [
@@ -25409,10 +25869,6 @@
         {
             "album": "Feel",
             "creation_date": "2024-12-05T07:41:05.877172"
-        },
-        {
-            "album": "Texas Justice - Copy",
-            "creation_date": "2024-12-05T07:47:25.466542"
         },
         {
             "album": "Texas Justice",
@@ -25651,10 +26107,6 @@
     ],
     "Night Jobs": [
         {
-            "album": "Never Happener - Copy",
-            "creation_date": "2024-12-05T08:00:47.849074"
-        },
-        {
             "album": "Never Happener",
             "creation_date": "2024-12-05T08:00:47.849074"
         }
@@ -25675,6 +26127,24 @@
         {
             "album": "Don't Let Me Be Misunderstood",
             "creation_date": "2024-12-08T17:57:28.653944"
+        }
+    ],
+    "Niko the Band": [
+        {
+            "album": "Bad For Your Roots",
+            "creation_date": "2025-03-09T07:46:28.043291"
+        },
+        {
+            "album": "Niko The Album",
+            "creation_date": "2025-03-09T07:45:49.793223"
+        },
+        {
+            "album": "So Damn Naive",
+            "creation_date": "2025-03-09T07:46:17.096245"
+        },
+        {
+            "album": "The Float Trip in Which We Celebrated Cameron's 21st Birthday",
+            "creation_date": "2025-03-09T07:46:04.847974"
         }
     ],
     "nilo ilo": [
@@ -26179,10 +26649,6 @@
     ],
     "Nowake": [
         {
-            "album": "Wartooth - Copy",
-            "creation_date": "2024-12-05T07:43:56.491205"
-        },
-        {
             "album": "Wartooth",
             "creation_date": "2024-12-05T07:43:56.491205"
         }
@@ -26385,6 +26851,16 @@
             "creation_date": "2024-12-08T17:51:30.113889"
         }
     ],
+    "Odd Sweetheart": [
+        {
+            "album": "Lie to Me",
+            "creation_date": "2025-03-09T07:18:05.035690"
+        },
+        {
+            "album": "Structure (Lofi)",
+            "creation_date": "2025-03-09T07:18:16.579873"
+        }
+    ],
     "Odie Leigh": [
         {
             "album": "Crop Circles - Treehouse Tape Sessions",
@@ -26499,10 +26975,6 @@
     ],
     "Off-Leash": [
         {
-            "album": "LOST TiME _ NEW FiX - Copy",
-            "creation_date": "2024-12-05T08:00:02.301767"
-        },
-        {
             "album": "LOST TiME _ NEW FiX",
             "creation_date": "2024-12-05T08:00:02.301767"
         },
@@ -26572,10 +27044,6 @@
         }
     ],
     "Oh The Humanity!": [
-        {
-            "album": "Worth Nothing - Copy",
-            "creation_date": "2024-12-05T08:01:21.345457"
-        },
         {
             "album": "Worth Nothing",
             "creation_date": "2024-12-05T08:01:21.345457"
@@ -27381,10 +27849,6 @@
     ],
     "Pale Kaiori": [
         {
-            "album": "ALL RESET_ Return - Copy",
-            "creation_date": "2024-12-05T07:44:08.779552"
-        },
-        {
             "album": "ALL RESET_ Return",
             "creation_date": "2024-12-05T07:44:08.779552"
         }
@@ -27571,10 +28035,6 @@
     ],
     "Papperbok": [
         {
-            "album": "Aubade - Copy",
-            "creation_date": "2024-12-05T22:42:57.934883"
-        },
-        {
             "album": "Aubade",
             "creation_date": "2024-12-05T22:42:57.934883"
         },
@@ -27714,10 +28174,6 @@
         }
     ],
     "Path to Acheron": [
-        {
-            "album": "Dig Your Grave - Copy",
-            "creation_date": "2024-12-05T07:44:42.276883"
-        },
         {
             "album": "Dig Your Grave",
             "creation_date": "2024-12-05T07:44:42.276883"
@@ -28315,6 +28771,12 @@
             "creation_date": "2025-02-07T07:39:20.882811"
         }
     ],
+    "Philip Steir": [
+        {
+            "album": "Magic Carpet Ride (Steir's Mix)",
+            "creation_date": "2025-03-09T07:15:13.693823"
+        }
+    ],
     "Phoebe Green": [
         {
             "album": "Ask Me Now (Live in London)",
@@ -28386,10 +28848,6 @@
         }
     ],
     "phoneswithchords": [
-        {
-            "album": "Already Miss You - Copy",
-            "creation_date": "2024-12-05T23:05:23.939552"
-        },
         {
             "album": "Already Miss You",
             "creation_date": "2024-12-05T23:05:23.939552"
@@ -28580,10 +29038,6 @@
         }
     ],
     "Pioneer Salesmen": [
-        {
-            "album": "Illuminate Your Mind - Copy",
-            "creation_date": "2024-12-05T07:49:59.293474"
-        },
         {
             "album": "Illuminate Your Mind",
             "creation_date": "2024-12-05T07:49:59.293474"
@@ -29019,19 +29473,11 @@
     ],
     "Portraits & Landscapes": [
         {
-            "album": "Love Will (Not) Condemn You - Copy",
-            "creation_date": "2024-12-05T07:57:00.730391"
-        },
-        {
             "album": "Love Will (Not) Condemn You",
             "creation_date": "2024-12-05T07:57:00.730391"
         }
     ],
     "Portside Dive": [
-        {
-            "album": "Been About U - Copy",
-            "creation_date": "2024-12-05T08:00:36.183023"
-        },
         {
             "album": "Been About U",
             "creation_date": "2024-12-05T08:00:36.183023"
@@ -29195,10 +29641,6 @@
     ],
     "Pretty Talk": [
         {
-            "album": "Waste Your Time - Copy",
-            "creation_date": "2024-12-05T07:44:54.842335"
-        },
-        {
             "album": "Waste Your Time",
             "creation_date": "2024-12-05T07:44:54.842335"
         }
@@ -29283,6 +29725,120 @@
         {
             "album": "roe vs gofvckurself",
             "creation_date": "2024-12-30T12:09:24.850903"
+        }
+    ],
+    "Proper Pet": [
+        {
+            "album": "Already Dead",
+            "creation_date": "2025-03-09T07:53:25.717801"
+        },
+        {
+            "album": "Burned Out",
+            "creation_date": "2025-03-09T07:51:59.239922"
+        },
+        {
+            "album": "CYU",
+            "creation_date": "2025-03-09T07:54:48.835413"
+        },
+        {
+            "album": "Dancing on the Ceiling",
+            "creation_date": "2025-03-09T07:51:01.508883"
+        },
+        {
+            "album": "Disco Dancing",
+            "creation_date": "2025-03-09T07:49:00.936271"
+        },
+        {
+            "album": "dis_content (Sutton Place Remix)",
+            "creation_date": "2025-03-09T07:48:17.247637"
+        },
+        {
+            "album": "dis_content",
+            "creation_date": "2025-03-09T07:51:41.520998"
+        },
+        {
+            "album": "Downtown Rodeo",
+            "creation_date": "2025-03-09T07:48:02.921298"
+        },
+        {
+            "album": "frog song",
+            "creation_date": "2025-03-09T07:54:21.158056"
+        },
+        {
+            "album": "fuck em'",
+            "creation_date": "2025-03-09T07:52:10.892148"
+        },
+        {
+            "album": "Fuck Em",
+            "creation_date": "2025-03-09T07:48:46.803080"
+        },
+        {
+            "album": "Heaven to Me",
+            "creation_date": "2025-03-09T07:47:34.476731"
+        },
+        {
+            "album": "it.s.ok.to.cry",
+            "creation_date": "2025-03-09T07:52:55.257657"
+        },
+        {
+            "album": "Kink",
+            "creation_date": "2025-03-09T07:49:15.359932"
+        },
+        {
+            "album": "Liar",
+            "creation_date": "2025-03-09T07:50:34.054493"
+        },
+        {
+            "album": "Like You",
+            "creation_date": "2025-03-09T07:51:17.726748"
+        },
+        {
+            "album": "Little Games",
+            "creation_date": "2025-03-09T07:52:41.119749"
+        },
+        {
+            "album": "Lose Control",
+            "creation_date": "2025-03-09T07:52:25.086851"
+        },
+        {
+            "album": "Mirror",
+            "creation_date": "2025-03-09T07:49:50.594223"
+        },
+        {
+            "album": "Not Maybe I Guess (Acoustic Version)",
+            "creation_date": "2025-03-09T07:54:32.634178"
+        },
+        {
+            "album": "Not Maybe I Guess",
+            "creation_date": "2025-03-09T07:55:05.495923"
+        },
+        {
+            "album": "Peaches in July",
+            "creation_date": "2025-03-09T07:53:11.845638"
+        },
+        {
+            "album": "Sabotage Me",
+            "creation_date": "2025-03-09T07:47:49.482287"
+        },
+        {
+            "album": "sex, drugs, pizza & rock n' roll",
+            "creation_date": "2025-03-09T07:50:19.643855"
+        },
+        {
+            "album": "Silly Mountain",
+            "creation_date": "2025-03-09T07:53:51.746144"
+        },
+        {
+            "album": "Sky Harbor",
+            "creation_date": "2025-03-09T07:50:04.867026"
+        },
+        {
+            "album": "This is It",
+            "creation_date": "2025-03-09T07:55:21.605339"
+        },
+        {
+            "album": "will everything be ok_",
+            "creation_date": "2025-03-09T07:48:31.944508"
         }
     ],
     "Psalm One": [
@@ -30417,10 +30973,6 @@
     ],
     "regret cadet": [
         {
-            "album": "demo - Copy",
-            "creation_date": "2024-12-05T23:05:01.562196"
-        },
-        {
             "album": "demo",
             "creation_date": "2024-12-05T23:05:01.562196"
         }
@@ -30544,10 +31096,6 @@
         }
     ],
     "Retro Champ": [
-        {
-            "album": "Road to Nowhere - Copy",
-            "creation_date": "2024-12-05T07:45:23.996547"
-        },
         {
             "album": "Road to Nowhere",
             "creation_date": "2024-12-05T07:45:23.996547"
@@ -31447,10 +31995,6 @@
     ],
     "Rum Luck": [
         {
-            "album": "Ghost Town - Copy",
-            "creation_date": "2024-12-05T07:54:49.374337"
-        },
-        {
             "album": "Ghost Town",
             "creation_date": "2024-12-05T07:54:49.374337"
         }
@@ -31791,16 +32335,8 @@
     ],
     "Sacrifice The Sacred": [
         {
-            "album": "Djentleman - Copy",
-            "creation_date": "2024-12-05T07:46:39.556197"
-        },
-        {
             "album": "Djentleman",
             "creation_date": "2024-12-05T07:46:39.556197"
-        },
-        {
-            "album": "Re_Birth - Copy",
-            "creation_date": "2024-12-05T07:51:47.331816"
         },
         {
             "album": "Re_Birth",
@@ -32479,10 +33015,6 @@
     ],
     "Scuzz": [
         {
-            "album": "Super Blood Wolf Moon - Copy",
-            "creation_date": "2024-12-05T07:52:11.171946"
-        },
-        {
             "album": "Super Blood Wolf Moon",
             "creation_date": "2024-12-05T07:52:11.171946"
         }
@@ -32903,10 +33435,6 @@
     ],
     "Shareholder": [
         {
-            "album": "Candlelight - Copy",
-            "creation_date": "2024-12-05T07:55:34.430958"
-        },
-        {
             "album": "Candlelight",
             "creation_date": "2024-12-05T07:55:34.430958"
         }
@@ -33043,6 +33571,10 @@
         {
             "album": "Bastard",
             "creation_date": "2025-01-22T06:37:00.114548"
+        },
+        {
+            "album": "betweenthebedandthewall",
+            "creation_date": "2025-03-09T08:08:30.897112"
         }
     ],
     "Shoreline": [
@@ -33207,10 +33739,6 @@
     ],
     "Sideline Heroes": [
         {
-            "album": "Sideline Heroes - Copy",
-            "creation_date": "2024-12-05T07:59:13.450423"
-        },
-        {
             "album": "Sideline Heroes",
             "creation_date": "2024-12-05T07:59:13.450423"
         }
@@ -33303,6 +33831,36 @@
         {
             "album": "Overloaded",
             "creation_date": "2024-12-30T14:30:19.722240"
+        }
+    ],
+    "Sindy": [
+        {
+            "album": "AURA TOUCHED",
+            "creation_date": "2025-03-09T07:03:07.778577"
+        },
+        {
+            "album": "Drifter + Hex",
+            "creation_date": "2025-03-09T07:03:19.599656"
+        },
+        {
+            "album": "First Cut",
+            "creation_date": "2025-03-09T07:03:31.238542"
+        },
+        {
+            "album": "Flicker Form + Gloom Lance",
+            "creation_date": "2025-03-09T07:02:56.237934"
+        },
+        {
+            "album": "Otherworld Atlas",
+            "creation_date": "2025-03-09T07:02:32.478053"
+        },
+        {
+            "album": "rites of spring",
+            "creation_date": "2025-03-09T07:02:45.089016"
+        },
+        {
+            "album": "Trash Burn",
+            "creation_date": "2025-03-09T07:03:42.732027"
         }
     ],
     "Single Mothers": [
@@ -33415,6 +33973,18 @@
         {
             "album": "The Venom You Spit",
             "creation_date": "2024-12-31T06:08:05.144923"
+        }
+    ],
+    "Sister Wife Sex Strike": [
+        {
+            "album": "Angst",
+            "creation_date": "2025-03-09T07:18:49.261415"
+        }
+    ],
+    "Sister Wizzard": [
+        {
+            "album": "Page of Mirrors",
+            "creation_date": "2025-03-09T08:13:24.963496"
         }
     ],
     "Skate Shoes": [
@@ -33675,16 +34245,8 @@
     ],
     "Sleepy Gonzales": [
         {
-            "album": "Mercy Kill - Copy",
-            "creation_date": "2024-12-05T22:37:14.946981"
-        },
-        {
             "album": "Mercy Kill",
             "creation_date": "2024-12-05T22:37:14.946981"
-        },
-        {
-            "album": "Skylight - Copy",
-            "creation_date": "2024-12-05T22:37:27.123653"
         },
         {
             "album": "Skylight",
@@ -34097,6 +34659,20 @@
             "creation_date": "2025-01-31T06:25:33.463869"
         }
     ],
+    "Soft Contact": [
+        {
+            "album": "Bury Me In Colma",
+            "creation_date": "2025-03-09T07:26:21.734421"
+        },
+        {
+            "album": "Escape (The Pi\u00f1a Colada Song) [From the Official Booger Mixtape]",
+            "creation_date": "2025-03-09T07:25:57.945908"
+        },
+        {
+            "album": "Extinguisher",
+            "creation_date": "2025-03-09T07:26:09.372044"
+        }
+    ],
     "Soft Faith": [
         {
             "album": "Remixes",
@@ -34445,16 +35021,8 @@
     ],
     "Speed Mullet": [
         {
-            "album": "No. 3 - Copy",
-            "creation_date": "2024-12-05T22:38:10.291662"
-        },
-        {
             "album": "No. 3",
             "creation_date": "2024-12-05T22:38:10.291662"
-        },
-        {
-            "album": "Tourniquet - Copy",
-            "creation_date": "2024-12-05T22:37:59.578191"
         },
         {
             "album": "Tourniquet",
@@ -34546,10 +35114,6 @@
         }
     ],
     "Spouse": [
-        {
-            "album": "You Are No Clone - Copy",
-            "creation_date": "2024-12-05T23:04:50.363051"
-        },
         {
             "album": "You Are No Clone",
             "creation_date": "2024-12-05T23:04:50.363051"
@@ -34657,6 +35221,14 @@
         {
             "album": "Avenues & Alleyways",
             "creation_date": "2024-12-31T06:11:56.087971"
+        },
+        {
+            "album": "Help Yourself",
+            "creation_date": "2025-03-09T07:46:40.302711"
+        },
+        {
+            "album": "Jolly Rancher",
+            "creation_date": "2025-03-09T07:46:53.785237"
         }
     ],
     "Stantough": [
@@ -34791,24 +35363,12 @@
     ],
     "Starter Car": [
         {
-            "album": "Dog - Copy",
-            "creation_date": "2024-12-05T22:42:24.186073"
-        },
-        {
             "album": "Dog",
             "creation_date": "2024-12-05T22:42:24.186073"
         },
         {
-            "album": "Dumb Luck - Copy",
-            "creation_date": "2024-12-05T22:41:46.839423"
-        },
-        {
             "album": "Dumb Luck",
             "creation_date": "2024-12-05T22:41:46.839423"
-        },
-        {
-            "album": "Stopover - Copy",
-            "creation_date": "2024-12-05T22:41:34.971450"
         },
         {
             "album": "Stopover",
@@ -34839,6 +35399,16 @@
         {
             "album": "TWISTER",
             "creation_date": "2025-02-28T03:47:29.784751"
+        }
+    ],
+    "Steely Dan": [
+        {
+            "album": "Blues Beach",
+            "creation_date": "2025-03-09T07:11:33.449637"
+        },
+        {
+            "album": "The Last Mall",
+            "creation_date": "2025-03-09T07:11:22.279188"
         }
     ],
     "Steinza & Matt Maeson": [
@@ -34889,6 +35459,20 @@
             "creation_date": "2024-12-08T17:50:09.505495"
         }
     ],
+    "Steppenwolf": [
+        {
+            "album": "Born To Be Wild _ Magic Carpet Ride (Medley_Live On The Ed Sullivan Show, August 17, 1969)",
+            "creation_date": "2025-03-09T07:14:25.599837"
+        },
+        {
+            "album": "It's Never Too Late (Live On The Ed Sullivan Show, May 19, 1969)",
+            "creation_date": "2025-03-09T07:14:14.815590"
+        },
+        {
+            "album": "Magic Carpet Ride (MOON & SUN Remix)",
+            "creation_date": "2025-03-09T07:14:47.056214"
+        }
+    ],
     "Steve Winwood": [
         {
             "album": "Interview With Robin Ross 5-15-94",
@@ -34911,16 +35495,8 @@
             "creation_date": "2024-12-05T07:43:13.515139"
         },
         {
-            "album": "Gray Hairs (Demo) - Copy",
-            "creation_date": "2024-12-05T07:48:26.323137"
-        },
-        {
             "album": "Gray Hairs (Demo)",
             "creation_date": "2024-12-05T07:48:26.323137"
-        },
-        {
-            "album": "Throw in the Towel - Copy",
-            "creation_date": "2024-12-05T07:52:23.866656"
         },
         {
             "album": "Throw in the Towel",
@@ -35291,6 +35867,16 @@
         {
             "album": "persephone",
             "creation_date": "2024-12-06T21:47:52.762643"
+        }
+    ],
+    "String Machine": [
+        {
+            "album": "Death of the Neon, Pt. 1, 2, & 3",
+            "creation_date": "2025-03-09T07:25:34.272616"
+        },
+        {
+            "album": "Eight Legged Dog",
+            "creation_date": "2025-03-09T07:25:46.330029"
         }
     ],
     "Stuck Lucky": [
@@ -35711,6 +36297,60 @@
             "creation_date": "2025-01-22T08:54:44.866913"
         }
     ],
+    "Super Cassette": [
+        {
+            "album": "9 To 5 (Garage Version)",
+            "creation_date": "2025-03-09T07:12:07.586365"
+        },
+        {
+            "album": "Bastille Day (Garage Version)",
+            "creation_date": "2025-03-09T07:11:56.117885"
+        },
+        {
+            "album": "Better in Reverse",
+            "creation_date": "2025-03-09T07:13:28.064230"
+        },
+        {
+            "album": "Bones (Garage Version)",
+            "creation_date": "2025-03-09T07:12:18.926938"
+        },
+        {
+            "album": "Continent",
+            "creation_date": "2025-03-09T07:11:44.678073"
+        },
+        {
+            "album": "Don't Walk Away from Me (Bart Song)",
+            "creation_date": "2025-03-09T07:14:03.426120"
+        },
+        {
+            "album": "Happy Obsolete",
+            "creation_date": "2025-03-09T07:13:51.198887"
+        },
+        {
+            "album": "Heat Death (So Good So Far)",
+            "creation_date": "2025-03-09T07:12:53.585380"
+        },
+        {
+            "album": "Jungle Juice (Remastered)",
+            "creation_date": "2025-03-09T07:13:40.219056"
+        },
+        {
+            "album": "Monster",
+            "creation_date": "2025-03-09T07:13:04.468404"
+        },
+        {
+            "album": "Ouroboros",
+            "creation_date": "2025-03-09T07:13:15.739707"
+        },
+        {
+            "album": "Someday (Garage Version)",
+            "creation_date": "2025-03-09T07:12:29.882380"
+        },
+        {
+            "album": "Sunset Letdown",
+            "creation_date": "2025-03-09T07:12:41.655726"
+        }
+    ],
     "Super City": [
         {
             "album": "I Am a Poseur",
@@ -35989,6 +36629,32 @@
             "creation_date": "2025-02-04T18:50:31.755054"
         }
     ],
+    "Sweet Nobody": [
+        {
+            "album": "Five Star Diary",
+            "creation_date": "2025-03-09T07:42:19.028247"
+        },
+        {
+            "album": "Not a Good Judge",
+            "creation_date": "2025-03-09T07:41:27.748371"
+        },
+        {
+            "album": "Other Humans",
+            "creation_date": "2025-03-09T07:40:55.590708"
+        },
+        {
+            "album": "Remixes for Quiet People",
+            "creation_date": "2025-03-09T07:42:31.467098"
+        },
+        {
+            "album": "White Lies (Rontwo3 Remix)",
+            "creation_date": "2025-03-09T07:40:42.269656"
+        },
+        {
+            "album": "Why Don't You Break My Heart_",
+            "creation_date": "2025-03-09T07:41:16.569377"
+        }
+    ],
     "Swept Away Original Broadway Cast": [
         {
             "album": "No Hard Feelings",
@@ -36233,6 +36899,58 @@
             "creation_date": "2025-02-07T16:47:09.953651"
         }
     ],
+    "talker": [
+        {
+            "album": "Changes",
+            "creation_date": "2025-03-09T07:37:52.664891"
+        },
+        {
+            "album": "Collateral Damage",
+            "creation_date": "2025-03-09T07:38:06.526385"
+        },
+        {
+            "album": "Don't Want You To Love Me (Oceanator Remix)",
+            "creation_date": "2025-03-09T07:36:45.414540"
+        },
+        {
+            "album": "Easygoing (Anxious Attachment Version)",
+            "creation_date": "2025-03-09T07:35:44.226285"
+        },
+        {
+            "album": "End Of The Line",
+            "creation_date": "2025-03-09T07:37:38.390316"
+        },
+        {
+            "album": "Jam in the Van - Talker (Live Session, Los Angeles, CA 2021)",
+            "creation_date": "2025-03-09T07:37:12.575603"
+        },
+        {
+            "album": "My Meds",
+            "creation_date": "2025-03-09T07:37:00.171616"
+        },
+        {
+            "album": "Old Enough (Smidley Remix)",
+            "creation_date": "2025-03-09T07:35:28.854341"
+        },
+        {
+            "album": "Suck Up",
+            "creation_date": "2025-03-09T07:37:25.785623"
+        },
+        {
+            "album": "Truth 2",
+            "creation_date": "2025-03-09T07:35:02.723629"
+        },
+        {
+            "album": "TWENTYSOMETHING & Drag Your Feet (Stripped)",
+            "creation_date": "2025-03-09T07:35:58.791390"
+        }
+    ],
+    "Talking Kind": [
+        {
+            "album": "My Truck",
+            "creation_date": "2025-03-09T07:09:04.653524"
+        }
+    ],
     "Tall Friend": [
         {
             "album": "Tall Friend on Audiotree Live",
@@ -36313,6 +37031,16 @@
         {
             "album": "Tummy (Demo)",
             "creation_date": "2025-01-28T07:33:10.882058"
+        }
+    ],
+    "Tand": [
+        {
+            "album": "Opposite Attraction",
+            "creation_date": "2025-03-09T07:33:45.058731"
+        },
+        {
+            "album": "Swim",
+            "creation_date": "2025-03-09T07:33:59.009067"
         }
     ],
     "Tank Top": [
@@ -36443,6 +37171,12 @@
         {
             "album": "Faith",
             "creation_date": "2025-02-25T05:01:49.211741"
+        }
+    ],
+    "Telehealth": [
+        {
+            "album": "Taliesin Grid",
+            "creation_date": "2025-03-09T07:16:23.397191"
         }
     ],
     "Telethon": [
@@ -36619,20 +37353,12 @@
     ],
     "The 45": [
         {
-            "album": "Disaster - Copy",
-            "creation_date": "2024-12-05T07:47:02.351473"
-        },
-        {
             "album": "Disaster",
             "creation_date": "2024-12-05T07:47:02.351473"
         },
         {
             "album": "Head to Toe",
             "creation_date": "2024-12-05T07:41:51.297816"
-        },
-        {
-            "album": "Roll Me Home - Copy",
-            "creation_date": "2024-12-05T07:49:47.928950"
         },
         {
             "album": "Roll Me Home",
@@ -37575,16 +38301,8 @@
     ],
     "The Cult Sounds": [
         {
-            "album": "Let Flowers Die (You Never Were) - Copy",
-            "creation_date": "2024-12-05T07:57:47.386810"
-        },
-        {
             "album": "Let Flowers Die (You Never Were)",
             "creation_date": "2024-12-05T07:57:47.386810"
-        },
-        {
-            "album": "Phantoms - Copy",
-            "creation_date": "2024-12-05T07:57:35.687760"
         },
         {
             "album": "Phantoms",
@@ -37775,10 +38493,6 @@
             "creation_date": "2024-12-05T07:27:16.487471"
         },
         {
-            "album": "SHIVER - Copy",
-            "creation_date": "2024-12-05T07:54:38.775301"
-        },
-        {
             "album": "SHIVER",
             "creation_date": "2024-12-05T07:54:38.775301"
         }
@@ -37809,6 +38523,32 @@
         {
             "album": "Wise Man",
             "creation_date": "2025-03-08T12:18:58.251188"
+        }
+    ],
+    "The Donald Woodyard, Inc.": [
+        {
+            "album": "Bug Net",
+            "creation_date": "2025-03-09T07:10:27.315413"
+        },
+        {
+            "album": "Do You Still Believe in Me_",
+            "creation_date": "2025-03-09T07:11:00.563134"
+        },
+        {
+            "album": "My Favorite Songs (Vol. I)",
+            "creation_date": "2025-03-09T07:09:50.881507"
+        },
+        {
+            "album": "Nothing Makes Me Happy Anymore",
+            "creation_date": "2025-03-09T07:10:15.706770"
+        },
+        {
+            "album": "Songs to Sing To",
+            "creation_date": "2025-03-09T07:10:49.274368"
+        },
+        {
+            "album": "Waltzes for the Damned",
+            "creation_date": "2025-03-09T07:10:38.683798"
         }
     ],
     "The Doobie Brothers": [
@@ -37907,16 +38647,8 @@
     ],
     "The Few.": [
         {
-            "album": "Sleep Tight, When You Wake up We'll Be Gone - Copy",
-            "creation_date": "2024-12-05T07:46:50.584457"
-        },
-        {
             "album": "Sleep Tight, When You Wake up We'll Be Gone",
             "creation_date": "2024-12-05T07:46:50.584457"
-        },
-        {
-            "album": "Thick Skin - Copy",
-            "creation_date": "2024-12-05T07:44:19.857178"
         },
         {
             "album": "Thick Skin",
@@ -38155,8 +38887,44 @@
     ],
     "The Holophonics": [
         {
+            "album": "25 or 6 to 4",
+            "creation_date": "2025-03-09T07:39:53.775540"
+        },
+        {
+            "album": "Another Level",
+            "creation_date": "2025-03-09T07:38:58.532560"
+        },
+        {
             "album": "Clarity",
             "creation_date": "2025-02-07T18:01:23.840753"
+        },
+        {
+            "album": "Luminaire",
+            "creation_date": "2025-03-09T07:39:41.210974"
+        },
+        {
+            "album": "Maskarades, Vol. 6_ Maroon 5_ V",
+            "creation_date": "2025-03-09T07:38:45.664414"
+        },
+        {
+            "album": "Maskarades, Vol. 8_ The Nutcracker Skank",
+            "creation_date": "2025-03-09T07:38:33.422504"
+        },
+        {
+            "album": "Maskarades. Vol. 15",
+            "creation_date": "2025-03-09T07:38:19.907257"
+        },
+        {
+            "album": "Scooby Doo, Where Are You",
+            "creation_date": "2025-03-09T07:40:29.493263"
+        },
+        {
+            "album": "Spinning Wheel",
+            "creation_date": "2025-03-09T07:40:16.337772"
+        },
+        {
+            "album": "The Enchiridion",
+            "creation_date": "2025-03-09T07:39:29.083995"
         }
     ],
     "The Holy Ghost Tabernacle Choir": [
@@ -38201,10 +38969,6 @@
     ],
     "The In Betweens": [
         {
-            "album": "German For Smile - Copy",
-            "creation_date": "2024-12-05T08:05:53.226096"
-        },
-        {
             "album": "German For Smile",
             "creation_date": "2024-12-05T08:05:53.226096"
         },
@@ -38215,10 +38979,6 @@
         {
             "album": "Shoulders",
             "creation_date": "2024-12-05T07:35:10.688925"
-        },
-        {
-            "album": "The Bloom - Copy",
-            "creation_date": "2024-12-05T08:06:04.413228"
         },
         {
             "album": "The Bloom",
@@ -38327,16 +39087,8 @@
     ],
     "The Last Vinci": [
         {
-            "album": "Narrow Door - Copy",
-            "creation_date": "2024-12-05T20:05:36.658146"
-        },
-        {
             "album": "Narrow Door",
             "creation_date": "2024-12-05T20:05:36.658146"
-        },
-        {
-            "album": "Nemesis - Copy",
-            "creation_date": "2024-12-05T20:05:19.661990"
         },
         {
             "album": "Nemesis",
@@ -38673,6 +39425,16 @@
             "creation_date": "2024-12-13T01:08:34.093261"
         }
     ],
+    "The Maine": [
+        {
+            "album": "Saving Grace (Acoustic)",
+            "creation_date": "2025-03-09T07:33:04.134524"
+        },
+        {
+            "album": "You'll Never Know",
+            "creation_date": "2025-03-09T07:33:16.286210"
+        }
+    ],
     "The Marijuana Brass": [
         {
             "album": "esnupi",
@@ -38969,64 +39731,32 @@
     ],
     "The Outfield Clovers": [
         {
-            "album": "All I Do Is Run - Copy",
-            "creation_date": "2024-12-05T22:40:14.437869"
-        },
-        {
             "album": "All I Do Is Run",
             "creation_date": "2024-12-05T22:40:14.437869"
-        },
-        {
-            "album": "Breaking - Copy",
-            "creation_date": "2024-12-05T22:39:28.458552"
         },
         {
             "album": "Breaking",
             "creation_date": "2024-12-05T22:39:28.458552"
         },
         {
-            "album": "Cliffdiving - Copy",
-            "creation_date": "2024-12-05T22:40:03.702342"
-        },
-        {
             "album": "Cliffdiving",
             "creation_date": "2024-12-05T22:40:03.702342"
-        },
-        {
-            "album": "Drive - Copy",
-            "creation_date": "2024-12-05T22:38:54.707046"
         },
         {
             "album": "Drive",
             "creation_date": "2024-12-05T22:38:54.707046"
         },
         {
-            "album": "Frat House Tap Water - Copy",
-            "creation_date": "2024-12-05T22:39:52.826231"
-        },
-        {
             "album": "Frat House Tap Water",
             "creation_date": "2024-12-05T22:39:52.826231"
-        },
-        {
-            "album": "Mid-Movie Friend Fight - Copy",
-            "creation_date": "2024-12-05T22:39:16.894610"
         },
         {
             "album": "Mid-Movie Friend Fight",
             "creation_date": "2024-12-05T22:39:16.894610"
         },
         {
-            "album": "The Outfield Clovers - Copy",
-            "creation_date": "2024-12-05T22:39:06.277727"
-        },
-        {
             "album": "The Outfield Clovers",
             "creation_date": "2024-12-05T22:39:06.277727"
-        },
-        {
-            "album": "Wes Anderson - Copy",
-            "creation_date": "2024-12-05T22:39:39.636454"
         },
         {
             "album": "Wes Anderson",
@@ -39249,10 +39979,6 @@
             "creation_date": "2024-12-05T07:20:02.716698"
         },
         {
-            "album": "Sirens - Copy",
-            "creation_date": "2024-12-05T07:47:48.436479"
-        },
-        {
             "album": "Sirens",
             "creation_date": "2024-12-05T07:47:48.436479"
         }
@@ -39334,10 +40060,6 @@
         }
     ],
     "The Slow Retreat": [
-        {
-            "album": "F! - Copy",
-            "creation_date": "2024-12-05T08:00:24.895008"
-        },
         {
             "album": "F!",
             "creation_date": "2024-12-05T08:00:24.895008"
@@ -39445,32 +40167,16 @@
     ],
     "The Sunken Sea": [
         {
-            "album": "Big Scam - Copy",
-            "creation_date": "2024-12-05T22:42:36.369412"
-        },
-        {
             "album": "Big Scam",
             "creation_date": "2024-12-05T22:42:36.369412"
-        },
-        {
-            "album": "Blame - Copy",
-            "creation_date": "2024-12-05T22:41:13.063820"
         },
         {
             "album": "Blame",
             "creation_date": "2024-12-05T22:41:13.063820"
         },
         {
-            "album": "Brief Songs 1 - Copy",
-            "creation_date": "2024-12-05T22:41:02.445700"
-        },
-        {
             "album": "Brief Songs 1",
             "creation_date": "2024-12-05T22:41:02.445700"
-        },
-        {
-            "album": "Brunswick Street_Catastrophe - Copy",
-            "creation_date": "2024-12-05T22:40:51.726572"
         },
         {
             "album": "Brunswick Street_Catastrophe",
@@ -39481,16 +40187,8 @@
             "creation_date": "2025-01-22T03:54:02.301468"
         },
         {
-            "album": "Funeral Pyres - Copy",
-            "creation_date": "2024-12-05T22:41:57.851821"
-        },
-        {
             "album": "Funeral Pyres",
             "creation_date": "2024-12-05T22:41:57.851821"
-        },
-        {
-            "album": "Is It Living_ - Copy",
-            "creation_date": "2024-12-05T22:42:47.186264"
         },
         {
             "album": "Is It Living_",
@@ -39576,10 +40274,6 @@
         }
     ],
     "The Up & Up": [
-        {
-            "album": "Freezing Cold - Copy",
-            "creation_date": "2024-12-05T08:00:13.273646"
-        },
         {
             "album": "Freezing Cold",
             "creation_date": "2024-12-05T08:00:13.273646"
@@ -39873,16 +40567,8 @@
     ],
     "This Is Me Breathing": [
         {
-            "album": "Blvcklist - Copy",
-            "creation_date": "2024-12-05T07:48:37.033319"
-        },
-        {
             "album": "Blvcklist",
             "creation_date": "2024-12-05T07:48:37.033319"
-        },
-        {
-            "album": "Persona - Copy",
-            "creation_date": "2024-12-05T07:46:28.066058"
         },
         {
             "album": "Persona",
@@ -39987,20 +40673,12 @@
     ],
     "Three Way Stop": [
         {
-            "album": "All Wrong - Copy",
-            "creation_date": "2024-12-05T07:47:36.514637"
-        },
-        {
             "album": "All Wrong",
             "creation_date": "2024-12-05T07:47:36.514637"
         },
         {
             "album": "New Freeze",
             "creation_date": "2024-12-05T07:42:38.841631"
-        },
-        {
-            "album": "Waking Up - Copy",
-            "creation_date": "2024-12-05T07:50:41.172304"
         },
         {
             "album": "Waking Up",
@@ -40449,6 +41127,20 @@
             "creation_date": "2024-12-30T14:11:07.282248"
         }
     ],
+    "Toehider": [
+        {
+            "album": "He's There\u2026And Then He Does THAT",
+            "creation_date": "2025-03-09T08:08:01.853957"
+        },
+        {
+            "album": "Old, Old, Old (10th anniversary edition)",
+            "creation_date": "2025-03-09T08:07:40.123603"
+        },
+        {
+            "album": "Toehider Too! (10th anniversary edition)",
+            "creation_date": "2025-03-09T08:07:04.685954"
+        }
+    ],
     "together breakfast": [
         {
             "album": "Lunch with Your Friends, Dinner with Your Ancestors",
@@ -40649,6 +41341,12 @@
             "creation_date": "2025-02-14T01:31:20.013290"
         }
     ],
+    "TORRES": [
+        {
+            "album": "TORRES_ The Wild Honey Pie Buzzsession",
+            "creation_date": "2025-03-09T07:34:11.800765"
+        }
+    ],
     "Torture and the Desert Spiders": [
         {
             "album": "Sin\u00e9ad, I'm Afraid _ New Brighton",
@@ -40847,16 +41545,8 @@
     ],
     "Traveler": [
         {
-            "album": "Resist, Pt. I - Copy",
-            "creation_date": "2024-12-05T07:57:13.443538"
-        },
-        {
             "album": "Resist, Pt. I",
             "creation_date": "2024-12-05T07:57:13.443538"
-        },
-        {
-            "album": "Something Blue - Copy",
-            "creation_date": "2024-12-05T07:57:24.770984"
         },
         {
             "album": "Something Blue",
@@ -41159,6 +41849,10 @@
     ],
     "Turnover": [
         {
+            "album": "Ain't Love Heavy (Hush Remix)",
+            "creation_date": "2025-03-09T08:06:48.611819"
+        },
+        {
             "album": "Turnover (Audiotree Live) - EP",
             "creation_date": "2024-12-16T21:31:49.484903"
         }
@@ -41235,10 +41929,6 @@
     ],
     "Tyler Berrier": [
         {
-            "album": "Alone With Me - Copy",
-            "creation_date": "2024-12-05T22:40:40.655045"
-        },
-        {
             "album": "Alone With Me",
             "creation_date": "2024-12-05T22:40:40.655045"
         }
@@ -41292,10 +41982,6 @@
         }
     ],
     "Uncanny Valley": [
-        {
-            "album": "Don't Look Down - Copy",
-            "creation_date": "2024-12-05T07:55:23.221436"
-        },
         {
             "album": "Don't Look Down",
             "creation_date": "2024-12-05T07:55:23.221436"
@@ -41553,6 +42239,48 @@
         {
             "album": "You Really Got Me _ Atomic Punk (Digital 45)",
             "creation_date": "2025-03-08T12:30:49.758095"
+        }
+    ],
+    "Vance Joy": [
+        {
+            "album": "Clarity (Chris Malinchak Mix)",
+            "creation_date": "2025-03-09T08:02:33.412692"
+        },
+        {
+            "album": "Don\u2019t Fade - Live at Sydney Opera House",
+            "creation_date": "2025-03-09T08:01:23.662493"
+        },
+        {
+            "album": "Emmylou",
+            "creation_date": "2025-03-09T08:04:58.226477"
+        },
+        {
+            "album": "Lay It on Me (Live at Red Rocks Amphitheatre)",
+            "creation_date": "2025-03-09T08:02:52.544187"
+        },
+        {
+            "album": "Mess Is Mine (Live at Red Rocks Amphitheatre)",
+            "creation_date": "2025-03-09T08:03:07.659168"
+        },
+        {
+            "album": "Mess Is Mine - Live at Sydney Opera House",
+            "creation_date": "2025-03-09T08:01:12.264121"
+        },
+        {
+            "album": "Play with Fire",
+            "creation_date": "2025-03-09T08:04:27.789363"
+        },
+        {
+            "album": "Saturday Sun (Ryan Riback Remix)",
+            "creation_date": "2025-03-09T08:03:19.521694"
+        },
+        {
+            "album": "Saturday Sun - Live at Sydney Opera House",
+            "creation_date": "2025-03-09T08:02:16.619395"
+        },
+        {
+            "album": "Wasted Time (Lost Kings Remix)",
+            "creation_date": "2025-03-09T08:03:51.771352"
         }
     ],
     "Vanilla Gorilla": [
@@ -41877,6 +42605,16 @@
             "creation_date": "2025-02-16T23:38:44.515444"
         }
     ],
+    "Virginity": [
+        {
+            "album": "I'm Expanding My Mind",
+            "creation_date": "2025-03-09T07:19:00.866949"
+        },
+        {
+            "album": "You Can't Stop The Machine",
+            "creation_date": "2025-03-09T07:19:13.858945"
+        }
+    ],
     "Virtual Bird": [
         {
             "album": "ANARCHIC CRUCIFIXION",
@@ -42163,10 +42901,6 @@
     ],
     "Vxnnx": [
         {
-            "album": "Time - Copy",
-            "creation_date": "2024-12-05T07:51:35.019259"
-        },
-        {
             "album": "Time",
             "creation_date": "2024-12-05T07:51:35.019259"
         }
@@ -42393,6 +43127,52 @@
             "creation_date": "2025-01-22T06:44:32.843535"
         }
     ],
+    "War": [
+        {
+            "album": "(Yes It\u2019s) Christmas",
+            "creation_date": "2025-03-09T07:28:04.125946"
+        },
+        {
+            "album": "Get Down",
+            "creation_date": "2025-03-09T07:29:03.368412"
+        },
+        {
+            "album": "So (Live in Japan, 1974)",
+            "creation_date": "2025-03-09T07:27:46.933051"
+        },
+        {
+            "album": "The Cisco Kid and Other Hits",
+            "creation_date": "2025-03-09T07:27:34.260139"
+        },
+        {
+            "album": "The Making of _The World is a Ghetto_",
+            "creation_date": "2025-03-09T07:29:27.393744"
+        },
+        {
+            "album": "The World Is a Ghetto (Endel Lofi Soundscape)",
+            "creation_date": "2025-03-09T07:27:22.901704"
+        },
+        {
+            "album": "The World Is a Ghetto (Endel Relax Soundscape)",
+            "creation_date": "2025-03-09T07:27:11.414329"
+        },
+        {
+            "album": "The World Is a Ghetto (Endel Sleep Soundscape)",
+            "creation_date": "2025-03-09T07:26:58.615892"
+        },
+        {
+            "album": "WAR (The Mix Master Mike Remixes)",
+            "creation_date": "2025-03-09T07:28:28.443229"
+        },
+        {
+            "album": "War Is Coming (Original Jam)",
+            "creation_date": "2025-03-09T07:29:16.503071"
+        },
+        {
+            "album": "WAR_ The Galaxy Remixes",
+            "creation_date": "2025-03-09T07:28:16.538048"
+        }
+    ],
     "WATTS": [
         {
             "album": "After You\u2019re Gone _ Enough",
@@ -42504,10 +43284,6 @@
         }
     ],
     "Wayside": [
-        {
-            "album": "Faceless - Copy",
-            "creation_date": "2024-12-05T08:01:10.367931"
-        },
         {
             "album": "Faceless",
             "creation_date": "2024-12-05T08:01:10.367931"
@@ -42723,10 +43499,6 @@
             "creation_date": "2024-12-31T05:44:05.590686"
         },
         {
-            "album": "Wave Tribe - Copy",
-            "creation_date": "2024-12-05T07:54:26.794907"
-        },
-        {
             "album": "Wave Tribe",
             "creation_date": "2024-12-05T07:54:26.794907"
         }
@@ -42763,48 +43535,24 @@
     ],
     "Wes Hoffman": [
         {
-            "album": "Around the Campfire Vol I (Unplugged) - Copy",
-            "creation_date": "2024-12-05T08:05:40.572196"
-        },
-        {
             "album": "Around the Campfire Vol I (Unplugged)",
             "creation_date": "2024-12-05T08:05:40.572196"
-        },
-        {
-            "album": "Far From Yesterday - Copy",
-            "creation_date": "2024-12-05T08:05:03.474943"
         },
         {
             "album": "Far From Yesterday",
             "creation_date": "2024-12-05T08:05:03.474943"
         },
         {
-            "album": "Fastest Gun in the West - Copy",
-            "creation_date": "2024-12-05T08:04:50.034744"
-        },
-        {
             "album": "Fastest Gun in the West",
             "creation_date": "2024-12-05T08:04:50.034744"
-        },
-        {
-            "album": "Follow Your Heart - Copy",
-            "creation_date": "2024-12-05T08:04:39.178659"
         },
         {
             "album": "Follow Your Heart",
             "creation_date": "2024-12-05T08:04:39.178659"
         },
         {
-            "album": "For What It's Worth - Copy",
-            "creation_date": "2024-12-05T08:05:28.058199"
-        },
-        {
             "album": "For What It's Worth",
             "creation_date": "2024-12-05T08:05:28.058199"
-        },
-        {
-            "album": "Keep Your Focus - Copy",
-            "creation_date": "2024-12-05T08:04:25.613469"
         },
         {
             "album": "Keep Your Focus",
@@ -42815,16 +43563,8 @@
             "creation_date": "2024-12-08T23:41:14.638107"
         },
         {
-            "album": "Rewrite The Story - Copy",
-            "creation_date": "2024-12-05T07:56:31.825821"
-        },
-        {
             "album": "Rewrite The Story",
             "creation_date": "2024-12-05T07:56:31.825821"
-        },
-        {
-            "album": "Something to Live For - Copy",
-            "creation_date": "2024-12-05T08:05:16.175839"
         },
         {
             "album": "Something to Live For",
@@ -42889,16 +43629,8 @@
     ],
     "Weston B.": [
         {
-            "album": "Addicting - Copy",
-            "creation_date": "2024-12-05T07:43:44.293947"
-        },
-        {
             "album": "Addicting",
             "creation_date": "2024-12-05T07:43:44.293947"
-        },
-        {
-            "album": "Lost Cause - Copy",
-            "creation_date": "2024-12-05T07:48:15.206790"
         },
         {
             "album": "Lost Cause",
@@ -43075,10 +43807,6 @@
     ],
     "Whyen": [
         {
-            "album": "Elevation - Copy",
-            "creation_date": "2024-12-05T07:50:10.827053"
-        },
-        {
             "album": "Elevation",
             "creation_date": "2024-12-05T07:50:10.827053"
         }
@@ -43204,10 +43932,6 @@
         }
     ],
     "Will The Thrill": [
-        {
-            "album": "Always Be Number Two - Copy",
-            "creation_date": "2024-12-05T07:51:08.976612"
-        },
         {
             "album": "Always Be Number Two",
             "creation_date": "2024-12-05T07:51:08.976612"
@@ -43657,6 +44381,20 @@
             "creation_date": "2025-02-07T16:35:42.540632"
         }
     ],
+    "Worthwhile": [
+        {
+            "album": "A Name, Two Dates, and a Phrase",
+            "creation_date": "2025-03-09T07:15:48.628181"
+        },
+        {
+            "album": "Relentless",
+            "creation_date": "2025-03-09T07:15:37.119550"
+        },
+        {
+            "album": "Serious",
+            "creation_date": "2025-03-09T07:15:25.509269"
+        }
+    ],
     "Wow Okay Cool": [
         {
             "album": "Disproportionate Responses",
@@ -43759,6 +44497,32 @@
             "creation_date": "2024-12-13T01:09:49.045115"
         }
     ],
+    "Yard Eagle": [
+        {
+            "album": "Bad Habit",
+            "creation_date": "2025-03-09T07:43:18.603846"
+        },
+        {
+            "album": "Fine Red Twine",
+            "creation_date": "2025-03-09T07:44:00.056381"
+        },
+        {
+            "album": "Good Time Charlie's Got the Blues",
+            "creation_date": "2025-03-09T07:43:47.629433"
+        },
+        {
+            "album": "I Only Dream in Black and White",
+            "creation_date": "2025-03-09T07:44:26.111080"
+        },
+        {
+            "album": "Retta (Live @ Off Broadway)",
+            "creation_date": "2025-03-09T07:43:32.129098"
+        },
+        {
+            "album": "The Ghost of Nancy Reagan",
+            "creation_date": "2025-03-09T07:44:13.589024"
+        }
+    ],
     "Yawning Balch": [
         {
             "album": "A Moment Expanded (A Form Constant)",
@@ -43775,6 +44539,16 @@
         {
             "album": "Winter Widow - , Pt. II",
             "creation_date": "2025-02-26T04:37:59.511790"
+        }
+    ],
+    "YDG": [
+        {
+            "album": "Echo",
+            "creation_date": "2025-03-09T08:14:56.350662"
+        },
+        {
+            "album": "No Mercy",
+            "creation_date": "2025-03-09T08:15:14.484555"
         }
     ],
     "YDRA": [
@@ -43794,10 +44568,6 @@
         }
     ],
     "Years Down": [
-        {
-            "album": "Better Off - Copy",
-            "creation_date": "2024-12-05T07:59:02.178515"
-        },
         {
             "album": "Better Off",
             "creation_date": "2024-12-05T07:59:02.178515"
@@ -43975,6 +44745,12 @@
         {
             "album": "Forget",
             "creation_date": "2025-02-25T04:51:19.246407"
+        }
+    ],
+    "yungatita": [
+        {
+            "album": "Home Appliance",
+            "creation_date": "2025-03-09T08:06:02.460228"
         }
     ],
     "Yuno": [
