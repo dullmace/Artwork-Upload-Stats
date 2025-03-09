@@ -20,7 +20,7 @@ st.set_page_config(
 
 
 # Load and preprocess data
-@st.cache_data(ttl=3600) 
+@st.cache_data
 def load_album_data():
     with open("artist_albums.json") as f:
         data = json.load(f)
@@ -47,7 +47,7 @@ def load_album_data():
     return normalized
 
 
-@st.cache_data(ttl=3600) 
+@st.cache_data
 def load_data():
     df = pd.read_csv("album_counts.csv")
     df.columns = ["Artist", "Artworks_Uploaded", "Date_Modified"]
@@ -68,10 +68,10 @@ def load_data():
         )
     )
 
-    # Convert Album_Uploaded_Dates to tuples (hashable type)
+    # Convert Album_Uploaded_Dates to datetime objects
     df["Album_Uploaded_Dates"] = df["Artist"].str.lower().map(
         lambda x: tuple(
-            album["uploaded_date"]
+            pd.to_datetime(album["uploaded_date"], unit="ms")  # Convert to datetime
             for album in album_data.get(x, {}).get("albums", [])
         )
     )
@@ -88,10 +88,14 @@ def load_data():
         df["Artworks_Uploaded"], bins=bins, labels=labels, right=False
     )
 
+    # Remove underscores from contribution_category labels
+    df["contribution_category"] = df["contribution_category"].astype(str).str.replace(
+        "_", " "
+    )
     return df.sort_values("Artworks_Uploaded", ascending=False)
 
 
-@st.cache_data(ttl=3600) 
+@st.cache_data
 def preprocess_data(df):
     return {
         "monthly_uploads": df.groupby(pd.Grouper(key="Date_Modified", freq="ME")).size(),
@@ -106,17 +110,13 @@ df = load_data()
 preprocessed = preprocess_data(df)
 
 # Title Section
-st.title("🎶 SpotFM Artwork Upload Stats")
+st.title("🎨 SpotFM Artwork Upload Stats")
 
-if st.button("Refresh Data"):
-    st.cache_data.clear()
-    st.rerun()
-    
 # Filters
 with st.expander("🔍 Filter Data", expanded=False):
     col1, col2 = st.columns(2)
     with col1:
-        all_categories = df["contribution_category"].cat.categories.tolist()
+        all_categories = df["contribution_category"].unique().tolist()
         selected_categories = st.multiselect(
             "Contribution Level", all_categories, default=all_categories
         )
