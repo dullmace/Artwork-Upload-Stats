@@ -8,7 +8,6 @@ from datetime import datetime
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from thefuzz import process
-from streamlit.spinner import spinner
 
 # Page config with improved mobile support
 st.set_page_config(
@@ -137,7 +136,7 @@ filtered_df = df[
 
 # Fuzzy search
 if search_term:
-    with spinner("Searching artists..."):
+    with st.spinner("Searching artists..."):  # Correct usage of st.spinner
         artists = filtered_df['Artist'].unique()
         matches = process.extract(search_term, artists, limit=50)
         filtered_df = filtered_df[filtered_df['Artist'].isin([m[0] for m in matches])]
