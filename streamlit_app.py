@@ -167,11 +167,12 @@ with tab1:
                      color_continuous_scale='Viridis',
                      title=f"Top {num_artists} Artists")
         
-        fig.update_layout(height=850, num_artists*5,
-                          xaxis_title="Artworks Uploaded",
-                          yaxis_title="Artist",
-                          yaxis={'categoryorder':'total ascending'})
-        st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(height=max(800, num_artists * 20), 
+                       xaxis_title="Artworks Uploaded",
+                       yaxis_title="Artist",
+                       yaxis={'categoryorder':'total ascending'})
+
+    st.plotly_chart(fig, use_container_width=True)
     
     elif viz_choice == "Artist Word Cloud":
         # Generate word cloud with artist names weighted by uploads
