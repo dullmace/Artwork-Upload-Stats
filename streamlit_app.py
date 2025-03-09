@@ -451,7 +451,7 @@ num_cols = st.slider(
 cols = st.columns(num_cols)
 top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
-colors = ["#AA6C78", "#CB9D75", "#CBC98B", "#7A9D7D", "#4382A2", "#6C557E"]
+colors = ["#977C87", "#BA8D82", "#C6A78A", "#CAC68C", "#87B086", "#7989A2"]
 
 for idx, (_, row) in enumerate(top_badges.iterrows()):
     bg_color = colors[idx % len(colors)]
