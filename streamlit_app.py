@@ -451,7 +451,7 @@ num_cols = st.slider(
 cols = st.columns(num_cols)
 top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
-colors = ["#977C87", "#BA8D82", "#C6A78A", "#CAC68C", "#87B086", "#7989A2"]
+colors = ["#AA6C78", "#CB9D75", "#CBC98B", "#7A9D7D", "#4382A2", "#6C557E"]
 
 for idx, (_, row) in enumerate(top_badges.iterrows()):
     bg_color = colors[idx % len(colors)]
@@ -477,7 +477,8 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
                        font-weight: bold;
                        background: rgba(0,0,0,0.3);
                        padding: 4px 8px;
-                       border-radius: 4px;">
+                       border-radius: 4px;
+                       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
                     View on Last.fm &rarr;
                 </a>
             </div>
