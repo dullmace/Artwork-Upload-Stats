@@ -250,7 +250,7 @@ with tab1:
 
     if viz_choice == "Album Explorer":
         st.subheader("Album Explorer")
-        artist_album = filtered_df.explode("Albums")
+        artist_album = filtered_df.explode("Albums").copy()
         artist_album["Artist_URL"] = artist_album["Artist"].apply(
             create_lastfm_artist_url
         )
@@ -258,12 +258,14 @@ with tab1:
             lambda row: create_lastfm_release_url(row["Artist"], row["Albums"]),
             axis=1,
         )
-        artist_album["Artist_Link"] = artist_album.apply(
-            lambda row: f'[{row["Artist"]}]({row["Artist_URL"]})', axis=1
+        artist_album["Artist_Link"] = artist_album["Artist"].apply(
+            lambda artist: f"[{artist}]({create_lastfm_artist_url(artist)})"
         )
         artist_album["Album_Link"] = artist_album.apply(
-            lambda row: f'[{row["Albums"]}]({row["Album_URL"]})', axis=1
+            lambda row: f'[{row["Albums"]}]({create_lastfm_release_url(row["Artist"], row["Albums"])})',
+            axis=1,
         )
+
         fig = px.treemap(
             artist_album,
             path=["Artist_Link", "Album_Link"],
@@ -271,9 +273,12 @@ with tab1:
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
         )
+
         fig.update_traces(
-            textinfo="label+value"
-        )  # Show both labels (artist/album) and values (counts)
+            textinfo="label+value",
+            hovertemplate="<b>%{label}</b><br>Artworks Uploaded=%{value}",
+        )  # Improved hovertemplate
+
         st.plotly_chart(fig, use_container_width=True)
 
         search_album = st.text_input("Search Albums")
@@ -289,34 +294,38 @@ with tab1:
         top_artists["Artist_URL"] = top_artists["Artist"].apply(
             create_lastfm_artist_url
         )
-        top_artists["Artist_Link"] = top_artists.apply(
-            lambda row: f'[{row["Artist"]}]({row["Artist_URL"]})', axis=1
+        top_artists["Artist_Link"] = top_artists["Artist"].apply(
+            lambda artist: f"[{artist}]({create_lastfm_artist_url(artist)})"
         )
 
         fig = px.bar(
             top_artists,
             x="Artworks_Uploaded",
-            y="Artist_Link",
+            y="Artist",
+            text="Artist_Link",
             orientation="h",
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
         )
+
+        fig.update_traces(
+            texttemplate="%{text}", textposition="outside"
+        )  # Display links as labels
+
         fig.update_layout(
             height=max(500, num_artists * 20),
             xaxis_title="Artworks Uploaded",
             yaxis_title="Artist",
         )
         st.plotly_chart(fig, use_container_width=True)
-    # ADDED: Artist Timeline
+
     elif viz_choice == "Artist Timeline":
         st.subheader("Artist Timeline")
         artist_timeline = filtered_df.explode("Album_Uploaded_Dates").copy()
         artist_timeline["Artist_URL"] = artist_timeline["Artist"].apply(
             create_lastfm_artist_url
         )
-        artist_timeline["Artist_Link"] = artist_timeline.apply(
-            lambda row: f'[{row["Artist"]}]({row["Artist_URL"]})', axis=1
-        )
+
         # Ensure 'Artworks_Uploaded' is numeric and not a string or mixed type
         artist_timeline["Artworks_Uploaded"] = pd.to_numeric(
             artist_timeline["Artworks_Uploaded"], errors="coerce"
@@ -326,13 +335,15 @@ with tab1:
 
         # Group by 'Album_Uploaded_Dates' and sum 'Artworks_Uploaded' for each date
         artist_timeline = (
-            artist_timeline.groupby(["Album_Uploaded_Dates", "Artist_Link"])[
+            artist_timeline.groupby(["Album_Uploaded_Dates", "Artist", "Artist_URL"])[
                 "Artworks_Uploaded"
             ]
             .sum()
             .reset_index()
         )
-
+        artist_timeline["Artist_Link"] = artist_timeline["Artist"].apply(
+            lambda artist: f"[{artist}]({create_lastfm_artist_url(artist)})"
+        )
         artist_timeline = artist_timeline.sort_values("Album_Uploaded_Dates")
         fig = px.line(
             artist_timeline,
@@ -365,18 +376,20 @@ with tab1:
         with cols[idx % st.session_state.num_cols]:
             artist_name = row["Artist"]
             artist_url = create_lastfm_artist_url(artist_name)
-            st.markdown(
+            with st.expander(
                 f"**<a href='{artist_url}' target='_blank'>{artist_name}</a>** - {row['Artworks_Uploaded']} uploads",
-                unsafe_allow_html=True,
-            )
+                expanded=False,
+            ):  # Use expander here and ensure it's closed by default
 
-            # Display a list of hyperlinked albums
-            if row["Albums"]:
-                album_links = []
-                for album in row["Albums"]:
-                    album_url = create_lastfm_release_url(artist_name, album)
-                    album_links.append(f"- <a href='{album_url}' target='_blank'>{album}</a>")
-                st.markdown("<br>".join(album_links), unsafe_allow_html=True)
+                # Display a list of hyperlinked albums
+                if row["Albums"]:
+                    album_links = []
+                    for album in row["Albums"]:
+                        album_url = create_lastfm_release_url(artist_name, album)
+                        album_links.append(
+                            f"- <a href='{album_url}' target='_blank'>{album}</a>"
+                        )
+                    st.markdown("<br>".join(album_links), unsafe_allow_html=True)
 
 with tab2:
     st.subheader("Contribution Distribution")
