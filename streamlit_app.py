@@ -18,9 +18,12 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+if st.button("Refresh Data"):
+    st.cache_data.clear()
+    st.rerun()
 
 # Load and preprocess data
-@st.cache_data
+@st.cache_data(ttl=3600) 
 def load_album_data():
     with open("artist_albums.json") as f:
         data = json.load(f)
@@ -47,7 +50,7 @@ def load_album_data():
     return normalized
 
 
-@st.cache_data
+@st.cache_data(ttl=3600) 
 def load_data():
     df = pd.read_csv("album_counts.csv")
     df.columns = ["Artist", "Artworks_Uploaded", "Date_Modified"]
@@ -91,7 +94,7 @@ def load_data():
     return df.sort_values("Artworks_Uploaded", ascending=False)
 
 
-@st.cache_data
+@st.cache_data(ttl=3600) 
 def preprocess_data(df):
     return {
         "monthly_uploads": df.groupby(pd.Grouper(key="Date_Modified", freq="ME")).size(),
