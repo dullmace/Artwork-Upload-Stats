@@ -451,26 +451,36 @@ num_cols = st.slider(
 cols = st.columns(num_cols)
 top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
+# Define the rainbow gradient using the specified colors.
+gradient_css = (
+    "linear-gradient(90deg, #AA6C78, "
+    "#CB9D75, #CBC98B, #7A9D7D, #4382A2, #6C557E)"
+)
+
 for idx, (_, row) in enumerate(top_badges.iterrows()):
     with cols[idx % num_cols]:
         badge_html = f"""
         <div style="
-            background: #2D2D2D;
+            background: {gradient_css};
             padding: 15px;
             border: 1px solid #444;
             border-radius: 8px;
             margin: 5px;
-            color: #DDD;
+            color: #FFF;
             font-family: Arial, sans-serif;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             ">
             <div>
                 <strong style="font-size:1.2em;">{row["Artist"]}</strong>
-                <p style="margin: 5px 0; color: #AAA;">{row["Artworks_Uploaded"]} uploads</p>
+                <p style="margin: 5px 0; color: #EEE;">{row["Artworks_Uploaded"]} uploads</p>
                 <a href="{create_lastfm_artist_url(row["Artist"])}" 
                    target="_blank" style="
-                       color: #1E90FF;
+                       color: #FFF;
                        text-decoration: none;
-                       font-weight: bold;">
+                       font-weight: bold;
+                       background: rgba(0,0,0,0.3);
+                       padding: 4px 8px;
+                       border-radius: 4px;">
                     View on Last.fm &rarr;
                 </a>
             </div>
@@ -478,20 +488,22 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
         """
         st.markdown(badge_html, unsafe_allow_html=True)
 
-        with st.expander(f"{row['Artist']} - {row['Artworks_Uploaded']} uploads", expanded=False):
+        with st.expander("View Releases Uploaded", expanded=False):
             if row["Albums"]:
-                st.markdown(
-                    "<strong>Albums:</strong>", unsafe_allow_html=True
-                )
+                st.markdown("<strong>Albums:</strong>", unsafe_allow_html=True)
                 album_list = "<ul style='padding-left:20px; margin:5px 0; color:#ccc;'>"
                 for album in row["Albums"]:
                     album_list += (
-                        f"""<li><a href="{create_lastfm_release_url(row["Artist"], album)}" """
+                        f"""<li>
+                            <a href="{create_lastfm_release_url(row["Artist"], album)}" """
                         f"""target="_blank" style="color:#1E90FF; text-decoration:none;">"""
-                        f"""{album}</a></li>"""
+                        f"""{album}</a>
+                        </li>"""
                     )
                 album_list += "</ul>"
                 st.markdown(album_list, unsafe_allow_html=True)
+
+
 
 
 with tab2:
