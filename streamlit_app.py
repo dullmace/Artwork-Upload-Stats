@@ -251,20 +251,6 @@ with tab1:
     if viz_choice == "Album Explorer":
         st.subheader("Album Explorer")
         artist_album = filtered_df.explode("Albums").copy()
-        artist_album["Artist_URL"] = artist_album["Artist"].apply(
-            create_lastfm_artist_url
-        )
-        artist_album["Album_URL"] = artist_album.apply(
-            lambda row: create_lastfm_release_url(row["Artist"], row["Albums"]),
-            axis=1,
-        )
-        artist_album["Artist_Link"] = artist_album["Artist"].apply(
-            lambda artist: f"[{artist}]({create_lastfm_artist_url(artist)})"
-        )
-        artist_album["Album_Link"] = artist_album.apply(
-            lambda row: f'[{row["Albums"]}]({create_lastfm_release_url(row["Artist"], row["Albums"])})',
-            axis=1,
-        )
 
         fig = px.treemap(
             artist_album,
@@ -272,12 +258,10 @@ with tab1:
             values="Artworks_Uploaded",
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
-            hover_data=["Artist_Link", "Album_Link"],
         )
 
         fig.update_traces(
             textinfo="label+value",
-            hovertemplate="<b>%{label}</b><br>Artworks Uploaded=%{value}<br><a href='%{customdata[0]}'>Artist Link</a><br><a href='%{customdata[1]}'>Album Link</a>",
         )
         fig.update_layout(
             margin=dict(t=50, l=25, r=25, b=25)
@@ -294,18 +278,11 @@ with tab1:
     elif viz_choice == "Top Contributors":
         num_artists = st.slider("Number of artists to show", 10, 100, 25)
         top_artists = filtered_df.nlargest(num_artists, "Artworks_Uploaded").copy()
-        top_artists["Artist_URL"] = top_artists["Artist"].apply(
-            create_lastfm_artist_url
-        )
-        top_artists["Artist_Link"] = top_artists["Artist"].apply(
-            lambda artist: f"[{artist}]({create_lastfm_artist_url(artist)})"
-        )
 
         fig = px.bar(
             top_artists,
             x="Artworks_Uploaded",
             y="Artist",
-            #text="Artist_Link",  # This still isn't the correct logic, not needed for now
             orientation="h",
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
@@ -315,20 +292,12 @@ with tab1:
             height=max(500, num_artists * 20),
             xaxis_title="Artworks Uploaded",
             yaxis_title="Artist",
-            yaxis=dict(
-                tickmode="array",
-                tickvals=top_artists["Artist"],
-                ticktext=top_artists["Artist_Link"],
-            ),
         )
         st.plotly_chart(fig, use_container_width=True)
 
     elif viz_choice == "Artist Timeline":
         st.subheader("Artist Timeline")
         artist_timeline = filtered_df.explode("Album_Uploaded_Dates").copy()
-        artist_timeline["Artist_URL"] = artist_timeline["Artist"].apply(
-            create_lastfm_artist_url
-        )
 
         # Ensure 'Artworks_Uploaded' is numeric and not a string or mixed type
         artist_timeline["Artworks_Uploaded"] = pd.to_numeric(
@@ -339,15 +308,13 @@ with tab1:
 
         # Group by 'Album_Uploaded_Dates' and sum 'Artworks_Uploaded' for each date
         artist_timeline = (
-            artist_timeline.groupby(["Album_Uploaded_Dates", "Artist", "Artist_URL"])[
+            artist_timeline.groupby(["Album_Uploaded_Dates", "Artist"])[
                 "Artworks_Uploaded"
             ]
             .sum()
             .reset_index()
         )
-        artist_timeline["Artist_Link"] = artist_timeline["Artist"].apply(
-            lambda artist: f"[{artist}]({create_lastfm_artist_url(artist)})"
-        )
+
         artist_timeline = artist_timeline.sort_values("Album_Uploaded_Dates")
         fig = px.line(
             artist_timeline,
@@ -355,11 +322,10 @@ with tab1:
             y="Artworks_Uploaded",
             color="Artist",
             title="Artwork Uploads Timeline by Artist",
-            hover_data=["Artist_Link"]  # Include Artist_Link in hover data
+            hover_data=["Artist", "Artworks_Uploaded"]
         )
-
         fig.update_traces(
-            hovertemplate="<b>%{fullData.name}</b><br>Artworks Uploaded=%{y}<br><a href='%{customdata[0]}'>Artist Link</a>"
+             hovertemplate="Artist: %{customdata[0]}<br>Artworks Uploaded: %{customdata[1]}<extra></extra>"
         )
         st.plotly_chart(fig, use_container_width=True)
     # ADDED: Artist Word Cloud
@@ -384,9 +350,9 @@ with tab1:
     for idx, (_, row) in enumerate(top_badges.iterrows()):
         with cols[idx % st.session_state.num_cols]:
             artist_name = row["Artist"]
-            artist_url = create_lastfm_artist_url(artist_name)
+            #artist_url = create_lastfm_artist_url(artist_name) #Not needed anymore, it's now plaintext
             with st.expander(
-                f"**<a href='{artist_url}' target='_blank'>{artist_name}</a>** - {row['Artworks_Uploaded']} uploads",
+                f"**{artist_name}** - {row['Artworks_Uploaded']} uploads",
                 expanded=False,
             ):
 
@@ -394,6 +360,7 @@ with tab1:
                 if row["Albums"]:
                     album_links = []
                     for album in row["Albums"]:
+                        artist_name = row["Artist"] #You need to bring the Artist name into this scope for the albums to render
                         album_url = create_lastfm_release_url(artist_name, album)
                         album_links.append(
                             f"- <a href='{album_url}' target='_blank'>{album}</a>"
