@@ -52,7 +52,7 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
-
+)
 
 # Load and preprocess data
 @st.cache_data
