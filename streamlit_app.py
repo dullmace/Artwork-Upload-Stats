@@ -126,7 +126,6 @@ filtered_df = df[
     (df['Date_Modified'].between(start_date, end_date)) &
     (df['Artist'].str.contains(search_term, case=False))
 ]
-]
 
 # Visualization Tabs
 tab1, tab2, tab3 = st.tabs(["📊 Overview", "📅 Timeline", "🎸 Artists"])
