@@ -378,37 +378,34 @@ with tab1:
         with cols[idx % st.session_state.num_cols]:
             artist_name = row["Artist"]
 
-            # Card Styling
-            st.markdown(
-                f"""
+            card_style = """
                 <div style="border: 1px solid #e2e2e2;
                             border-radius: 5px;
                             padding: 10px;
                             margin-bottom: 10px;
                             box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                    <h5 style="font-size: 1.2rem;
-                                margin-bottom: 5px;">
-                        <strong>{artist_name}</strong>
-                         - {row['Artworks_Uploaded']} uploads
-                    </h5>
-                """,
-                unsafe_allow_html=True,
-            )
+                    """
 
-            # Album List
-            if row["Albums"]:
-                st.markdown("<strong>Albums:</strong>", unsafe_allow_html=True)
-                album_links = [
-                    f"""- <a href="{create_lastfm_release_url(row["Artist"], album)}"
-                            target="_blank">{album}</a>"""
-                    for album in row["Albums"]
-                ]
-                st.markdown(
-                    "<br>".join(album_links),
-                    unsafe_allow_html=True,
-                )  # Display album list with line breaks
+            st.markdown(card_style, unsafe_allow_html=True)
 
-            # Close Card
+            with st.expander(
+                f"**{artist_name}** - {row['Artworks_Uploaded']} uploads",
+                expanded=False,
+            ):
+
+                # Display a list of hyperlinked albums
+                if row["Albums"]:
+                    st.write("<strong>Albums:</strong>", unsafe_allow_html=True)
+
+                    album_list = "".join(
+                        [
+                            f"""- <a href="{create_lastfm_release_url(row["Artist"], album)}"
+                                    target="_blank">{album}</a><br>"""
+                            for album in row["Albums"]
+                        ]
+                    )
+                    st.markdown(album_list, unsafe_allow_html=True)
+
             st.markdown("</div>", unsafe_allow_html=True)
 
 with tab2:
