@@ -133,10 +133,13 @@ if search_term:
 st.subheader("Album Title Length Analysis")
 album_timeline = filtered_df.explode('Albums')
 album_timeline['Albums'] = album_timeline['Albums'].fillna('')  # Replace NaN with an empty string
-album_timeline['title_length'] = album_timeline['Albums'].apply(lambda x: len(x) if isinstance(x, str) else 0)
+album_timeline['title_length'] = album_timeline['Albums'].apply(
+    lambda x: len(x) if isinstance(x, (str, tuple, list)) else 0
+)
 
 fig = px.histogram(album_timeline, x='title_length', nbins=20, marginal='box', title="Album Title Length Distribution")
 st.plotly_chart(fig, use_container_width=True)
+
 
 
 # Display filtered data
