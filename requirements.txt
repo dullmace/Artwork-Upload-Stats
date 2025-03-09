@@ -4,7 +4,7 @@ numpy>=1.23.0
 plotly>=5.11.0
 matplotlib>=3.6.0
 wordcloud>=1.8.2.2
-st-aggrid>=0.3.4.post3
+st-aggrid
 thefuzz>=0.19.0
 python-Levenshtein>=0.12.2
 nltk>=3.7
