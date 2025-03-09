@@ -167,7 +167,7 @@ with tab1:
                      color_continuous_scale='Viridis',
                      title=f"Top {num_artists} Artists")
         
-        fig.update_layout(height=850 num_artists*5,
+        fig.update_layout(height=850, num_artists*5,
                           xaxis_title="Artworks Uploaded",
                           yaxis_title="Artist",
                           yaxis={'categoryorder':'total ascending'})
