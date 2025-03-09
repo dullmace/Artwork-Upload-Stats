@@ -430,7 +430,7 @@ with tab1:
         plt.axis("off")
         st.pyplot(plt.gcf(), use_container_width=True)
 
-# Album Badges (always displayed)
+# Album Badges
 st.subheader("🏅 Artist Badges")
 num_badges = st.slider(
     "Number of badges to display",
@@ -451,17 +451,14 @@ num_cols = st.slider(
 cols = st.columns(num_cols)
 top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
-# Define the rainbow gradient using the specified colors.
-gradient_css = (
-    "linear-gradient(90deg, #AA6C78, "
-    "#CB9D75, #CBC98B, #7A9D7D, #4382A2, #6C557E)"
-)
+colors = ["#AA6C78", "#CB9D75", "#CBC98B", "#7A9D7D", "#4382A2", "#6C557E"]
 
 for idx, (_, row) in enumerate(top_badges.iterrows()):
+    bg_color = colors[idx % len(colors)]
     with cols[idx % num_cols]:
         badge_html = f"""
         <div style="
-            background: {gradient_css};
+            background: {bg_color};
             padding: 15px;
             border: 1px solid #444;
             border-radius: 8px;
@@ -502,6 +499,7 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
                     )
                 album_list += "</ul>"
                 st.markdown(album_list, unsafe_allow_html=True)
+
 
 
 
