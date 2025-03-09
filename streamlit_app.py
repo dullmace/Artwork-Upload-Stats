@@ -97,7 +97,17 @@ for col, (label, value, delta) in zip(cols, metrics):
 with st.expander("🔍 Filter Data", expanded=False):
     st.subheader("Filter Options")
     
-    # Date Range Picker
+    # Get categories from dataframe
+    all_categories = df['contribution_category'].cat.categories.tolist()
+    
+    # Category filter
+    selected_categories = st.multiselect(
+        "Contribution Level",
+        options=all_categories,
+        default=all_categories
+    )
+    
+    # Date range filter
     try:
         default_start = df['Date_Modified'].min().date()
         default_end = df['Date_Modified'].max().date()
@@ -110,7 +120,10 @@ with st.expander("🔍 Filter Data", expanded=False):
     except:
         date_range = (default_start, default_end)
 
-# Handle date range selection
+    # Artist search
+    search_term = st.text_input("Search Artists")
+
+# Handle date range
 if isinstance(date_range, (list, tuple)) and len(date_range) == 2:
     start_date, end_date = date_range
 else:
@@ -122,7 +135,7 @@ end_date = pd.to_datetime(end_date)
 
 # Apply filters
 filtered_df = df[
-    (df['contribution_category'].isin(categories)) &
+    (df['contribution_category'].isin(selected_categories)) &  # Correct variable name
     (df['Date_Modified'].between(start_date, end_date)) &
     (df['Artist'].str.contains(search_term, case=False))
 ]
