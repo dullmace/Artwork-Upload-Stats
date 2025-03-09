@@ -18,9 +18,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-if st.button("Refresh Data"):
-    st.cache_data.clear()
-    st.rerun()
 
 # Load and preprocess data
 @st.cache_data(ttl=3600) 
@@ -111,6 +108,10 @@ preprocessed = preprocess_data(df)
 # Title Section
 st.title("🎨 SpotFM Artwork Upload Stats")
 
+if st.button("Refresh Data"):
+    st.cache_data.clear()
+    st.rerun()
+    
 # Filters
 with st.expander("🔍 Filter Data", expanded=False):
     col1, col2 = st.columns(2)
