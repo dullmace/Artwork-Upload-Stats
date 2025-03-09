@@ -1,106 +1,81 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.express as px
 import calendar
 import json
 from datetime import datetime
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import plotly.express as px
-import streamlit as st
-from thefuzz import process
 from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+from thefuzz import process
 
 # Page config
 st.set_page_config(
     page_title="Last.fm Artwork Upload Stats",
     page_icon="🎵",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="collapsed"
 )
-
 
 # Load and preprocess data
 @st.cache_data
 def load_album_data():
-    with open("artist_albums.json") as f:
+    with open('artist_albums.json') as f:
         data = json.load(f)
-
+    
     normalized = {}
     for artist, albums in data.items():
         key = artist.lower()
         album_list = [
             {
                 "album": album["album"],
-                "uploaded_date": pd.to_datetime(album["creation_date"]),
+                "uploaded_date": pd.to_datetime(album["creation_date"])
             }
             for album in albums
         ]
         if key in normalized:
-            normalized[key]["albums"].extend(album_list)
-            normalized[key]["count"] += len(album_list)
+            normalized[key]['albums'].extend(album_list)
+            normalized[key]['count'] += len(album_list)
         else:
             normalized[key] = {
-                "display_name": artist,
-                "albums": album_list,
-                "count": len(album_list),
+                'display_name': artist,
+                'albums': album_list,
+                'count': len(album_list)
             }
     return normalized
 
-
 @st.cache_data
 def load_data():
-    df = pd.read_csv("album_counts.csv")
-    df.columns = ["Artist", "Artworks_Uploaded", "Date_Modified"]
-    df["Date_Modified"] = pd.to_datetime(df["Date_Modified"])
-    df["Year"] = df["Date_Modified"].dt.year
-    df["Month"] = df["Date_Modified"].dt.month
-    df["Month_Name"] = df["Date_Modified"].dt.month_name()
-
+    df = pd.read_csv('album_counts.csv')
+    df.columns = ['Artist', 'Artworks_Uploaded', 'Date_Modified']
+    df['Date_Modified'] = pd.to_datetime(df['Date_Modified'])
+    df['Year'] = df['Date_Modified'].dt.year
+    df['Month'] = df['Date_Modified'].dt.month
+    df['Month_Name'] = df['Date_Modified'].dt.month_name()
+    
     album_data = load_album_data()
-    df["Albums_Count"] = (
-        df["Artist"]
-        .str.lower()
-        .map(lambda x: album_data.get(x, {}).get("count", 0))
+    df['Albums_Count'] = df['Artist'].str.lower().map(lambda x: album_data.get(x, {}).get('count', 0))
+    df['Albums'] = df['Artist'].str.lower().map(
+        lambda x: tuple(album['album'] for album in album_data.get(x, {}).get('albums', []))
     )
-    df["Albums"] = df["Artist"].str.lower().map(
-        lambda x: tuple(
-            album["album"] for album in album_data.get(x, {}).get("albums", [])
-        )
+    
+    df['Album_Uploaded_Dates'] = df['Artist'].str.lower().map(
+        lambda x: tuple(album['uploaded_date'] for album in album_data.get(x, {}).get('albums', []))
     )
-
-    # Convert Album_Uploaded_Dates to tuples (hashable type)
-    df["Album_Uploaded_Dates"] = df["Artist"].str.lower().map(
-        lambda x: tuple(
-            album["uploaded_date"]
-            for album in album_data.get(x, {}).get("albums", [])
-        )
-    )
-
+    
     bins = [0, 5, 10, 20, 50, np.inf]
-    labels = [
-        "Started (1-5)",
-        "Notable (6-10)",
-        "Significant (11-20)",
-        "Major (21-50)",
-        "Exceptional (50+)",
-    ]
-    df["contribution_category"] = pd.cut(
-        df["Artworks_Uploaded"], bins=bins, labels=labels, right=False
-    )
-
-    return df.sort_values("Artworks_Uploaded", ascending=False)
-
+    labels = ['Started (1-5)', 'Notable (6-10)', 'Significant (11-20)', 'Major (21-50)', 'Exceptional (50+)']
+    df['contribution_category'] = pd.cut(df['Artworks_Uploaded'], bins=bins, labels=labels, right=False)
+    
+    return df.sort_values('Artworks_Uploaded', ascending=False)
 
 @st.cache_data
 def preprocess_data(df):
     return {
-        "monthly_uploads": df.groupby(pd.Grouper(key="Date_Modified", freq="ME")).size(),
-        "category_dist": df["contribution_category"].value_counts(normalize=True),
-        "cumulative_uploads": df.sort_values("Date_Modified").assign(
-            cumulative=lambda x: x["Artworks_Uploaded"].cumsum()
-        ),
+        'monthly_uploads': df.groupby(pd.Grouper(key='Date_Modified', freq='ME')).size(),
+        'category_dist': df['contribution_category'].value_counts(normalize=True),
+        'cumulative_uploads': df.sort_values('Date_Modified').assign(cumulative=lambda x: x['Artworks_Uploaded'].cumsum())
     }
-
 
 df = load_data()
 preprocessed = preprocess_data(df)
@@ -112,28 +87,18 @@ st.title("🎨 SpotFM Artwork Upload Stats")
 with st.expander("🔍 Filter Data", expanded=False):
     col1, col2 = st.columns(2)
     with col1:
-        all_categories = df["contribution_category"].cat.categories.tolist()
-        selected_categories = st.multiselect(
-            "Contribution Level", all_categories, default=all_categories
-        )
+        all_categories = df['contribution_category'].cat.categories.tolist()
+        selected_categories = st.multiselect("Contribution Level", all_categories, default=all_categories)
     with col2:
-        default_start = df["Date_Modified"].min().date()
-        default_end = df["Date_Modified"].max().date()
-        date_range = st.date_input(
-            "Date Range",
-            (default_start, default_end),
-            min_value=default_start,
-            max_value=default_end,
-        )
-
+        default_start = df['Date_Modified'].min().date()
+        default_end = df['Date_Modified'].max().date()
+        date_range = st.date_input("Date Range", (default_start, default_end), min_value=default_start, max_value=default_end)
+    
     album_date_range = st.date_input(
         "Album Uploaded Date Range",
-        (
-            pd.to_datetime(df["Album_Uploaded_Dates"].explode().min()).date(),
-            pd.to_datetime(df["Album_Uploaded_Dates"].explode().max()).date(),
-        ),
+        (df['Album_Uploaded_Dates'].explode().min().date(), df['Album_Uploaded_Dates'].explode().max().date())
     )
-
+    
     search_term = st.text_input("Search Artists")
 
 # Date handling
@@ -142,55 +107,61 @@ album_start_date, album_end_date = (pd.to_datetime(d) for d in album_date_range)
 
 # Filter data
 filtered_df = df[
-    (df["contribution_category"].isin(selected_categories))
-    & (df["Date_Modified"] >= start_date)
-    & (df["Date_Modified"] <= end_date)
+    (df['contribution_category'].isin(selected_categories)) &
+    (df['Date_Modified'] >= start_date) & (df['Date_Modified'] <= end_date)
 ]
 
-
-def filter_by_album_date(df, start_date, end_date):
-    def album_in_date_range(album_dates, start, end):
-        if not isinstance(album_dates, tuple):
-            return False
-        for date in album_dates:
-            if start <= date <= end:
-                return True
-        return False
-
-    filtered = df[
-        df["Album_Uploaded_Dates"].apply(
-            lambda x: album_in_date_range(x, album_start_date, album_end_date)
-        )
+# Key Fix 1: Properly filter albums within date range
+filtered_df = filtered_df.copy()
+for idx in filtered_df.index:
+    dates = filtered_df.at[idx, 'Album_Uploaded_Dates']
+    albums = filtered_df.at[idx, 'Albums']
+    
+    # Filter albums and dates
+    filtered = [
+        (album, date) 
+        for album, date in zip(albums, dates)
+        if album_start_date <= date <= album_end_date
     ]
-    return filtered
+    
+    if filtered:
+        filtered_albums, filtered_dates = zip(*filtered)
+    else:
+        filtered_albums, filtered_dates = (), ()
+    
+    filtered_df.at[idx, 'Albums'] = filtered_albums
+    filtered_df.at[idx, 'Album_Uploaded_Dates'] = filtered_dates
+    filtered_df.at[idx, 'Albums_Count'] = len(filtered_albums)
 
-
-filtered_df = filter_by_album_date(filtered_df, album_start_date, album_end_date)
+# Remove artists with no albums after filtering
+filtered_df = filtered_df[filtered_df['Albums_Count'] > 0]
 
 # Fuzzy search
 if search_term:
     with st.spinner("Searching artists..."):
-        artists = filtered_df["Artist"].unique()
+        artists = filtered_df['Artist'].unique()
         matches = process.extract(search_term, artists, limit=50)
-        filtered_df = filtered_df[
-            filtered_df["Artist"].isin([m[0] for m in matches])
-        ]
-
-# Display filtered data
-st.dataframe(filtered_df)
+        filtered_df = filtered_df[filtered_df['Artist'].isin([m[0] for m in matches])]
 
 # Empty state
 if filtered_df.empty:
-    st.error(
-        """
+    st.error("""
     🎭 No artists match these filters!
     Try:
     - Widening date range
     - Including more categories
     - Clearing search terms
-    """
-    )
+    """)
     st.stop()
+
+# Key Fix 2: Handle empty album dates
+album_dates = filtered_df['Album_Uploaded_Dates'].explode()
+if not album_dates.empty:
+    earliest_album_date = album_dates.min()
+    latest_album_date = album_dates.max()
+else:
+    earliest_album_date = pd.NaT
+    latest_album_date = pd.NaT
 
 # Metrics
 total_artists = len(filtered_df)
