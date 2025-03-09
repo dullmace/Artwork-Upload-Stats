@@ -430,50 +430,69 @@ with tab1:
         plt.axis("off")
         st.pyplot(plt.gcf(), use_container_width=True)
 
-    # Album Badges (always displayed)
-    st.subheader("🏅 Artist Badges")
-    num_badges = st.slider(
-        "Number of badges to display",
-        min_value=5,
-        max_value=50,
-        value=15,
-        help="Choose how many artist badges to show.",
-        key="num_badges",
-    )
-    num_cols = st.slider(
-        "Columns layout", min_value=1, max_value=5, value=3, key="num_cols",
-        help="Adjust the layout of artist badges across the page."
-    )
-    cols = st.columns(num_cols)
-    top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
+# Album Badges (always displayed)
+st.subheader("🏅 Artist Badges")
+num_badges = st.slider(
+    "Number of badges to display",
+    min_value=5,
+    max_value=50,
+    value=15,
+    help="Choose how many artist badges to show.",
+    key="num_badges",
+)
+num_cols = st.slider(
+    "Columns layout",
+    min_value=1,
+    max_value=5,
+    value=3,
+    key="num_cols",
+    help="Adjust the layout of artist badges across the page.",
+)
+cols = st.columns(num_cols)
+top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
-    for idx, (_, row) in enumerate(top_badges.iterrows()):
-        with cols[idx % num_cols]:
-            st.markdown(f"""
-                <div style="padding: 15px; border: 1px solid #e6e6e6; 
-                border-radius: 8px; margin: 5px;">
-                    <strong>{row["Artist"]}</strong>
-                    <p style="color: #555;">{row["Artworks_Uploaded"]} uploads</p>
-                    <a href="{create_lastfm_artist_url(row["Artist"])}" 
-                       target="_blank" style="color: #0072B2; text-decoration: none;">
-                       View on Last.fm →
-                    </a>
-                </div>
-            """, unsafe_allow_html=True)
-            with st.expander(
-                f"{row['Artist']} - {row['Artworks_Uploaded']} uploads",
-                expanded=False,
-            ):
-                if row["Albums"]:
-                    st.write("<strong>Albums:</strong>", unsafe_allow_html=True)
-                    album_list = "".join(
-                        [
-                            f"""- <a href="{create_lastfm_release_url(row["Artist"], album)}"
-                            target="_blank">{album}</a><br>"""
-                            for album in row["Albums"]
-                        ]
+for idx, (_, row) in enumerate(top_badges.iterrows()):
+    with cols[idx % num_cols]:
+        badge_html = f"""
+        <div style="
+            background: #2D2D2D;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            margin: 5px;
+            color: #DDD;
+            font-family: Arial, sans-serif;
+            ">
+            <div>
+                <strong style="font-size:1.2em;">{row["Artist"]}</strong>
+                <p style="margin: 5px 0; color: #AAA;">{row["Artworks_Uploaded"]} uploads</p>
+                <a href="{create_lastfm_artist_url(row["Artist"])}" 
+                   target="_blank" style="
+                       color: #1E90FF;
+                       text-decoration: none;
+                       font-weight: bold;">
+                    View on Last.fm &rarr;
+                </a>
+            </div>
+        </div>
+        """
+        st.markdown(badge_html, unsafe_allow_html=True)
+
+        with st.expander(f"{row['Artist']} - {row['Artworks_Uploaded']} uploads", expanded=False):
+            if row["Albums"]:
+                st.markdown(
+                    "<strong>Albums:</strong>", unsafe_allow_html=True
+                )
+                album_list = "<ul style='padding-left:20px; margin:5px 0; color:#ccc;'>"
+                for album in row["Albums"]:
+                    album_list += (
+                        f"""<li><a href="{create_lastfm_release_url(row["Artist"], album)}" """
+                        f"""target="_blank" style="color:#1E90FF; text-decoration:none;">"""
+                        f"""{album}</a></li>"""
                     )
-                    st.markdown(album_list, unsafe_allow_html=True)
+                album_list += "</ul>"
+                st.markdown(album_list, unsafe_allow_html=True)
+
 
 with tab2:
     st.subheader("Album Analysis")
