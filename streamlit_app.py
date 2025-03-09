@@ -11,59 +11,42 @@ st.set_page_config(
     page_title="Last.fm Artwork Upload Stats",
     page_icon="🎵",
     layout="wide",
-    initial_sidebar_state="collapsed"  # Collapse sidebar on mobile by default
+    initial_sidebar_state="collapsed"
 )
 
 # Custom CSS for better mobile experience
 st.markdown("""
 <style>
-    /* Improve readability on mobile */
+    /* Responsive base styles */
     .stApp {
-        max-width: 100%;
-        padding: 1rem;
+        padding: 1rem !important;
     }
     
-    /* Make text more readable on small screens */
-    h1 {
-        font-size: calc(1.5rem + 1vw) !important;
-    }
-    h2, h3, .metric-label {
-        font-size: calc(1rem + 0.5vw) !important;
-    }
-    p, .metric-value {
-        font-size: calc(0.8rem + 0.3vw) !important;
+    /* Dynamic font sizes */
+    h1 { font-size: calc(1.75rem + 1vw) !important; }
+    h2 { font-size: calc(1.25rem + 0.5vw) !important; }
+    h3 { font-size: calc(1rem + 0.5vw) !important; }
+    
+    /* Improved touch targets */
+    button[role="tab"] { min-height: 2.5rem; }
+    
+    /* Better spacing for mobile */
+    .stMetric { padding: 0.5rem !important; }
+    
+    /* Responsive data tables */
+    .dataframe { 
+        font-size: 0.85rem !important;
+        overflow-x: auto !important;
     }
     
-    /* Improve table display on mobile */
-    .dataframe {
-        font-size: 0.8rem !important;
-        white-space: nowrap;
-    }
-    
-    /* Better padding for cards */
-    div.block-container {
-        padding: 2rem 1rem 10rem 1rem;
-    }
-    
-    /* Improve metric cards on mobile */
-    [data-testid="stMetricValue"] {
-        font-size: calc(1.2rem + 0.5vw) !important;
-    }
-    
-    /* Ensure charts are responsive */
-    .js-plotly-plot, .plotly, .plot-container {
-        width: 100% !important;
-    }
-    
-    /* Improve tabs on mobile */
-    button[role="tab"] {
-        min-width: auto !important;
-        padding: 0.5rem !important;
+    /* Hide fullscreen button on mobile */
+    @media (max-width: 768px) {
+        .js-plotly-plot .plotly .modebar { display: none !important; }
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Load the CSV data
+# Load and preprocess data
 @st.cache_data
 def load_data():
     df = pd.read_csv('album_counts.csv')
@@ -73,272 +56,187 @@ def load_data():
     df['Month'] = df['Date_Modified'].dt.month
     df['Month_Name'] = df['Date_Modified'].dt.month_name()
     
-    # Create categories
-    conditions = [
-        (df['Artworks_Uploaded'] > 50),
-        (df['Artworks_Uploaded'] > 20),
-        (df['Artworks_Uploaded'] > 10),
-        (df['Artworks_Uploaded'] > 5),
-        (df['Artworks_Uploaded'] > 0)
-    ]
-    categories = ['Exceptional (50+)', 'Major (21-50)', 'Significant (11-20)', 
-                  'Notable (6-10)', 'Started (1-5)']
-    df['contribution_category'] = pd.Series(
-        np.select(conditions, categories, default='None'),
-        index=df.index
+    # Create contribution categories
+    bins = [0, 5, 10, 20, 50, np.inf]
+    labels = ['Started (1-5)', 'Notable (6-10)', 'Significant (11-20)', 
+             'Major (21-50)', 'Exceptional (50+)']
+    df['contribution_category'] = pd.cut(
+        df['Artworks_Uploaded'],
+        bins=bins,
+        labels=labels,
+        right=False
     )
     
-    # Ensure Artworks_Uploaded is numeric
-    df['Artworks_Uploaded'] = pd.to_numeric(df['Artworks_Uploaded'])
-    
-    # Sort by number of uploaded artworks (descending)
-    df = df.sort_values('Artworks_Uploaded', ascending=False)
-    
-    return df
+    return df.sort_values('Artworks_Uploaded', ascending=False)
 
 df = load_data()
 
-# Title - simplified for mobile
-st.title("SpotFM Artwork Upload Stats")
-st.caption("Tracking Artwork Uploaded by Dullmace (and their script) V.1")
+# Title Section
+st.title("🎨 SpotFM Artwork Upload Stats")
+st.markdown("""
+<div style="margin-bottom: 2rem;">
+    <div style="font-size: 1.1rem; color: #666;">Tracking Artwork Uploads by Dullmace</div>
+    <div style="font-size: 0.9rem; color: #999;">Last Updated: {}</div>
+</div>
+""".format(df['Date_Modified'].max().strftime('%b %d, %Y')), unsafe_allow_html=True)
 
-# Detect if we're on mobile (approximate method)
-# This helps us adjust layouts dynamically
-def is_mobile():
-    # A simple heuristic - we'll use session state to remember the result
-    if 'is_mobile' not in st.session_state:
-        # We'll use a container width check as proxy for mobile
-        container_width = st.get_option("theme.base")
-        st.session_state.is_mobile = True if container_width == "light" else False
-    return st.session_state.is_mobile
+# Summary Metrics
+cols = st.columns(4)
+metrics = [
+    ("Total Artists", len(df), ""),
+    ("Total Uploads", f"{df['Artworks_Uploaded'].sum():,}", ""),
+    ("Top Artist", df.iloc[0]['Artist'], f"{df.iloc[0]['Artworks_Uploaded']} uploads"),
+    ("Avg Uploads/Artist", f"{df['Artworks_Uploaded'].mean():.1f}", "")
+]
 
-# Summary statistics - responsive layout
-if is_mobile():
-    # Stack metrics vertically on mobile
-    col1 = st.container()
-    with col1:
-        st.metric("Total Artists", len(df))
-        st.metric("Total Uploads", int(df['Artworks_Uploaded'].sum()))
-        st.metric("Top Contribution", int(df.iloc[0]['Artworks_Uploaded']), f"by {df.iloc[0]['Artist']}")
-        st.metric("Latest Upload", df['Date_Modified'].max().strftime('%b %d, %Y'))
-else:
-    # Use columns on desktop
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("Total Artists", len(df))
-    with col2:
-        st.metric("Total Uploads", int(df['Artworks_Uploaded'].sum()))
-    with col3:
-        st.metric("Top Contribution", int(df.iloc[0]['Artworks_Uploaded']), f"by {df.iloc[0]['Artist']}")
-    with col4:
-        st.metric("Latest Upload", df['Date_Modified'].max().strftime('%b %d, %Y'))
+for col, (label, value, delta) in zip(cols, metrics):
+    with col:
+        st.metric(label, value, delta)
 
-# Filters - simplified for mobile
-with st.expander("Filters & Search", expanded=False):
-    # Categories filter
-    categories = ['Exceptional (50+)', 'Major (21-50)', 'Significant (11-20)', 
-                'Notable (6-10)', 'Started (1-5)']
-    selected_categories = st.multiselect("Contribution Level", categories, default=categories)
+# Filters
+with st.expander("🔍 Filter Data", expanded=False):
+    st.subheader("Filter Options")
     
-    # Date range - simplified for mobile
-    date_col1, date_col2 = st.columns(2)
-    with date_col1:
-        start_date = st.date_input("Start Date", df['Date_Modified'].min().date())
-    with date_col2:
-        end_date = st.date_input("End Date", df['Date_Modified'].max().date())
+    # Category and Date Filters
+    categories = st.multiselect(
+        "Contribution Level",
+        options=df['contribution_category'].cat.categories.tolist(),
+        default=df['contribution_category'].cat.categories.tolist()
+    )
     
-    # Search
-    search_term = st.text_input("Search Artist")
+    date_range = st.date_input(
+        "Date Range",
+        value=(df['Date_Modified'].min().date(), df['Date_Modified'].max().date()),
+        min_value=df['Date_Modified'].min().date(),
+        max_value=df['Date_Modified'].max().date()
+    )
     
-    # Reset button
-    if st.button("Reset Filters"):
-        selected_categories = categories
-        start_date = df['Date_Modified'].min().date()
-        end_date = df['Date_Modified'].max().date()
-        search_term = ""
+    # Artist Search
+    search_term = st.text_input("Search Artists")
 
-# Apply filters
-filtered_df = df.copy()
-if selected_categories:
-    filtered_df = filtered_df[filtered_df['contribution_category'].isin(selected_categories)]
-if start_date and end_date:
-    filtered_df = filtered_df[(filtered_df['Date_Modified'].dt.date >= start_date) & 
-                             (filtered_df['Date_Modified'].dt.date <= end_date)]
-if search_term:
-    filtered_df = filtered_df[filtered_df['Artist'].str.contains(search_term, case=False)]
+# Apply Filters
+filtered_df = df[
+    (df['contribution_category'].isin(categories)) &
+    (df['Date_Modified'].between(*date_range)) &
+    (df['Artist'].str.contains(search_term, case=False))
+]
 
-# Tabs - mobile friendly
-tab1, tab2, tab3 = st.tabs(["Overview", "Time", "Artists"])
+# Visualization Tabs
+tab1, tab2, tab3 = st.tabs(["📊 Overview", "📅 Timeline", "🎸 Artists"])
 
 with tab1:
-    # Responsive layout for charts
-    if is_mobile():
-        # Stack charts vertically on mobile
-        # Pie chart
-        st.subheader("Contribution Categories")
-        st.plotly_chart(
-            px.pie(
-                filtered_df, 
-                names='contribution_category', 
-                values='Artworks_Uploaded',
-                color='contribution_category',
-                color_discrete_sequence=px.colors.sequential.Viridis
-            ).update_layout(
-                margin=dict(l=10, r=10, t=30, b=10),  # Tighter margins for mobile
-                legend=dict(orientation="h", yanchor="bottom", y=-0.3)  # Horizontal legend below chart
-            ),
-            use_container_width=True
+    # Contribution Distribution
+    st.subheader("Contribution Distribution")
+    col1, col2 = st.columns([2, 3])
+    
+    with col1:
+        fig = px.pie(
+            filtered_df,
+            names='contribution_category',
+            values='Artworks_Uploaded',
+            hole=0.3,
+            color_discrete_sequence=px.colors.sequential.Viridis
         )
-        
-        # Top artists chart
-        st.subheader("Top 25 Artists")
-        # Number slider for mobile
-        num_artists = st.slider("Number to display", 5, 25, 10, 5)
-        top_artists_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False).head(num_artists)
-        
-        fig = px.bar(
-            top_artists_df,
-            x='Artworks_Uploaded',
-            y='Artist',
-            orientation='h',
-            color='Artworks_Uploaded',
-            color_continuous_scale='Viridis'
-        )
-        
-        fig.update_layout(
-            yaxis={'categoryorder': 'array', 'categoryarray': top_artists_df['Artist'].tolist()[::-1]},
-            height=max(400, num_artists * 25),  # Dynamic height based on number of artists
-            margin=dict(l=10, r=10, t=10, b=10)  # Tighter margins for mobile
-        )
-        
+        fig.update_layout(showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
-    else:
-        # Desktop layout with columns
-        col1, col2 = st.columns(2)
-        with col1:
-            st.plotly_chart(
-                px.pie(
-                    filtered_df, 
-                    names='contribution_category', 
-                    values='Artworks_Uploaded',
-                    title='Distribution of Your Artwork Contributions',
-                    color='contribution_category',
-                    color_discrete_sequence=px.colors.sequential.Viridis
-                ),
-                use_container_width=True
-            )
-        with col2:
-            # Get top 25 artists by contribution count
-            top25_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False).head(25)
-            
-            # Create bar chart with proper sorting
-            fig = px.bar(
-                top25_df,
-                x='Artworks_Uploaded',
-                y='Artist',
-                orientation='h',
-                title='Top 25 Artists by Your Artwork Contributions',
-                color='Artworks_Uploaded',
-                color_continuous_scale='Viridis'
-            )
-            
-            fig.update_layout(
-                yaxis={'categoryorder': 'array', 'categoryarray': top25_df['Artist'].tolist()[::-1]},
-                height=800
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        fig = px.treemap(
+            filtered_df,
+            path=['contribution_category'],
+            values='Artworks_Uploaded',
+            color='contribution_category',
+            color_discrete_sequence=px.colors.sequential.Viridis_r
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
 with tab2:
-    # Monthly trend - simplified for mobile
-    st.subheader("Monthly Upload Trends")
-    monthly_uploads = filtered_df.groupby(['Year', 'Month', 'Month_Name'])['Artworks_Uploaded'].sum().reset_index()
-    monthly_uploads = monthly_uploads.sort_values(['Year', 'Month'])
+    # Timeline Visualizations
+    st.subheader("Upload Activity Over Time")
     
-    # Simplified line chart for mobile
-    line_fig = px.line(
-        monthly_uploads,
-        x='Month_Name',
+    # Prepare time data
+    time_df = filtered_df.groupby(
+        [pd.Grouper(key='Date_Modified', freq='M'), 'contribution_category']
+    )['Artworks_Uploaded'].sum().reset_index()
+    
+    # Line Chart
+    fig = px.line(
+        time_df,
+        x='Date_Modified',
         y='Artworks_Uploaded',
-        color='Year',
-        markers=True
+        color='contribution_category',
+        markers=True,
+        color_discrete_sequence=px.colors.sequential.Viridis
     )
+    fig.update_xaxes(title="Date")
+    fig.update_yaxes(title="Uploads")
+    st.plotly_chart(fig, use_container_width=True)
     
-    line_fig.update_layout(
-        xaxis={'categoryorder': 'array', 'categoryarray': list(calendar.month_name)[1:]},
-        margin=dict(l=10, r=10, t=30, b=10),  # Tighter margins for mobile
-        legend=dict(orientation="h", yanchor="bottom", y=-0.3)  # Horizontal legend below chart
+    # Heatmap
+    st.subheader("Monthly Heatmap")
+    heatmap_df = filtered_df.groupby(
+        ['Year', 'Month_Name']
+    )['Artworks_Uploaded'].sum().reset_index()
+    heatmap_df['Month'] = heatmap_df['Month_Name'].apply(
+        lambda x: list(calendar.month_abbr).index(x[:3])
     )
+    heatmap_df = heatmap_df.sort_values(['Year', 'Month'])
     
-    st.plotly_chart(line_fig, use_container_width=True)
-    
-    # Heatmap - simplified for mobile
-    st.subheader("Upload Activity Heatmap")
-    heatmap_fig = px.density_heatmap(
-        filtered_df,
-        x='Month_Name',
-        y='Year',
-        z='Artworks_Uploaded',
+    fig = px.imshow(
+        heatmap_df.pivot(index='Year', columns='Month_Name', values='Artworks_Uploaded'),
+        labels=dict(x="Month", y="Year", color="Uploads"),
         color_continuous_scale='Viridis'
     )
-    
-    heatmap_fig.update_layout(
-        xaxis={'categoryorder': 'array', 'categoryarray': list(calendar.month_name)[1:]},
-        margin=dict(l=10, r=10, t=30, b=10)  # Tighter margins for mobile
-    )
-    
-    st.plotly_chart(heatmap_fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
 
 with tab3:
-    # Artist details - simplified for mobile
-    st.subheader("Artist Details")
+    # Artist Details
+    st.subheader("Artist Contributions")
     
-    # Simplified sort options
-    sort_option = st.radio(
-        "Sort by:",
-        ["Most Contributions", "Alphabetical", "Most Recent"],
-        horizontal=True if not is_mobile() else False
-    )
-    
-    if sort_option == "Most Contributions":
-        display_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False)
-    elif sort_option == "Alphabetical":
-        display_df = filtered_df.sort_values('Artist')
-    else:  # Most Recent
-        display_df = filtered_df.sort_values('Date_Modified', ascending=False)
-    
-    # Mobile-friendly table with fewer columns
-    if is_mobile():
-        # Simplified table for mobile
-        st.dataframe(
-            display_df[['Artist', 'Artworks_Uploaded']],
-            use_container_width=True,
-            hide_index=True
+    # Interactive controls
+    cols = st.columns([2, 1, 2])
+    with cols[0]:
+        sort_by = st.selectbox(
+            "Sort by",
+            options=['Uploads (High to Low)', 'Artist Name (A-Z)', 'Recent Activity']
         )
-        
-        # Show details on demand
-        with st.expander("Show Full Details"):
-            st.dataframe(
-                display_df[['Artist', 'Artworks_Uploaded', 'contribution_category', 'Date_Modified']].rename(
-                    columns={'Date_Modified': 'Last Updated'}
-                ),
-                use_container_width=True,
-                hide_index=True
-            )
+    with cols[1]:
+        items_per_page = st.selectbox("Items per page", [10, 25, 50])
+    with cols[2]:
+        search_artist = st.text_input("Search within results")
+    
+    # Sort data
+    if sort_by == 'Uploads (High to Low)':
+        sorted_df = filtered_df.sort_values('Artworks_Uploaded', ascending=False)
+    elif sort_by == 'Artist Name (A-Z)':
+        sorted_df = filtered_df.sort_values('Artist')
     else:
-        # Full table for desktop
-        st.dataframe(
-            display_df[['Artist', 'Artworks_Uploaded', 'contribution_category', 'Date_Modified']].rename(
-                columns={'Date_Modified': 'Last Updated'}
-            ),
-            use_container_width=True,
-            hide_index=True
-        )
+        sorted_df = filtered_df.sort_values('Date_Modified', ascending=False)
+    
+    # Pagination
+    total_pages = len(sorted_df) // items_per_page + 1
+    current_page = st.number_input("Page", 1, total_pages, 1)
+    start_idx = (current_page - 1) * items_per_page
+    end_idx = start_idx + items_per_page
+    
+    # Display table
+    display_cols = ['Artist', 'Artworks_Uploaded', 'contribution_category', 'Date_Modified']
+    st.dataframe(
+        sorted_df[display_cols][start_idx:end_idx],
+        column_config={
+            'Date_Modified': 'Last Updated',
+            'contribution_category': 'Category'
+        },
+        use_container_width=True,
+        hide_index=True
+    )
 
-# Footer with responsive design
+# Footer
 st.markdown("""
-<div style="text-align: center; margin-top: 2rem; padding: 1rem; font-size: 0.8rem; color: #666;">
-    Last.fm Artwork Upload Dashboard<br>
-    Created with Streamlit and Plotly
+<div style="text-align: center; margin-top: 3rem; padding: 1rem; color: #666;">
+    <hr style="margin-bottom: 0.5rem;">
+    <div style="font-size: 0.9rem;">
+        Powered by Streamlit • Data from Last.fm • Updated hourly
+    </div>
 </div>
 """, unsafe_allow_html=True)
