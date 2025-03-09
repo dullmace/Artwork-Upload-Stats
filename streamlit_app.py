@@ -308,7 +308,7 @@ with tab1:
     st.write("Explore individual artist contributions.")
     viz_choice = st.radio(
         "Choose Visualization:",
-        [
+    )
             "Top Contributors",
             "Category Breakdown",
             "Album Explorer",
