@@ -317,22 +317,19 @@ with tab1:
 
     if viz_choice == "Category Breakdown":
         st.subheader("Contribution Distribution")
-        col1, col2 = st.columns([2, 3])
-        with col1:
-            st.write("Proportion of each contribution category.")
-            category_counts = (
-                filtered_df["contribution_category"]
-                .value_counts()
-                .reset_index()
-            )
-            category_counts.columns = ["category", "count"]
-            fig = px.bar(
-                category_counts,
-                x="category",
-                y="count",
-                title="Contribution Category Breakdown",
-            )
-            st.plotly_chart(fig, use_container_width=True)
+        category_counts = (
+            filtered_df["contribution_category"]
+            .value_counts()
+            .reset_index()
+        )
+        category_counts.columns = ["category", "count"]
+        fig = px.bar(
+            category_counts,
+            x="category",
+            y="count",
+            title="Contribution Category Breakdown",
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
     elif viz_choice == "Album Explorer":
         st.subheader("Album Explorer")
@@ -391,10 +388,11 @@ with tab1:
         st.subheader("Artist Timeline")
         st.write("See artwork uploads over time by artist.")
         artist_timeline = filtered_df.explode("Album_Uploaded_Dates").copy()
-        # Ensure numeric type for uploads
+
         artist_timeline["Artworks_Uploaded"] = pd.to_numeric(
             artist_timeline["Artworks_Uploaded"], errors="coerce"
         ).fillna(0)
+
         artist_timeline = (
             artist_timeline.groupby(["Album_Uploaded_Dates", "Artist"])[
                 "Artworks_Uploaded"
@@ -415,7 +413,6 @@ with tab1:
     elif viz_choice == "Artist Word Cloud":
         st.subheader("Artist Word Cloud")
         stopwords = set(STOPWORDS) | {"the", "and", "of"}
-        # Join all album names into a textual corpus
         albums_text = " ".join(
             filtered_df["Albums"].explode().dropna().astype(str)
         )
@@ -433,51 +430,50 @@ with tab1:
         plt.axis("off")
         st.pyplot(plt.gcf(), use_container_width=True)
 
-        st.subheader("🏅 Artist Badges")
-        num_badges = st.slider(
-            "Number of badges to display",
-            min_value=5,
-            max_value=50,
-            value=15,
-            help="Choose how many artist badges to show.",
-            key="num_badges",
-        )
-        # Layout columns - using a slider to adjust number of columns
-        num_cols = st.slider(
-            "Columns layout", min_value=1, max_value=5, value=3, key="num_cols",
-            help="Adjust the layout of artist badges across the page."
-        )
-        cols = st.columns(num_cols)
-        top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
+    # Album Badges (always displayed)
+    st.subheader("🏅 Artist Badges")
+    num_badges = st.slider(
+        "Number of badges to display",
+        min_value=5,
+        max_value=50,
+        value=15,
+        help="Choose how many artist badges to show.",
+        key="num_badges",
+    )
+    num_cols = st.slider(
+        "Columns layout", min_value=1, max_value=5, value=3, key="num_cols",
+        help="Adjust the layout of artist badges across the page."
+    )
+    cols = st.columns(num_cols)
+    top_badges = filtered_df.nlargest(num_badges, "Artworks_Uploaded").copy()
 
-        for idx, (_, row) in enumerate(top_badges.iterrows()):
-            with cols[idx % num_cols]:
-                st.markdown(f"""
-                    <div style="padding: 15px; border: 1px solid #e6e6e6; 
-                    border-radius: 8px; margin: 5px;">
-                        <strong>{row["Artist"]}</strong>
-                        <p style="color: #555;">{row["Artworks_Uploaded"]} uploads</p>
-                        <a href="{create_lastfm_artist_url(row["Artist"])}" 
-                           target="_blank" style="color: #0072B2; 
-                           text-decoration: none;">
-                        View on Last.fm →
-                        </a>
-                    </div>
-                """, unsafe_allow_html=True)
-                with st.expander(
-                    f"{row['Artist']} - {row['Artworks_Uploaded']} uploads",
-                    expanded=False,
-                ):
-                    if row["Albums"]:
-                        st.write("<strong>Albums:</strong>", unsafe_allow_html=True)
-                        album_list = "".join(
-                            [
-                                f"""- <a href="{create_lastfm_release_url(row["Artist"], album)}"
-                                target="_blank">{album}</a><br>"""
-                                for album in row["Albums"]
-                            ]
-                        )
-                        st.markdown(album_list, unsafe_allow_html=True)
+    for idx, (_, row) in enumerate(top_badges.iterrows()):
+        with cols[idx % num_cols]:
+            st.markdown(f"""
+                <div style="padding: 15px; border: 1px solid #e6e6e6; 
+                border-radius: 8px; margin: 5px;">
+                    <strong>{row["Artist"]}</strong>
+                    <p style="color: #555;">{row["Artworks_Uploaded"]} uploads</p>
+                    <a href="{create_lastfm_artist_url(row["Artist"])}" 
+                       target="_blank" style="color: #0072B2; text-decoration: none;">
+                       View on Last.fm →
+                    </a>
+                </div>
+            """, unsafe_allow_html=True)
+            with st.expander(
+                f"{row['Artist']} - {row['Artworks_Uploaded']} uploads",
+                expanded=False,
+            ):
+                if row["Albums"]:
+                    st.write("<strong>Albums:</strong>", unsafe_allow_html=True)
+                    album_list = "".join(
+                        [
+                            f"""- <a href="{create_lastfm_release_url(row["Artist"], album)}"
+                            target="_blank">{album}</a><br>"""
+                            for album in row["Albums"]
+                        ]
+                    )
+                    st.markdown(album_list, unsafe_allow_html=True)
 
 with tab2:
     st.subheader("Album Analysis")
