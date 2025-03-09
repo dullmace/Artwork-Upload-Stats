@@ -467,7 +467,6 @@ for idx, (_, row) in enumerate(top_badges.iterrows()):
             font-family: Arial, sans-serif;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
-            ">
             <div>
                 <strong style="font-size:1.2em;">{row["Artist"]}</strong>
                 <p style="margin: 5px 0; color: #EEE;">{row["Artworks_Uploaded"]} uploads</p>
