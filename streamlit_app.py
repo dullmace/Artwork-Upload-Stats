@@ -10,6 +10,7 @@ import plotly.express as px
 import streamlit as st
 from thefuzz import process
 from wordcloud import WordCloud
+from wordcloud import STOPWORDS
 
 # Page config
 st.set_page_config(
@@ -17,6 +18,27 @@ st.set_page_config(
     page_icon="🎵",
     layout="wide",
     initial_sidebar_state="collapsed",
+)
+
+# 🎵 Dark Theme Setup
+st.set_page_config(
+    page_title="🎶 SpotFM Artwork Uploads",
+    page_icon="🎵",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+    theme="dark"
+)
+
+# 🎨 Dark Mode Styles
+st.markdown(
+    """
+    <style>
+    .stDataFrame { background-color: #1E1E1E; color: white; }
+    .stButton { background-color: #2196F3; }
+    .stTextInput { color: white; }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
 
@@ -123,10 +145,17 @@ def create_lastfm_release_url(artist_name, release_name):
 
 
 # Title Section
-st.title("🎨 SpotFM Artwork Upload Stats")
+st.title("🎶 SpotFM Artwork Uploads 🎶")
+st.subheader("🎵 Visualizing Missing Artwork Contributions by Dullmace on Last.fm")
 
 # Filters
 with st.expander("🔍 Filter Data", expanded=False):
+    st.subheader("🎵 Advanced Filters")
+    album_search = st.text_input(
+        "🔍 Search Albums", 
+        help="Filter artists by album name",
+        key="album_search"
+    )
     st.write("Use these filters to explore the data.")
     col1, col2 = st.columns(2)
     with col1:
@@ -160,7 +189,28 @@ with st.expander("🔍 Filter Data", expanded=False):
     search_term = st.text_input(
         "Search Artists", help="Search for specific artists."
     )
+    st.subheader("🎵 Advanced Filters")
+    album_search = st.text_input(
+        "🔍 Search Albums", 
+        help="Filter artists by album name",
+        key="album_search"
+    )
+    if album_search:
+        filtered_df = filtered_df[
+            filtered_df["Albums"].apply(lambda x: any(album_search.lower() in a.lower() for a in x))
+        ]
+        
 
+# Dark Theme Charts
+def configure_theme(fig):
+    fig.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="#1E1E1E",
+        plot_bgcolor="#2D2D2D",
+        font_color="white",
+        hoverlabel_bgcolor="#333"
+    return fig
+    
 # Date handling
 start_date, end_date = (pd.to_datetime(d) for d in date_range)
 album_start_date, album_end_date = (pd.to_datetime(d) for d in album_date_range)
@@ -172,6 +222,13 @@ filtered_df = df[
     & (df["Date_Modified"] <= end_date)
 ]
 
+st.download_button(
+    "📥 Download Data",
+    data=filtered_df.to_csv(index=False).encode(),
+    file_name="spotfm_data.csv",
+    mime="text/csv",
+    key="download_button"
+)
 
 def filter_by_album_date(df, start_date, end_date):
     def album_in_date_range(album_dates, start, end):
@@ -218,7 +275,7 @@ if filtered_df.empty:
     st.stop()
 
 # Metrics
-st.subheader("Key Metrics Overview")
+st.subheader("📊 Key Metrics")
 st.write(
     "Here's a snapshot of the data based on your current filters:"
 )  # Explanation
@@ -244,10 +301,10 @@ for col, (label, value, description) in zip(cols, metrics):
         st.metric(label, value, help=description)
 
 # Visualization Tabs
-tab1, tab2, tab3 = st.tabs(["🎸 Artists", "📊 Overview", "📅 Timeline"])
+tab1, tab2, tab3 = st.tabs(["🎸 Artists", "📊 Stats", "📅 Timeline"])
 
 with tab1:
-    st.header("🎸 Artist Spotlight")
+    st.header("🎸 Artist Hub")
     st.write("Explore individual artist contributions.")
     viz_choice = st.radio(
         "Choose Visualization:",
@@ -255,9 +312,8 @@ with tab1:
             "Top Contributors",
             "Category Breakdown",
             "Album Explorer",
-            "Artist Timeline",  # ADDED: Artist Timeline
-            "Artist Word Cloud",  # ADDED: Artist Word Cloud
-        ],
+            "Artist Timeline",  
+            "Artist Word Cloud",  
         horizontal=True,
         help="Select a visualization to explore artist-related data.",
     )
@@ -340,31 +396,30 @@ with tab1:
             .reset_index()
         )
 
-        artist_timeline = artist_timeline.sort_values("Album_Uploaded_Dates")
-        fig = px.line(
-            artist_timeline,
-            x="Album_Uploaded_Dates",
-            y="Artworks_Uploaded",
-            color="Artist",
-            title="Artwork Uploads Timeline by Artist",
-            hover_data=["Artist", "Artworks_Uploaded"]
-        )
-        fig.update_traces(
-             hovertemplate="Artist: %{customdata[0]}<br>Artworks Uploaded: %{customdata[1]}<extra></extra>"
-        )
-        st.plotly_chart(fig, use_container_width=True)
-    # ADDED: Artist Word Cloud
-    elif viz_choice == "Artist Word Cloud":
-        st.subheader("Artist Word Cloud")
-        st.write("Visualize the most frequent words in album titles.")
-        all_albums = " ".join(filtered_df["Albums"].explode().dropna())
-        wordcloud = WordCloud(
-            width=800, height=400, background_color="white"
-        ).generate(all_albums)
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation="bilinear")
-        plt.axis("off")
-        st.pyplot(plt)
+elif viz_choice == "Artist Timeline":
+    st.subheader("Artist Timeline")
+    timeline_data = filtered_df.explode("Album_Uploaded_Dates")
+    timeline_data = timeline_data.groupby("Album_Uploaded_Dates").size().reset_index(name='uploads')
+    fig = px.line(
+        timeline_data,
+        x="Album_Uploaded_Dates",
+        y="uploads",
+        title="Album Uploads Over Time",
+        labels={"Album_Uploaded_Dates": "Date", "uploads": "Albums Uploaded"}
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+elif viz_choice == "Artist Word Cloud":
+    stopwords = set(STOPWORDS) | {"the", "and", "of"}
+    wordcloud = WordCloud(
+        width=800, height=400, background_color="black",
+        stopwords=stopwords
+    .generate(" ".join(filtered_df["Albums"].explode().dropna()))
+    
+    plt.figure(figsize=(15, 8))
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.axis("off")
+    st.pyplot(plt.gcf(), use_container_width=True)
 
     st.subheader("🏅 Artist Badges")
     st.write("Discover key information for top contributing artists.")
@@ -376,17 +431,16 @@ with tab1:
 
     for idx, (_, row) in enumerate(top_badges.iterrows()):
         with cols[idx % st.session_state.num_cols]:
-            artist_name = row["Artist"]
-
-            card_style = """
-                <div style="border: 1px solid #e2e2e2;
-                            border-radius: 5px;
-                            padding: 10px;
-                            margin-bottom: 10px;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                    """
-
-            st.markdown(card_style, unsafe_allow_html=True)
+            st.markdown(f"""
+                <div style="padding: 15px; border: 1px solid #e6e6e6; border-radius: 8px; margin: 5px;">
+                    <strong>{row["Artist"]}</strong>  
+                    <p style="color: #555;">{row["Artworks_Uploaded"]} uploads</p>
+                    <a href="{create_lastfm_artist_url(row["Artist"])}" target="_blank">
+                        style="color: #0072B2; text-decoration: none;">
+                        View on Last.fm →
+                    </a>
+                </div>
+            """, unsafe_allow_html=True)
 
             with st.expander(
                 f"**{artist_name}** - {row['Artworks_Uploaded']} uploads",
@@ -414,13 +468,13 @@ with tab2:
     with col1:
         st.write("Proportion of each contribution category.")
         fig = px.pie(
-            preprocessed["category_dist"],
             names=preprocessed["category_dist"].index,
-            values="proportion",
+            values=preprocessed["category_dist"].values,  # Fixed typo and data source
             hole=0.3,
             color_discrete_sequence=px.colors.sequential.Viridis,
         )
         st.plotly_chart(fig, use_container_width=True)
+
     with col2:
         st.write("Visualizing the distribution of contributions across categories.")
         fig = px.treemap(
@@ -439,6 +493,16 @@ with tab2:
         album_timeline.groupby(["Year", "Month_Name"])["Albums"]
         .count()
         .reset_index()
+        st.subheader("Top Albums by Uploads")
+        album_counts = filtered_df.explode("Albums").value_counts("Albums").head(10)
+        fig = px.bar(
+            album_counts,
+            x=album_counts.index,
+            y=album_counts.values,
+            title="Top 10 Albums by Uploads",
+            labels={"x": "Album", "y": "Uploads"}
+        )
+        st.plotly_chart(fig, use_container_width=True)
     )
     fig = px.area(
         album_timeline,
@@ -455,6 +519,7 @@ with tab2:
     album_timeline["title_length"] = album_timeline["Albums"].apply(len)
     fig = px.histogram(album_timeline, x="title_length", nbins=20, marginal="box")
     st.plotly_chart(fig, use_container_width=True)
+    
 
 with tab3:
     st.subheader("Upload Activity Over Time")
@@ -475,26 +540,53 @@ with tab3:
         .reset_index()
     )
     heatmap_df["Month_Name"] = pd.Categorical(
-        heatmap_df["Month_Name"], categories=list(calendar.month_name)[1:], ordered=True
+        heatmap_df["Month_Name"],
+        categories=[calendar.month_name[i] for i in range(1, 13)],
+        ordered=True
     )
-    heatmap_df = heatmap_df.sort_values(["Year", "Month_Name"])
     fig = px.imshow(
-        heatmap_df.pivot(
-            index="Year", columns="Month_Name", values="Artworks_Uploaded"
-        ),
+        heatmap_df.pivot(index="Year", columns="Month_Name", values="Artworks_Uploaded"),
         color_continuous_scale="Viridis",
+        title="Monthly Upload Activity Heatmap"
     )
     st.plotly_chart(fig, use_container_width=True)
 
 # Footer
 st.markdown(
     """
-<div style="text-align: center; margin-top: 3rem; padding: 1rem; color: #666;">
-    <hr style="margin-bottom: 0.5rem;">
-    <div style="font-size: 0.9rem;">
-        Powered by Streamlit • Data from Last.fm • Updated hourly
+    <div style="
+        background: #1E1E1E;
+        padding: 15px;
+        text-align: center;
+        color: #999;
+    ">
+        <p>🎵 Built with ❤️ using <a href="https://streamlit.io" target="_blank">Streamlit</a></p>
     </div>
-</div>
-""",
-    unsafe_allow_html=True,
+    """,
+    unsafe_allow_html=True
 )
+# Global Theme Configuration
+def configure_theme(fig):
+    fig.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="#1E1E1E",
+        plot_bgcolor="#2D2D2D",
+        font_color="white",
+        hoverlabel_bgcolor="#333"
+    return fig
+
+# Final Touches
+st.markdown(
+    """
+    <style>
+    .stButton>button {
+        background: #2196F3 !important;
+        color: white !important;
+    }
+    .stTextInput>div>div>input {
+        background: #2D2D2D !important;
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
