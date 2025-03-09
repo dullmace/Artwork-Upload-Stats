@@ -317,19 +317,22 @@ with tab1:
 
     if viz_choice == "Category Breakdown":
         st.subheader("Contribution Distribution")
-        category_counts = (
-            filtered_df["contribution_category"]
-            .value_counts()
-            .reset_index()
-            .rename(columns={"index": "category", "contribution_category": "count"})
-        )
-        fig = px.bar(
-            category_counts,
-            x="category",
-            y="count",
-            title="Contribution Category Breakdown",
-        )
-        st.plotly_chart(fig, use_container_width=True)
+        col1, col2 = st.columns([2, 3])
+        with col1:
+            st.write("Proportion of each contribution category.")
+            category_counts = (
+                filtered_df["contribution_category"]
+                .value_counts()
+                .reset_index()
+            )
+            category_counts.columns = ["category", "count"]
+            fig = px.bar(
+                category_counts,
+                x="category",
+                y="count",
+                title="Contribution Category Breakdown",
+            )
+            st.plotly_chart(fig, use_container_width=True)
 
     elif viz_choice == "Album Explorer":
         st.subheader("Album Explorer")
