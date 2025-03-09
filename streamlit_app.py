@@ -55,10 +55,9 @@ def load_data():
     
     album_data = load_album_data()
     df['Albums_Count'] = df['Artist'].str.lower().map(lambda x: album_data.get(x, {}).get('count', 0))
-    df['Albums'] = df['Artist'].str.lower().map(lambda x: album_data.get(x, {}).get('albums', []))
-    
-    # Convert Albums to tuples of album names (hashable type)
-    df['Albums'] = df['Albums'].map(lambda albums: tuple(album['album'] for album in albums))
+    df['Albums'] = df['Artist'].str.lower().map(
+        lambda x: tuple(album['album'] for album in album_data.get(x, {}).get('albums', []))
+    )
     
     # Convert Album_Uploaded_Dates to tuples (hashable type)
     df['Album_Uploaded_Dates'] = df['Artist'].str.lower().map(
@@ -129,6 +128,16 @@ if search_term:
         artists = filtered_df['Artist'].unique()
         matches = process.extract(search_term, artists, limit=50)
         filtered_df = filtered_df[filtered_df['Artist'].isin([m[0] for m in matches])]
+
+# Album Title Length Analysis
+st.subheader("Album Title Length Analysis")
+album_timeline = filtered_df.explode('Albums')
+album_timeline['Albums'] = album_timeline['Albums'].fillna('')  # Replace NaN with an empty string
+album_timeline['title_length'] = album_timeline['Albums'].apply(lambda x: len(x) if isinstance(x, str) else 0)
+
+fig = px.histogram(album_timeline, x='title_length', nbins=20, marginal='box', title="Album Title Length Distribution")
+st.plotly_chart(fig, use_container_width=True)
+
 
 # Display filtered data
 st.dataframe(filtered_df)
