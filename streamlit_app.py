@@ -70,9 +70,9 @@ def load_data():
     df['Albums_Count'] = df['Artist'].str.lower().map(lambda x: album_data.get(x, {}).get('count', 0))
     df['Albums'] = df['Artist'].str.lower().map(lambda x: album_data.get(x, {}).get('albums', []))
     
-    # Add album uploaded dates
+    # Add album uploaded dates and convert to tuples (hashable type)
     df['Album_Uploaded_Dates'] = df['Artist'].str.lower().map(
-        lambda x: [album['uploaded_date'] for album in album_data.get(x, {}).get('albums', [])]
+        lambda x: tuple(album['uploaded_date'] for album in album_data.get(x, {}).get('albums', []))
     )
     
     bins = [0, 5, 10, 20, 50, np.inf]
@@ -84,7 +84,7 @@ def load_data():
 @st.cache_data
 def preprocess_data(df):
     return {
-        'monthly_uploads': df.groupby(pd.Grouper(key='Date_Modified', freq='M')).size(),
+        'monthly_uploads': df.groupby(pd.Grouper(key='Date_Modified', freq='ME')).size(),
         'category_dist': df['contribution_category'].value_counts(normalize=True),
         'cumulative_uploads': df.sort_values('Date_Modified').assign(cumulative=lambda x: x['Artworks_Uploaded'].cumsum())
     }
@@ -130,9 +130,19 @@ album_start_date, album_end_date = (pd.to_datetime(d) for d in album_date_range)
 # Filter data
 filtered_df = df[
     (df['contribution_category'].isin(selected_categories)) &
-    (df['Date_Modified'].between(start_date, end_date)) &
-    (df['Album_Uploaded_Dates'].explode().between(album_start_date, album_end_date))
+    (df['Date_Modified'] >= start_date) & (df['Date_Modified'] <= end_date)
 ]
+
+# Explode the Album_Uploaded_Dates column for filtering
+exploded_df = filtered_df.explode('Album_Uploaded_Dates')
+exploded_df = exploded_df[
+    (exploded_df['Album_Uploaded_Dates'] >= album_start_date) &
+    (exploded_df['Album_Uploaded_Dates'] <= album_end_date)
+]
+
+# Re-group the exploded DataFrame back to the original structure
+filtered_df = exploded_df.groupby('Artist', as_index=False).first()
+
 
 # Fuzzy search
 if search_term:
