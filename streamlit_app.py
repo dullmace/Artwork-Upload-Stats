@@ -457,7 +457,7 @@ num_badges = st.slider(
 num_cols = st.slider(
     "Columns layout",
     min_value=1,
-    max_value=5,
+    max_value=7,
     value=4,
     key="num_cols",
     help="Adjust the layout of artist badges across the page.",
