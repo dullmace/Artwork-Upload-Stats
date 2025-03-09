@@ -268,17 +268,20 @@ with tab1:
 
         fig = px.treemap(
             artist_album,
-            path=["Artist_Link", "Album_Link"],
+            path=["Artist", "Albums"],
             values="Artworks_Uploaded",
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
+            hover_data=["Artist_Link", "Album_Link"],
         )
 
         fig.update_traces(
             textinfo="label+value",
-            hovertemplate="<b>%{label}</b><br>Artworks Uploaded=%{value}",
-        )  # Improved hovertemplate
-
+            hovertemplate="<b>%{label}</b><br>Artworks Uploaded=%{value}<br><a href='%{customdata[0]}'>Artist Link</a><br><a href='%{customdata[1]}'>Album Link</a>",
+        )
+        fig.update_layout(
+            margin=dict(t=50, l=25, r=25, b=25)
+        )  # Adjust margins as needed
         st.plotly_chart(fig, use_container_width=True)
 
         search_album = st.text_input("Search Albums")
@@ -302,20 +305,21 @@ with tab1:
             top_artists,
             x="Artworks_Uploaded",
             y="Artist",
-            text="Artist_Link",
+            #text="Artist_Link",  # This still isn't the correct logic, not needed for now
             orientation="h",
             color="Artworks_Uploaded",
             color_continuous_scale="Viridis",
         )
 
-        fig.update_traces(
-            texttemplate="%{text}", textposition="outside"
-        )  # Display links as labels
-
         fig.update_layout(
             height=max(500, num_artists * 20),
             xaxis_title="Artworks Uploaded",
             yaxis_title="Artist",
+            yaxis=dict(
+                tickmode="array",
+                tickvals=top_artists["Artist"],
+                ticktext=top_artists["Artist_Link"],
+            ),
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -349,8 +353,13 @@ with tab1:
             artist_timeline,
             x="Album_Uploaded_Dates",
             y="Artworks_Uploaded",
-            color="Artist_Link",
+            color="Artist",
             title="Artwork Uploads Timeline by Artist",
+            hover_data=["Artist_Link"]  # Include Artist_Link in hover data
+        )
+
+        fig.update_traces(
+            hovertemplate="<b>%{fullData.name}</b><br>Artworks Uploaded=%{y}<br><a href='%{customdata[0]}'>Artist Link</a>"
         )
         st.plotly_chart(fig, use_container_width=True)
     # ADDED: Artist Word Cloud
@@ -379,7 +388,7 @@ with tab1:
             with st.expander(
                 f"**<a href='{artist_url}' target='_blank'>{artist_name}</a>** - {row['Artworks_Uploaded']} uploads",
                 expanded=False,
-            ):  # Use expander here and ensure it's closed by default
+            ):
 
                 # Display a list of hyperlinked albums
                 if row["Albums"]:
