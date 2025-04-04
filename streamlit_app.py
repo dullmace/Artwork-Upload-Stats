@@ -196,14 +196,19 @@ with st.expander("🔍 Filter Data", expanded=False):
     )
 
 # Date handling for filtering
-start_date, end_date = (pd.to_datetime(d) for d in date_range)
 album_start_date, album_end_date = (pd.to_datetime(d) for d in album_date_range)
 
-# Filter data based on main filters
+# Convert start_date, end_date to use the full day range
+start_date = pd.to_datetime(date_range[0])
+end_date = pd.to_datetime(date_range[1]) + pd.Timedelta(days=1) - pd.Timedelta(seconds=1)
+
+# Then filter with these values
 filtered_df = df[
     (df["contribution_category"].isin(selected_categories))
     & (df["Date_Modified"] >= start_date)
     & (df["Date_Modified"] <= end_date)
+]
+
 ]
 
 # Further filter based on album uploaded date range
