@@ -209,8 +209,6 @@ filtered_df = df[
     & (df["Date_Modified"] <= end_date)
 ]
 
-]
-
 # Further filter based on album uploaded date range
 def filter_by_album_date(df, start, end):
     def album_in_date_range(album_dates, start_date, end_date):
