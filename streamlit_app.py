@@ -65,7 +65,7 @@ def load_album_data():
         album_list = [
             {
                 "album": album["album"],
-                "uploaded_date": pd.to_datetime(album["creation_date"]),
+                "uploaded_date": pd.to_datetime(album["creation_date"], unit="ms"),  # Use the correct unit
             }
             for album in albums
         ]
